@@ -44,6 +44,11 @@ public class JumpController : MonoBehaviour
 		{
 			Launch();
 		}
+
+		if(Input.GetKey(KeyCode.Space)){
+			Launch();
+		}
+
 	}
 
 	private void Launch()
