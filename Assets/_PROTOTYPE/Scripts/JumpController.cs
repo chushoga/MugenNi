@@ -5,7 +5,7 @@ using UnityEngine;
 public class JumpController : MonoBehaviour
 {
 
-	private readonly Vector3 LAUNCH_VELOCITY = new Vector3(20f, 80f, 0f);
+	private readonly Vector3 LAUNCH_VELOCITY = new Vector3(20f, 60f, 0f);
 	private readonly Vector3 INITIAL_POSITION = Vector3.zero;
 	private readonly Vector3 GRAVITY = new Vector3(0f, -240f, 0f);
 	private const float DELAY_UNTIL_LAUNCH = 4f;
@@ -20,14 +20,13 @@ public class JumpController : MonoBehaviour
 
 	private void Awake()
 	{
-
 		Physics.gravity = GRAVITY;
 		rigidBody = GetComponent<Rigidbody>();
 	}
 
 	private void Start()
 	{
-
+		Time.fixedDeltaTime = 0.002f;
 		for (int i = 0; i < NUM_DOTS_TO_SHOW; i++)
 		{
 			GameObject trajectoryDot = Instantiate(trajectoryDotPrefab);
@@ -45,7 +44,7 @@ public class JumpController : MonoBehaviour
 			Launch();
 		}
 
-		if(Input.GetKey(KeyCode.Space)){
+		if(Input.GetKeyDown(KeyCode.Space)){
 			Launch();
 		}
 
@@ -53,9 +52,10 @@ public class JumpController : MonoBehaviour
 
 	private void Launch()
 	{
-		Time.fixedDeltaTime = 0.002f;
+		
 		rigidBody.velocity = LAUNCH_VELOCITY;
 		launched = true;
+		Debug.Log(LAUNCH_VELOCITY);
 	}
 
 	private Vector2 CalculatePosition(float elapsedTime)
