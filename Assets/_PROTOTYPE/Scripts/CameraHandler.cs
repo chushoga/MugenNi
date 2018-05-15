@@ -12,11 +12,11 @@ public class CameraHandler : MonoBehaviour {
 
 	private static readonly float PanSpeed = 20f;
 	private static readonly float ZoomSpeedTouch = 0.1f;
-	private static readonly float ZoomSpeedMouse = 0.5f;
+	private static readonly float ZoomSpeedMouse = 2.5f;
 
 	private static readonly float[] BoundsX = new float[]{-10f, 5f};
 	private static readonly float[] BoundsZ = new float[]{-18f, -4f};
-	private static readonly float[] ZoomBounds = new float[]{10f, 85f};
+	private static readonly float[] ZoomBounds = new float[]{7f, 14f};
 
 	private Camera cam;
 
