@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class CameraHandler : MonoBehaviour {
 
-	//public Transform target;
-	//public float smoothTime = 0.5f;
-	//public Vector3 velocity = Vector3.zero;
+	public Transform target;
+	public float smoothTime = 0.5f;
+	public Vector3 velocity = Vector3.zero;
 
-	//private Vector3 origPos;
+	private Vector3 origPos;
 
 	private static readonly float PanSpeed = 20f;
 	private static readonly float ZoomSpeedTouch = 0.1f;
 	private static readonly float ZoomSpeedMouse = 2.5f;
 
-	private static readonly float[] BoundsX = new float[]{-10f, 5f};
-	private static readonly float[] BoundsZ = new float[]{-18f, -4f};
 	private static readonly float[] ZoomBounds = new float[]{7f, 14f};
 
 	private Camera cam;
@@ -26,19 +24,36 @@ public class CameraHandler : MonoBehaviour {
 	private bool wasZoomingLastFrame; // Touch mode only
 	private Vector2[] lastZoomPositions; // Touch mode only
 
+	public bool isPanning = false;
+
 	void Awake() {
 		cam = GetComponent<Camera>();
 	}
 
 	void Start(){
-		//origPos = gameObject.transform.position;
+		origPos = gameObject.transform.position;
 	}
 
 	void Update(){
 
-		//Vector3 targetPosition = target.TransformPoint(origPos);
-		//transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+		if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began) {
+			Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+			RaycastHit hit;
+			Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow, 100f);
+			if(Physics.Raycast(ray, out hit))
+			{
+				Debug.Log(hit.transform.name);
+				if (hit.collider != null) {
 
+					GameObject touchedObject = hit.transform.gameObject;
+
+					touchedObject.GetComponent<Rigidbody>().velocity = new Vector3(20f, 50f, 0f);
+
+					Debug.Log("Touched " + touchedObject.transform.name);
+				}
+			}
+		}
+		
 		if (Input.touchSupported && Application.platform != RuntimePlatform.WebGLPlayer) {
 			HandleTouch();
 		} else {
@@ -84,17 +99,27 @@ public class CameraHandler : MonoBehaviour {
 
 		default: 
 			wasZoomingLastFrame = false;
+			FollowMe();
 			break;
 		}
+	}
+
+	// Smooth Follow
+	void FollowMe(){
+		Vector3 targetPosition = target.TransformPoint(origPos);
+		transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
 	}
 
 	void HandleMouse() {
 		// On mouse down, capture it's position.
 		// Otherwise, if the mouse is still down, pan the camera.
-		if (Input.GetMouseButtonDown(0)) {
+		if(Input.GetMouseButtonDown(0)) {
 			lastPanPosition = Input.mousePosition;
-		} else if (Input.GetMouseButton(0)) {
+		} else if(Input.GetMouseButton(0)) {
 			PanCamera(Input.mousePosition);
+			Debug.Log(Input.mousePosition);
+		} else {
+			FollowMe();
 		}
 
 		// Check for scrolling to zoom the camera
@@ -103,21 +128,22 @@ public class CameraHandler : MonoBehaviour {
 	}
 
 	void PanCamera(Vector3 newPanPosition) {
-		// Determine how much to move the camera
-		Vector3 offset = cam.ScreenToViewportPoint(lastPanPosition - newPanPosition);
-		Vector3 move = new Vector3(offset.x * PanSpeed, 0, offset.y * PanSpeed);
+		// check if can pan first.
+		if(isPanning) {
+			// Determine how much to move the camera
+			Vector3 offset = cam.ScreenToViewportPoint(lastPanPosition - newPanPosition);
+			Vector3 move = new Vector3(offset.x * PanSpeed, offset.y * PanSpeed, 0f);
 
-		// Perform the movement
-		transform.Translate(move, Space.World);  
+			// Perform the movement
+			transform.Translate(move, Space.World);  
 
-		// Ensure the camera remains within bounds.
-		Vector3 pos = transform.position;
-		pos.x = Mathf.Clamp(transform.position.x, BoundsX[0], BoundsX[1]);
-		pos.z = Mathf.Clamp(transform.position.z, BoundsZ[0], BoundsZ[1]);
-		transform.position = pos;
+			// Ensure the camera remains within bounds.
+			Vector3 pos = transform.position;
+			transform.position = pos;
 
-		// Cache the position
-		lastPanPosition = newPanPosition;
+			// Cache the position
+			lastPanPosition = newPanPosition;
+		}
 	}
 
 	void ZoomCamera(float offset, float speed) {
@@ -126,6 +152,10 @@ public class CameraHandler : MonoBehaviour {
 		}
 
 		cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - (offset * speed), ZoomBounds[0], ZoomBounds[1]);
+	}
+
+	public void ToggleIsPanning(){
+		isPanning = !isPanning;
 	}
 
 }
