@@ -25,6 +25,7 @@ public class CameraHandler : MonoBehaviour {
 	private Vector2[] lastZoomPositions; // Touch mode only
 
 	public bool isPanning = false;
+	private bool isCameraMoving = false;
 
 	void Awake() {
 		cam = GetComponent<Camera>();
@@ -35,23 +36,34 @@ public class CameraHandler : MonoBehaviour {
 	}
 
 	void Update(){
+		
 
-		if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began) {
-			Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+		if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetMouseButtonDown(0)) {
+			
+			Ray ray;
+
+			if(Input.GetMouseButtonDown(0)) {
+				ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			} else {
+				ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+			}
+
 			RaycastHit hit;
-			Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow, 100f);
+			Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 100f);
+
 			if(Physics.Raycast(ray, out hit))
 			{
-				Debug.Log(hit.transform.name);
-				if (hit.collider != null) {
+				//Debug.Log(hit.transform.name);
+				if (hit.collider.name == "Player") {
 
 					GameObject touchedObject = hit.transform.gameObject;
 
 					touchedObject.GetComponent<Rigidbody>().velocity = new Vector3(20f, 50f, 0f);
 
-					Debug.Log("Touched " + touchedObject.transform.name);
+					//Debug.Log("Touched " + touchedObject.transform.name);
 				}
 			}
+
 		}
 		
 		if (Input.touchSupported && Application.platform != RuntimePlatform.WebGLPlayer) {
@@ -59,6 +71,8 @@ public class CameraHandler : MonoBehaviour {
 		} else {
 			HandleMouse();
 		}
+
+		FollowMe();
 
 	}
 
@@ -108,18 +122,31 @@ public class CameraHandler : MonoBehaviour {
 	void FollowMe(){
 		Vector3 targetPosition = target.TransformPoint(origPos);
 		transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+
+		if(
+			Mathf.RoundToInt(transform.position.x) == Mathf.RoundToInt(targetPosition.x) &&
+			Mathf.RoundToInt(transform.position.x) == Mathf.RoundToInt(targetPosition.y) &&
+			Mathf.RoundToInt(transform.position.x) == Mathf.RoundToInt(targetPosition.z)
+		) {
+			isCameraMoving = false;
+			Debug.Log("NOT MOVING");
+		} else {
+			isCameraMoving = true;
+			Debug.Log("MOVING");
+		}
+
+		Debug.Log(transform.position + " == " + targetPosition);
 	}
 
 	void HandleMouse() {
 		// On mouse down, capture it's position.
 		// Otherwise, if the mouse is still down, pan the camera.
 		if(Input.GetMouseButtonDown(0)) {
+			//Debug.Log("isMoving: " + isMoving);
 			lastPanPosition = Input.mousePosition;
-		} else if(Input.GetMouseButton(0)) {
+	
+		} else if(Input.GetMouseButton(0)) {			
 			PanCamera(Input.mousePosition);
-			Debug.Log(Input.mousePosition);
-		} else {
-			FollowMe();
 		}
 
 		// Check for scrolling to zoom the camera
@@ -129,7 +156,7 @@ public class CameraHandler : MonoBehaviour {
 
 	void PanCamera(Vector3 newPanPosition) {
 		// check if can pan first.
-		if(isPanning) {
+		if(isCameraMoving == false) {
 			// Determine how much to move the camera
 			Vector3 offset = cam.ScreenToViewportPoint(lastPanPosition - newPanPosition);
 			Vector3 move = new Vector3(offset.x * PanSpeed, offset.y * PanSpeed, 0f);

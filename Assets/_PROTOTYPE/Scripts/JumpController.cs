@@ -55,7 +55,7 @@ public class JumpController : MonoBehaviour
 		
 		rigidBody.velocity = LAUNCH_VELOCITY;
 		launched = true;
-		Debug.Log(LAUNCH_VELOCITY);
+		//Debug.Log(LAUNCH_VELOCITY);
 	}
 
 	private Vector2 CalculatePosition(float elapsedTime)
