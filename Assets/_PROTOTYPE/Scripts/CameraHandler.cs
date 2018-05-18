@@ -76,6 +76,25 @@ public class CameraHandler : MonoBehaviour {
 
 	}
 
+	void HandleMouse() {
+
+		// On mouse down, capture it's position.
+		// Otherwise, if the mouse is still down, pan the camera.
+		if(Input.GetMouseButtonDown(0)) {
+			//Debug.Log("isMoving: " + isMoving);
+			lastPanPosition = Input.mousePosition;
+
+		} else if(Input.GetMouseButton(0)) {			
+			PanCamera(Input.mousePosition);
+		} else {
+			isPanning = false;
+		}
+
+		// Check for scrolling to zoom the camera
+		float scroll = Input.GetAxis("Mouse ScrollWheel");
+		ZoomCamera(scroll, ZoomSpeedMouse);
+	}
+
 	void HandleTouch() {
 		switch(Input.touchCount) {
 
@@ -85,11 +104,13 @@ public class CameraHandler : MonoBehaviour {
 			// If the touch began, capture its position and its finger ID.
 			// Otherwise, if the finger ID of the touch doesn't match, skip it.
 			Touch touch = Input.GetTouch(0);
-			if (touch.phase == TouchPhase.Began) {
+			if(touch.phase == TouchPhase.Began) {
 				lastPanPosition = touch.position;
 				panFingerId = touch.fingerId;
-			} else if (touch.fingerId == panFingerId && touch.phase == TouchPhase.Moved) {
+			} else if(touch.fingerId == panFingerId && touch.phase == TouchPhase.Moved) {
 				PanCamera(touch.position);
+			} else {
+				isPanning = false;
 			}
 			break;
 
@@ -113,46 +134,33 @@ public class CameraHandler : MonoBehaviour {
 
 		default: 
 			wasZoomingLastFrame = false;
-			FollowMe();
 			break;
 		}
 	}
 
 	// Smooth Follow
 	void FollowMe(){
-		Vector3 targetPosition = target.TransformPoint(origPos);
-		transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+		if(!isPanning){
+			Vector3 targetPosition = target.TransformPoint(origPos);
+			transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
 
-		if(
-			Mathf.RoundToInt(transform.position.x) == Mathf.RoundToInt(targetPosition.x) &&
-			Mathf.RoundToInt(transform.position.x) == Mathf.RoundToInt(targetPosition.y) &&
-			Mathf.RoundToInt(transform.position.x) == Mathf.RoundToInt(targetPosition.z)
-		) {
-			isCameraMoving = false;
-			Debug.Log("NOT MOVING");
-		} else {
-			isCameraMoving = true;
-			Debug.Log("MOVING");
+			if(
+				Mathf.RoundToInt(transform.position.x) == Mathf.RoundToInt(targetPosition.x) &&
+				Mathf.RoundToInt(transform.position.y) == Mathf.RoundToInt(targetPosition.y) &&
+				Mathf.RoundToInt(transform.position.z) == Mathf.RoundToInt(targetPosition.z)
+			) {
+				isCameraMoving = false;
+				Debug.Log("NOT MOVING");
+			} else {
+				isCameraMoving = true;
+				Debug.Log("MOVING");
+			}
+
+			//Debug.Log(transform.position + " == " + targetPosition);
 		}
-
-		Debug.Log(transform.position + " == " + targetPosition);
 	}
 
-	void HandleMouse() {
-		// On mouse down, capture it's position.
-		// Otherwise, if the mouse is still down, pan the camera.
-		if(Input.GetMouseButtonDown(0)) {
-			//Debug.Log("isMoving: " + isMoving);
-			lastPanPosition = Input.mousePosition;
-	
-		} else if(Input.GetMouseButton(0)) {			
-			PanCamera(Input.mousePosition);
-		}
 
-		// Check for scrolling to zoom the camera
-		float scroll = Input.GetAxis("Mouse ScrollWheel");
-		ZoomCamera(scroll, ZoomSpeedMouse);
-	}
 
 	void PanCamera(Vector3 newPanPosition) {
 		// check if can pan first.
@@ -170,6 +178,9 @@ public class CameraHandler : MonoBehaviour {
 
 			// Cache the position
 			lastPanPosition = newPanPosition;
+
+			isPanning = true;
+			Debug.Log("pan me");
 		}
 	}
 

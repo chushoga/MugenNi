@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1816784677}
-  smoothTime: 0.5
+  smoothTime: 0.18
   velocity: {x: 0, y: 0, z: 0}
   isPanning: 0
 --- !u!1 &274218751
@@ -377,7 +377,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &274218752
 Transform:
   m_ObjectHideFlags: 0
@@ -552,7 +552,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1869071355788660, guid: a2a1c73b09075eb42ab319288bca3ab3, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a2a1c73b09075eb42ab319288bca3ab3, type: 2}
@@ -1460,7 +1460,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1147890951
 Transform:
   m_ObjectHideFlags: 0
@@ -1761,7 +1761,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1869071355788660, guid: a2a1c73b09075eb42ab319288bca3ab3, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a2a1c73b09075eb42ab319288bca3ab3, type: 2}
@@ -2324,7 +2324,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1869071355788660, guid: a2a1c73b09075eb42ab319288bca3ab3, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a2a1c73b09075eb42ab319288bca3ab3, type: 2}
