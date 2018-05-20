@@ -63,4 +63,10 @@ public class JumpController : MonoBehaviour
 		return GRAVITY * elapsedTime * elapsedTime * 0.5f + LAUNCH_VELOCITY * elapsedTime + INITIAL_POSITION;
 	}
 
+	void MoveMe(){
+		
+		Debug.Log("Harukun is coool");
+
+	}
+
 }

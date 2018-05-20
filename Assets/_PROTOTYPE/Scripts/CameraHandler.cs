@@ -25,6 +25,7 @@ public class CameraHandler : MonoBehaviour {
 	private Vector2[] lastZoomPositions; // Touch mode only
 
 	public bool isPanning = false;
+	public bool canPan = false;
 	private bool isCameraMoving = false;
 
 	void Awake() {
@@ -84,8 +85,10 @@ public class CameraHandler : MonoBehaviour {
 			//Debug.Log("isMoving: " + isMoving);
 			lastPanPosition = Input.mousePosition;
 
-		} else if(Input.GetMouseButton(0)) {			
-			PanCamera(Input.mousePosition);
+		} else if(Input.GetMouseButton(0)) {
+			if(canPan){	
+				PanCamera(Input.mousePosition);
+			}
 		} else {
 			isPanning = false;
 		}
@@ -108,7 +111,10 @@ public class CameraHandler : MonoBehaviour {
 				lastPanPosition = touch.position;
 				panFingerId = touch.fingerId;
 			} else if(touch.fingerId == panFingerId && touch.phase == TouchPhase.Moved) {
-				PanCamera(touch.position);
+				// check if the canPan toggle is true
+				if(canPan){
+					PanCamera(touch.position);
+				}
 			} else {
 				isPanning = false;
 			}
@@ -140,6 +146,7 @@ public class CameraHandler : MonoBehaviour {
 
 	// Smooth Follow
 	void FollowMe(){
+		
 		if(!isPanning){
 			Vector3 targetPosition = target.TransformPoint(origPos);
 			transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
@@ -154,6 +161,7 @@ public class CameraHandler : MonoBehaviour {
 			} else {
 				isCameraMoving = true;
 				Debug.Log("MOVING");
+				canPan = false; // turn off panning
 			}
 
 			//Debug.Log(transform.position + " == " + targetPosition);
@@ -192,8 +200,8 @@ public class CameraHandler : MonoBehaviour {
 		cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - (offset * speed), ZoomBounds[0], ZoomBounds[1]);
 	}
 
-	public void ToggleIsPanning(){
-		isPanning = !isPanning;
+	public void CanPan(){
+		canPan = !canPan;
 	}
 
 }
