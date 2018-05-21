@@ -2522,6 +2522,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trajectoryDotPrefab: {fileID: 1633936516407996, guid: 95b08153afcb2a046b3c2228c982f115,
     type: 2}
+  jumpForce: 0
+  jumpForceMax: 100
 --- !u!96 &1816784680
 TrailRenderer:
   serializedVersion: 2

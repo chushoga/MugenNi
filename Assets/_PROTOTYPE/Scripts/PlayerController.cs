@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
 
 	private readonly Vector3 LAUNCH_VELOCITY = new Vector3(20f, 60f, 0f);
@@ -17,6 +17,10 @@ public class JumpController : MonoBehaviour
 	private Rigidbody rigidBody;
 
 	public GameObject trajectoryDotPrefab;
+
+	// JUMP PERAMETERS
+	public float jumpForce = 0.0f;
+	public float jumpForceMax = 100.0f;
 
 	private void Awake()
 	{
@@ -48,6 +52,15 @@ public class JumpController : MonoBehaviour
 			Launch();
 		}
 
+		if(Input.touchCount > 0 || Input.GetMouseButton(0)) {			
+			IncreaseJumpForce();
+			Debug.Log(jumpForce);
+		} else {
+			if(jumpForce != 0.0f) {
+				jumpForce = 0.0f;
+			}
+		}
+
 	}
 
 	private void Launch()
@@ -63,9 +76,16 @@ public class JumpController : MonoBehaviour
 		return GRAVITY * elapsedTime * elapsedTime * 0.5f + LAUNCH_VELOCITY * elapsedTime + INITIAL_POSITION;
 	}
 
-	void MoveMe(){
+	// Increase the jump power
+	public void IncreaseJumpForce(){
+		if(jumpForce != jumpForceMax) {
+			jumpForce += 1;
+		}
+	}
+
+	public void Jump(){
 		
-		Debug.Log("Harukun is coool");
+		Debug.Log("JUMP ME" + jumpForce);
 
 	}
 
