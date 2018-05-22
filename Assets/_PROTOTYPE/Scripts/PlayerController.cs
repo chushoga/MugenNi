@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
 	public float jumpForce = 0.0f;
 	public float jumpForceMax = 100.0f;
 	public bool isCharging = false;
+	private float chargeSpeed = 80.0f;
+	private GameObject launchVector;
 
 	private void Awake()
 	{
@@ -34,6 +36,8 @@ public class PlayerController : MonoBehaviour
 		trajectoryContainer = new GameObject();
 		trajectoryContainer.name = "trajectoryContainer";
 
+		launchVector = GameObject.Find("launchVector");
+
 		// set the fixed timestep to a faster calc time
 		Time.fixedDeltaTime = 0.002f;
 
@@ -43,23 +47,20 @@ public class PlayerController : MonoBehaviour
 	private void FixedUpdate()
 	{
 
-		if(Input.touchCount > 0 || Input.GetMouseButton(0)) {		
+		if(Input.touchCount > 0 || Input.GetMouseButton(0)) {
 			IncreaseJumpForce();
 			isCharging = true;
 			Debug.Log(jumpForce);
-		} else {
-			if(jumpForce != 0.0f) {
-				jumpForce = 0.0f;
-			}
+		} else {			
 			isCharging = false; // reset the charging if no longer charging.
 		}
 
 		// Check the jump power charging state.
-		if(!isCharging) {
-			trajectoryContainer.SetActive(false); // Hide the trajectory container if jumping
+		if(isCharging == false && jumpForce != 0.0f) {
+			//trajectoryContainer.SetActive(false); // Hide the trajectory container if jumping
 			Jump(); // jump
 		} else {
-			trajectoryContainer.SetActive(true); // Show the trajectory container if jumping
+			//trajectoryContainer.SetActive(true); // Show the trajectory container if jumping
 			DrawTrajectory(); // if still charging keep drawing the trajectory
 		}
 
@@ -67,15 +68,16 @@ public class PlayerController : MonoBehaviour
 
 	private Vector2 CalculatePosition(float elapsedTime)
 	{
-		LAUNCH_VELOCITY = gameObject.transform.forward * jumpForce;
-		INITIAL_POSITION = gameObject.transform.position;
+		LAUNCH_VELOCITY = launchVector.transform.forward * jumpForce;
+		INITIAL_POSITION = launchVector.transform.position;
 		return GRAVITY * elapsedTime * elapsedTime * 0.5f + LAUNCH_VELOCITY * elapsedTime + INITIAL_POSITION;
 	}
 
 	// Increase the jump power
 	public void IncreaseJumpForce(){
 		if(jumpForce != jumpForceMax) {
-			jumpForce += 1;
+			jumpForce += (chargeSpeed * Time.deltaTime);
+
 			DrawTrajectory();
 		}
 	}
@@ -121,11 +123,13 @@ public class PlayerController : MonoBehaviour
 		Time.fixedDeltaTime = 0.002f;
 
 		// Set the launch velocity and launch the player.
-		LAUNCH_VELOCITY = gameObject.transform.position * jumpForce;
+		LAUNCH_VELOCITY = launchVector.transform.forward * jumpForce;
 		rigidBody.velocity = LAUNCH_VELOCITY;
 
-		Debug.Log("JUMP ME" + jumpForce);
-
+		// Reset the jump force
+		if(jumpForce != 0.0f) {
+			jumpForce = 0.0f;
+		}
 	}
 
 }
