@@ -23,9 +23,9 @@ public class PlayerController : MonoBehaviour
 
 	// JUMP PERAMETERS
 	public float jumpForce = 0.0f;
-	private float jumpForceMax = 50.0f;
+	private float jumpForceMax = 60.0f;
 	public bool isCharging = false;
-	private float chargeSpeed = 50.0f;
+	private float chargeSpeed = 40.0f;
 	public Transform launchVector;
 
 	private void Awake()

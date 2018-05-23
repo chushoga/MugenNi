@@ -149,10 +149,12 @@ public class CameraHandler : MonoBehaviour {
 	void FollowMe(){
 		Debug.Log(origPos);
 
-		Vector3 targetPosition = target.TransformPoint(origPos);
+		//Vector3 targetPosition = target.TransformPoint(origPos);
+		Vector3 targetPosition = target.transform.position + origPos;
+
 		transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
 
-		//Debug.Log(transform.position + " == " + targetPosition);
+		Debug.Log(transform.position + " == " + targetPosition);
 		/*
 		if(!isPanning){
 			Vector3 targetPosition = target.TransformPoint(origPos);
