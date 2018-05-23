@@ -38,7 +38,7 @@ public class CameraHandler : MonoBehaviour {
 
 	void Update(){
 		
-
+		/*
 		if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetMouseButtonDown(0)) {
 			
 			Ray ray;
@@ -66,13 +66,14 @@ public class CameraHandler : MonoBehaviour {
 			}
 
 		}
-		
+		*/
+		/*
 		if (Input.touchSupported && Application.platform != RuntimePlatform.WebGLPlayer) {
 			HandleTouch();
 		} else {
 			HandleMouse();
 		}
-
+		*/
 		FollowMe();
 
 	}
@@ -146,7 +147,13 @@ public class CameraHandler : MonoBehaviour {
 
 	// Smooth Follow
 	void FollowMe(){
-		
+		Debug.Log(origPos);
+
+		Vector3 targetPosition = target.TransformPoint(origPos);
+		transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+
+		//Debug.Log(transform.position + " == " + targetPosition);
+		/*
 		if(!isPanning){
 			Vector3 targetPosition = target.TransformPoint(origPos);
 			transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
@@ -164,8 +171,9 @@ public class CameraHandler : MonoBehaviour {
 				canPan = false; // turn off panning
 			}
 
-			//Debug.Log(transform.position + " == " + targetPosition);
+			
 		}
+		*/
 	}
 
 
