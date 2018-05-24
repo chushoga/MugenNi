@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraHandler : MonoBehaviour {
 
@@ -24,7 +25,7 @@ public class CameraHandler : MonoBehaviour {
 	private bool wasZoomingLastFrame; // Touch mode only
 	private Vector2[] lastZoomPositions; // Touch mode only
 
-	public bool isPanning = false;
+	public static bool isPanning = false;
 	public bool canPan = false;
 	private bool isCameraMoving = false;
 
@@ -67,14 +68,27 @@ public class CameraHandler : MonoBehaviour {
 
 		}
 		*/
-		/*
+
 		if (Input.touchSupported && Application.platform != RuntimePlatform.WebGLPlayer) {
+			// use this to check if the event is over
+			// a ui object and do not do the next action if it is.
+			if(EventSystem.current.IsPointerOverGameObject()){
+				return;
+			}
 			HandleTouch();
 		} else {
+			// use this to check if the event is over
+			// a ui object and do not do the next action if it is.
+			if(EventSystem.current.IsPointerOverGameObject()){
+				return;
+			}
 			HandleMouse();
 		}
-		*/
-		FollowMe();
+
+		// if not currently panning have the camera follow the player
+		if(!isPanning) {
+			FollowMe();
+		}
 
 	}
 

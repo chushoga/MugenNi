@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -46,12 +47,30 @@ public class PlayerController : MonoBehaviour
 		DrawTrajectory();
 	}
 
-	private void FixedUpdate()
-	{
-
+	private void FixedUpdate() {
+		
 		if(Input.touchCount > 0 || Input.GetMouseButton(0)) {
-			IncreaseJumpForce();
-			isCharging = true;
+
+			// use this to check if the event is over
+			// a ui object and do not do the next action if it is.
+			if(EventSystem.current.IsPointerOverGameObject()){
+				return;
+			}
+
+			bool breakOut = false;
+			if(Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began) {
+				if(EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId)) {
+					breakOut = true;
+				}
+			}
+			if(breakOut) {
+				return;
+			}
+
+			if(!CameraHandler.isPanning){
+				IncreaseJumpForce();
+				isCharging = true;
+			}
 
 		} else {			
 			isCharging = false; // reset the charging if no longer charging.
@@ -72,8 +91,7 @@ public class PlayerController : MonoBehaviour
 
 		}
 
-		powerTxt.text = jumpForce + "";
-
+			powerTxt.text = jumpForce + "";
 	}
 
 	private Vector2 CalculatePosition(float elapsedTime)
