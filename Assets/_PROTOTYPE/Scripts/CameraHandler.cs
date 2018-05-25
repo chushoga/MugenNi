@@ -26,7 +26,7 @@ public class CameraHandler : MonoBehaviour {
 	private Vector2[] lastZoomPositions; // Touch mode only
 
 	public static bool isPanning = false;
-	public bool canPan = false;
+	public static bool canPan = false;
 	private bool isCameraMoving = false;
 
 	void Awake() {
@@ -72,14 +72,14 @@ public class CameraHandler : MonoBehaviour {
 		if (Input.touchSupported && Application.platform != RuntimePlatform.WebGLPlayer) {
 			// use this to check if the event is over
 			// a ui object and do not do the next action if it is.
-			if(EventSystem.current.IsPointerOverGameObject()){
+			if(EventSystem.current.IsPointerOverGameObject() || EventSystem.current.currentSelectedGameObject != null){
 				return;
 			}
 			HandleTouch();
 		} else {
 			// use this to check if the event is over
 			// a ui object and do not do the next action if it is.
-			if(EventSystem.current.IsPointerOverGameObject()){
+			if(EventSystem.current.IsPointerOverGameObject() || EventSystem.current.currentSelectedGameObject != null){
 				return;
 			}
 			HandleMouse();
@@ -130,12 +130,11 @@ public class CameraHandler : MonoBehaviour {
 				if(canPan){
 					PanCamera(touch.position);
 				}
-			} else {
-				isPanning = false;
-			}
+			} 
 			break;
 
 		case 2: // Zooming
+			isPanning = false;
 			Vector2[] newPositions = new Vector2[]{Input.GetTouch(0).position, Input.GetTouch(1).position};
 			if (!wasZoomingLastFrame) {
 				lastZoomPositions = newPositions;
@@ -154,6 +153,7 @@ public class CameraHandler : MonoBehaviour {
 			break;
 
 		default: 
+			isPanning = false;
 			wasZoomingLastFrame = false;
 			break;
 		}
@@ -161,17 +161,13 @@ public class CameraHandler : MonoBehaviour {
 
 	// Smooth Follow
 	void FollowMe(){
-		Debug.Log(origPos);
-
-		//Vector3 targetPosition = target.TransformPoint(origPos);
-		Vector3 targetPosition = target.transform.position + origPos;
-
-		transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
-
-		Debug.Log(transform.position + " == " + targetPosition);
-		/*
+		
+		// if not currently panning check if the camera had moved back to position and set is camera moving to false if
+		// the camera has stopped(rounded to an int)
 		if(!isPanning){
-			Vector3 targetPosition = target.TransformPoint(origPos);
+			
+			// Follow the player
+			Vector3 targetPosition = target.transform.position + origPos;
 			transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
 
 			if(
@@ -180,16 +176,13 @@ public class CameraHandler : MonoBehaviour {
 				Mathf.RoundToInt(transform.position.z) == Mathf.RoundToInt(targetPosition.z)
 			) {
 				isCameraMoving = false;
-				Debug.Log("NOT MOVING");
 			} else {
 				isCameraMoving = true;
-				Debug.Log("MOVING");
-				canPan = false; // turn off panning
+				//canPan = false; // turn off panning
 			}
 
 			
 		}
-		*/
 	}
 
 
@@ -197,6 +190,9 @@ public class CameraHandler : MonoBehaviour {
 	void PanCamera(Vector3 newPanPosition) {
 		// check if can pan first.
 		if(isCameraMoving == false) {
+
+			isPanning = true; // currently panning
+
 			// Determine how much to move the camera
 			Vector3 offset = cam.ScreenToViewportPoint(lastPanPosition - newPanPosition);
 			Vector3 move = new Vector3(offset.x * PanSpeed, offset.y * PanSpeed, 0f);
@@ -210,9 +206,6 @@ public class CameraHandler : MonoBehaviour {
 
 			// Cache the position
 			lastPanPosition = newPanPosition;
-
-			isPanning = true;
-			Debug.Log("pan me");
 		}
 	}
 

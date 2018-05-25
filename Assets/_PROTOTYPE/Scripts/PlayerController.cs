@@ -33,6 +33,9 @@ public class PlayerController : MonoBehaviour
 	{
 		Physics.gravity = GRAVITY;
 		rigidBody = GetComponent<Rigidbody>();
+
+		// set fixed update interverval to a higher rate for more accurate results.
+		Time.fixedDeltaTime = 0.002f;
 	}
 
 	private void Start()
@@ -41,9 +44,6 @@ public class PlayerController : MonoBehaviour
 		trajectoryContainer = new GameObject();
 		trajectoryContainer.name = "trajectoryContainer";
 
-		// set the fixed timestep to a faster calc time
-		Time.fixedDeltaTime = 0.002f;
-
 		DrawTrajectory();
 	}
 
@@ -51,25 +51,20 @@ public class PlayerController : MonoBehaviour
 		
 		if(Input.touchCount > 0 || Input.GetMouseButton(0)) {
 
+			// -------------------------------------------------------------------------------
+			// PREVENT UI INTERACTION
 			// use this to check if the event is over
 			// a ui object and do not do the next action if it is.
-			if(EventSystem.current.IsPointerOverGameObject()){
+			// -------------------------------------------------------------------------------
+			if(EventSystem.current.IsPointerOverGameObject() || EventSystem.current.currentSelectedGameObject != null){
 				return;
 			}
 
-			bool breakOut = false;
-			if(Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began) {
-				if(EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId)) {
-					breakOut = true;
-				}
-			}
-			if(breakOut) {
-				return;
-			}
+			// -------------------------------------------------------------------------------
 
-			if(!CameraHandler.isPanning){
+			// if panning is toggled off and currently pressing on the screen then increase the jump force.
+			if(!CameraHandler.canPan){
 				IncreaseJumpForce();
-				isCharging = true;
 			}
 
 		} else {			
@@ -103,6 +98,9 @@ public class PlayerController : MonoBehaviour
 
 	// Increase the jump power
 	public void IncreaseJumpForce(){
+
+		isCharging = true;
+
 		if(jumpForce != jumpForceMax) {
 			
 			jumpForce += (chargeSpeed * Time.deltaTime);
@@ -155,12 +153,7 @@ public class PlayerController : MonoBehaviour
 	}
 
 	public void Jump(){
-
-		// set fixed update interverval to a higher rate for more accurate results.
-		Time.fixedDeltaTime = 0.002f;
-
-
-
+		
 		// Set the launch velocity and launch the player.
 		LAUNCH_VELOCITY = launchVector.transform.up * jumpForce;
 
