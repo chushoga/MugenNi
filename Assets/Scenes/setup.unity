@@ -441,8 +441,6 @@ MonoBehaviour:
   target: {fileID: 1816784677}
   smoothTime: 0.18
   velocity: {x: 0, y: 0, z: 0}
-  isPanning: 0
-  canPan: 0
 --- !u!1 &274218751
 GameObject:
   m_ObjectHideFlags: 0
@@ -4597,11 +4595,11 @@ RectTransform:
   m_Father: {fileID: 1851126597}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 23.100098, y: 19.700012}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 13, y: -13}
   m_SizeDelta: {x: 75, y: 75}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &633164366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5485,11 +5483,11 @@ RectTransform:
   m_Father: {fileID: 1851126597}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -19.800049, y: 19.700012}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -13, y: -13}
   m_SizeDelta: {x: 75, y: 75}
-  m_Pivot: {x: 1, y: 0}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &1492336626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5656,11 +5654,11 @@ RectTransform:
   m_Father: {fileID: 1851126597}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 250, y: -216.66}
-  m_SizeDelta: {x: 409.1, y: 323.4}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -21.13, y: 0}
+  m_SizeDelta: {x: 409.09998, y: 323.40002}
+  m_Pivot: {x: 1, y: 0}
 --- !u!114 &1521421043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5857,7 +5855,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4498679138854650, guid: b91e942372d9eff418344a2b809da8fd, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0.7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4498679138854650, guid: b91e942372d9eff418344a2b809da8fd, type: 2}
       propertyPath: m_LocalRotation.x
@@ -6029,7 +6027,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1692676292}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -6065,7 +6063,7 @@ SphereCollider:
   m_GameObject: {fileID: 1692676292}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
