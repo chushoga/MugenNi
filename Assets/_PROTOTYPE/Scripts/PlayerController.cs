@@ -29,8 +29,7 @@ public class PlayerController : MonoBehaviour
 	private float chargeSpeed = 40.0f;
 	public Transform launchVector;
 
-	private void Awake()
-	{
+	void Awake(){
 		Physics.gravity = GRAVITY;
 		rigidBody = GetComponent<Rigidbody>();
 
@@ -38,8 +37,7 @@ public class PlayerController : MonoBehaviour
 		Time.fixedDeltaTime = 0.002f;
 	}
 
-	private void Start()
-	{
+	void Start(){
 		// Set up the trajectory container
 		trajectoryContainer = new GameObject();
 		trajectoryContainer.name = "trajectoryContainer";
@@ -47,7 +45,11 @@ public class PlayerController : MonoBehaviour
 		DrawTrajectory();
 	}
 
-	private void FixedUpdate() {
+	void Update(){
+		powerTxt.text = jumpForce + "";
+	}
+
+	void FixedUpdate() {
 		
 		if(Input.touchCount > 0 || Input.GetMouseButton(0)) {
 
@@ -86,7 +88,7 @@ public class PlayerController : MonoBehaviour
 
 		}
 
-			powerTxt.text = jumpForce + "";
+			
 	}
 
 	private Vector2 CalculatePosition(float elapsedTime)
@@ -103,6 +105,7 @@ public class PlayerController : MonoBehaviour
 
 		if(jumpForce != jumpForceMax) {
 			
+			//jumpForce += (chargeSpeed * Time.deltaTime);
 			jumpForce += (chargeSpeed * Time.deltaTime);
 
 			DrawTrajectory();
@@ -111,6 +114,8 @@ public class PlayerController : MonoBehaviour
 		if(jumpForce >= jumpForceMax) {
 			jumpForce = jumpForceMax;
 		}
+
+
 	}
 
 	// Draw the trajectory prediction

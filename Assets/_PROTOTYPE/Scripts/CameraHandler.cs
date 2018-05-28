@@ -5,19 +5,19 @@ using UnityEngine.EventSystems;
 
 public class CameraHandler : MonoBehaviour {
 
-	public Transform target;
-	public float smoothTime = 0.5f;
-	public Vector3 velocity = Vector3.zero;
+	public Transform target; // target to follow
+	public float smoothTime = 0.5f; // easing smooth time from camera follow
+	public Vector3 velocity = Vector3.zero; // Base velocity
 
-	private Vector3 origPos;
+	private Vector3 origPos; // The original position of the camera
 
-	private static readonly float PanSpeed = 20f;
-	private static readonly float ZoomSpeedTouch = 0.1f;
-	private static readonly float ZoomSpeedMouse = 2.5f;
+	private static readonly float PanSpeed = 20f; // Panning speed
+	private static readonly float ZoomSpeedTouch = 0.06f; // Touch screen zoom speed
+	private static readonly float ZoomSpeedMouse = 2.5f; // Mouse zoom speed
 
-	private static readonly float[] ZoomBounds = new float[]{7f, 14f};
+	private static readonly float[] ZoomBounds = new float[]{7f, 14f}; // Zoom boundry
 
-	private Camera cam;
+	private Camera cam; // Main Camera
 
 	private Vector3 lastPanPosition;
 	private int panFingerId; // Touch mode only
@@ -25,9 +25,9 @@ public class CameraHandler : MonoBehaviour {
 	private bool wasZoomingLastFrame; // Touch mode only
 	private Vector2[] lastZoomPositions; // Touch mode only
 
-	public static bool isPanning = false;
-	public static bool canPan = false;
-	private bool isCameraMoving = false;
+	public static bool isPanning = false; // Are we currently panning?
+	public static bool canPan = false; // Can we pan?
+	private bool isCameraMoving = false; // Is the camera moving?
 
 	void Awake() {
 		cam = GetComponent<Camera>();
@@ -37,7 +37,7 @@ public class CameraHandler : MonoBehaviour {
 		origPos = gameObject.transform.position;
 	}
 
-	void Update(){
+	void FixedUpdate(){
 		
 		/*
 		if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetMouseButtonDown(0)) {
@@ -97,13 +97,15 @@ public class CameraHandler : MonoBehaviour {
 		// On mouse down, capture it's position.
 		// Otherwise, if the mouse is still down, pan the camera.
 		if(Input.GetMouseButtonDown(0)) {
-			//Debug.Log("isMoving: " + isMoving);
+			
 			lastPanPosition = Input.mousePosition;
 
 		} else if(Input.GetMouseButton(0)) {
-			if(canPan){	
+			
+			if(canPan){					
 				PanCamera(Input.mousePosition);
 			}
+
 		} else {
 			isPanning = false;
 		}
