@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
 		// Set the launch velocity and launch the player.
 		LAUNCH_VELOCITY = launchVector.transform.up * jumpForce;
 
-		Debug.Log("JUMP: launch vector " + launchVector.transform.up + " * " + jumpForce + " = " + LAUNCH_VELOCITY);
+		//Debug.Log("JUMP: launch vector " + launchVector.transform.up + " * " + jumpForce + " = " + LAUNCH_VELOCITY);
 
 		gameObject.GetComponent<Rigidbody>().velocity = LAUNCH_VELOCITY;
 

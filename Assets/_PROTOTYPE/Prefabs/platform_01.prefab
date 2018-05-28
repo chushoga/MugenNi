@@ -38,6 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4074349889102398}
   - component: {fileID: 65882527950162986}
+  - component: {fileID: 114038690517599748}
   m_Layer: 0
   m_Name: platform_01
   m_TagString: Untagged
@@ -137,3 +138,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3, y: 0.5, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114038690517599748
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1869071355788660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9fe56914ca86249984a60990d74efd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  isFollowPath: 0
+  followPathRadius: 5
+  direction: 1
+  randomSpeed: 0

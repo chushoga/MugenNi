@@ -5,7 +5,7 @@ using UnityEngine;
 public class MovePlatform : MonoBehaviour {
 	
 	public float moveSpeed = 0.0f; // Movement speed
-	public bool isFollowPath = 0.0f; // follow a circlular path?
+	public bool isFollowPath = false; // follow a circlular path?
 	public float followPathRadius = 5.0f; // the circular path radius.
 	public bool direction = true; // true is clockwise,up,horizontal
 	public bool randomSpeed = false; // randomly add or remove speed temporarily 
@@ -20,17 +20,18 @@ public class MovePlatform : MonoBehaviour {
 		/*
 		transform.position += new Vector3(
 			gameObject.transform.position.x * moveSpeed * Time.deltaTime,
-			gameObject.transform.position.y,
+			gameObject.transfor          m.position.y,
 			gameObject.transform.position.z
 		);
 		*/
-		transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+		transform.position += Vector3.forward * moveSpeed * Time.deltaTime;
+		Debug.Log("TEST");
 	}
 
 	void OnTriggerEnter(Collider collider){
 		// flip the direction if there is a collision and not the player.
-		if(collider.gameObject.tag == "Environment"){
-			direction != direction;
+		if(collider.gameObject.tag != "Environment"){
+			direction = !direction;
 		}
 
 	}
