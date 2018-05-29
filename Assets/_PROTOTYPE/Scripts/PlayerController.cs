@@ -78,26 +78,31 @@ public class PlayerController : MonoBehaviour
 		// Check the jump power charging state.
 		if(isCharging == false && jumpForce != 0.0f) {			
 			Jump(); // jump
-		} else {
-			//trajectoryContainer.SetActive(true); // Show the trajectory container if 
+		} 
+
+		if(isCharging) {
+			trajectoryContainer.SetActive(true); // Show the trajectory container if 
 			DrawTrajectory(); // if still charging keep drawing the trajectory
 		}
 
 		// if the player is not moving and the power is not charging then hide the trajectory helper
 		if(jumpForce == 0.0f) {
 			
-			//trajectoryContainer.SetActive(false); // Hide the trajectory container if jumping
+			trajectoryContainer.SetActive(false); // Hide the trajectory container if jumping
 
-		}
+		} 
 
 			
 	}
 
-	private Vector2 CalculatePosition(float elapsedTime)
+	private Vector3 CalculatePosition(float elapsedTime)
 	{
-		LAUNCH_VELOCITY = gameObject.transform.up * jumpForce;
-		INITIAL_POSITION = gameObject.transform.position;
-		return GRAVITY * elapsedTime * elapsedTime * 0.5f + LAUNCH_VELOCITY * elapsedTime + INITIAL_POSITION;
+		LAUNCH_VELOCITY = launchVector.transform.up * jumpForce;
+		INITIAL_POSITION = launchVector.transform.position;
+
+		Vector3 vr = GRAVITY * elapsedTime * elapsedTime * 0.5f + LAUNCH_VELOCITY * elapsedTime + INITIAL_POSITION;
+
+		return vr;
 	}
 
 	// Increase the jump power
@@ -110,7 +115,7 @@ public class PlayerController : MonoBehaviour
 			//jumpForce += (chargeSpeed * Time.deltaTime);
 			jumpForce += (chargeSpeed * Time.deltaTime);
 
-			DrawTrajectory();
+			//DrawTrajectory();
 		} 
 
 		if(jumpForce >= jumpForceMax) {
@@ -139,7 +144,7 @@ public class PlayerController : MonoBehaviour
 
 				// Set the trajectroy dot positions
 				trajectoryDot.transform.position = CalculatePosition(DOT_TIME_STEP * i);
-
+				Debug.Log(CalculatePosition(DOT_TIME_STEP * i));
 			}
 
 		} else {
@@ -150,9 +155,9 @@ public class PlayerController : MonoBehaviour
 				trajectoryDot.transform.position = CalculatePosition(DOT_TIME_STEP * i);
 
 				if(trajectoryDot.transform.position.y <= gameObject.transform.position.y) {
-					//trajectoryDot.SetActive(false);
+					trajectoryDot.SetActive(false);
 				} else {
-					//trajectoryDot.SetActive(true);
+					trajectoryDot.SetActive(true);
 				}
 
 			}
