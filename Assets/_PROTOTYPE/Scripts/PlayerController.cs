@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
 	void Awake(){
 		Physics.gravity = GRAVITY;
-		rigidBody = GetComponent<Rigidbody>();
+		//rigidBody = GetComponent<Rigidbody>();
 
 		// set fixed update interverval to a higher rate for more accurate results.
 		Time.fixedDeltaTime = 0.002f;
@@ -39,8 +39,10 @@ public class PlayerController : MonoBehaviour
 
 	void Start(){
 		// Set up the trajectory container
-		trajectoryContainer = new GameObject();
-		trajectoryContainer.name = "trajectoryContainer";
+		//trajectoryContainer = new GameObject();
+		//trajectoryContainer.name = "trajectoryContainer";
+		//trajectoryContainer.transform.parent = gameObject.transform;
+		//trajectoryContainer.transform.position = Vector3.zero;
 
 		DrawTrajectory();
 	}
@@ -77,14 +79,14 @@ public class PlayerController : MonoBehaviour
 		if(isCharging == false && jumpForce != 0.0f) {			
 			Jump(); // jump
 		} else {
-			trajectoryContainer.SetActive(true); // Show the trajectory container if 
+			//trajectoryContainer.SetActive(true); // Show the trajectory container if 
 			DrawTrajectory(); // if still charging keep drawing the trajectory
 		}
 
 		// if the player is not moving and the power is not charging then hide the trajectory helper
 		if(jumpForce == 0.0f) {
 			
-			trajectoryContainer.SetActive(false); // Hide the trajectory container if jumping
+			//trajectoryContainer.SetActive(false); // Hide the trajectory container if jumping
 
 		}
 
@@ -93,8 +95,8 @@ public class PlayerController : MonoBehaviour
 
 	private Vector2 CalculatePosition(float elapsedTime)
 	{
-		LAUNCH_VELOCITY = launchVector.transform.up * jumpForce;
-		INITIAL_POSITION = launchVector.transform.position;
+		LAUNCH_VELOCITY = gameObject.transform.up * jumpForce;
+		INITIAL_POSITION = gameObject.transform.position;
 		return GRAVITY * elapsedTime * elapsedTime * 0.5f + LAUNCH_VELOCITY * elapsedTime + INITIAL_POSITION;
 	}
 
@@ -148,9 +150,9 @@ public class PlayerController : MonoBehaviour
 				trajectoryDot.transform.position = CalculatePosition(DOT_TIME_STEP * i);
 
 				if(trajectoryDot.transform.position.y <= gameObject.transform.position.y) {
-					trajectoryDot.SetActive(false);
+					//trajectoryDot.SetActive(false);
 				} else {
-					trajectoryDot.SetActive(true);
+					//trajectoryDot.SetActive(true);
 				}
 
 			}
@@ -174,4 +176,16 @@ public class PlayerController : MonoBehaviour
 
 	}
 
+	void OnCollisionEnter(Collision col){
+		// set the parent to the platfomr so that it moves with it and not falls off
+		if(col.gameObject.tag == "Platform") {
+			gameObject.transform.parent = col.gameObject.transform;
+		}
+	}
+	void OnCollisionExit(Collision col){
+		// remove parent so not still moving with the platform
+		if(col.gameObject.tag == "Platform") {
+			gameObject.transform.parent = null;
+		}
+	}
 }
