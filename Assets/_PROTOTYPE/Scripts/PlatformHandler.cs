@@ -2,32 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovePlatform : MonoBehaviour {
-	
+public class PlatformHandler : MonoBehaviour {
+	// -----------------------------------------------------------------
+	// -----------------------------------------------------------------
+	/* SHARED VARIABLES */
+	// -----------------------------------------------------------------
 	public float moveSpeed = 0.0f; // Movement speed
+	public Vector3 startPosition; // Starting position
+	public bool moveDirection = true; // TRUE is: clockwise, up, horizontal
+	public bool isChangingDirection = false; // Check to see if changing direction
+	// -----------------------------------------------------------------
+	public bool isConveyor = false; // is it a conveyor belt
+	public float conveyorSpeed = 2.0f; // the conveyor belt speed
+	public bool conveyorDirectionA = true;
+	public bool conveyorDirectionB = false;
+	// TO ADD: // public bool randomSpeed = false; // randomly add or remove speed temporarily
 
-	public Vector3 startPosition;
-
-	// movement type
-	public bool moveHorizontal = false; // follow a horizontal path
-
-	public bool moveVerticle = false; // follow a verticle path
+	// -----------------------------------------------------------------
+	// -----------------------------------------------------------------
+	/* MOVEMENT TYPE */
+	/*  CHOOSE ONE   */
+	// -----------------------------------------------------------------
+	public bool moveHorizontal = false; // Follow a horizontal path
+	// -----------------------------------------------------------------
+	public bool moveVerticle = false; // Follow a verticle path
 	public float moveVerticleMax = 5.0f;
+	// -----------------------------------------------------------------
+	public bool moveCircular = false; // Follow a circlular path
+	public Vector3 circleCenter; // Creates a center point for a circle
+	public float moveCircleRadius = 1.0f; // The circular path radius.
+	public float degreesPerSecond = 65.0f; // How fast for the rotation
+	private Vector3 v; // Rotation caculation variable
+	// -----------------------------------------------------------------
 
-	public bool moveCircular = false; // follow a circlular path
-	public Vector3 circleCenter; // creates a center point for a circle
-	public float moveCircleRadius = 1.0f; // the circular path radius.
-	public float degreesPerSecond = 65.0f; // how fast for the rotation
-	private Vector3 v;
-
-	public bool moveDirection = true; // true is clockwise,up,horizontal
-
-	//public bool randomSpeed = false; // randomly add or remove speed temporarily
-
-	// check to see if changing direction
-	public bool isChangingDirection = false;
-
-	// Use this for initialization
 	void Start () {
 
 		// starting position for the gameobject
@@ -42,7 +49,10 @@ public class MovePlatform : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		
+		/* --------------------------- */
+		/* CHECK WHAT TYPE OF MOVEMENT */
+		/* --------------------------- */
 		if(moveHorizontal) {
 			MoveHorizontal();
 		}
@@ -55,6 +65,8 @@ public class MovePlatform : MonoBehaviour {
 			MoveCircular();
 		}
 
+		//transform.GetChild
+		/* --------------------------- */
 	}
 
 	// Move the platform horizontal left or right depending on the move direction.
@@ -98,6 +110,9 @@ public class MovePlatform : MonoBehaviour {
 		}
 	}
 
+	void MoveConveryor(){
+		
+	}
 
 	void OnTriggerEnter(Collider collider){
 		
