@@ -13,9 +13,10 @@ public class PlatformHandler : MonoBehaviour {
 	public bool isChangingDirection = false; // Check to see if changing direction
 	// -----------------------------------------------------------------
 	public bool isConveyor = false; // is it a conveyor belt
-	public float conveyorSpeed = 2.0f; // the conveyor belt speed
-	public bool conveyorDirectionA = true;
-	public bool conveyorDirectionB = false;
+	private float conveyorSpeed = 1.0f; // the conveyor belt speed
+	public bool conveyorRotation = true; // true = left/right; false = forward/backward
+	public bool conveyorDirection = true; // true = left/forward, false = right/backward
+
 	// TO ADD: // public bool randomSpeed = false; // randomly add or remove speed temporarily
 
 	// -----------------------------------------------------------------
@@ -65,7 +66,9 @@ public class PlatformHandler : MonoBehaviour {
 			MoveCircular();
 		}
 
-		//transform.GetChild
+		if(isConveyor){
+			MoveConveryor();
+		}
 		/* --------------------------- */
 	}
 
@@ -112,6 +115,55 @@ public class PlatformHandler : MonoBehaviour {
 
 	void MoveConveryor(){
 		
+		Vector3 moveDir = Vector3.zero;
+
+		// move left
+		if(conveyorRotation == true) {
+
+
+			if(conveyorDirection) {
+				// move left
+				moveDir = Vector3.forward;
+			} else {
+				moveDir = Vector3.back;
+			}
+		}
+
+		// move right
+		if(conveyorRotation == false) {
+			
+			if(conveyorDirection) {
+				// move forward
+				moveDir = Vector3.right;
+			} else {
+				// move backward
+				moveDir = Vector3.left;
+			}
+		}
+
+		for(int i = 0; i < gameObject.transform.childCount; i++) {
+			
+			GameObject seed = gameObject.transform.GetChild(i).gameObject;
+			if(seed.tag != "Platform") {
+				seed.transform.position += moveDir * conveyorSpeed * Time.deltaTime;
+			}
+
+
+		}
+
+	}
+
+	void OnCollisionEnter(Collision col){
+		// set the parent to the platform so that it moves with it and not falls off
+		if(col.gameObject.tag != "Platform") {
+			col.gameObject.transform.SetParent(gameObject.transform, true); 
+		}
+	}
+	void OnCollisionExit(Collision col){
+		// remove parent so not still moving with the platform
+		if(col.gameObject.tag != "Platform") {
+			col.gameObject.transform.SetParent(null, true);
+		}
 	}
 
 	void OnTriggerEnter(Collider collider){
