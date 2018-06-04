@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour
 	public bool isCharging = false;
 	private float chargeSpeed = 40.0f;
 	public Transform launchVector;
+	private float jumpTimer = 0.0f; // how much time held at max force
+	private float jumpTimerMax = 2.0f; // max time at full force
+	private bool canJump = true;
 
 	void Awake(){
 		Physics.gravity = GRAVITY;
@@ -43,12 +46,34 @@ public class PlayerController : MonoBehaviour
 		//trajectoryContainer.name = "trajectoryContainer";
 		//trajectoryContainer.transform.parent = gameObject.transform;
 		//trajectoryContainer.transform.position = Vector3.zero;
-
+		jumpTimer = jumpTimerMax;
 		DrawTrajectory();
 	}
 
 	void Update(){
 		powerTxt.text = jumpForce + "";
+
+		// -------------------------------------------------------------------
+		// Check if the jump power is held down at max for more than n seconds
+		// -------------------------------------------------------------------
+
+
+		// count down the timer
+		if(jumpForce >= jumpForceMax) {
+			jumpTimer -= Time.deltaTime;	
+		}
+
+		// reset the jump force if timer hits 0
+		if(jumpTimer < 0.0f) {
+			jumpTimer = jumpTimerMax;
+			jumpForce = 0.0f;
+			canJump = false; // do not allow jumping
+		}
+
+		Debug.Log("TIME PRESSED:" + jumpTimer);
+		// -------------------------------------------------------------------
+
+
 	}
 
 	void FixedUpdate() {
@@ -67,16 +92,17 @@ public class PlayerController : MonoBehaviour
 			// -------------------------------------------------------------------------------
 
 			// if panning is toggled off and currently pressing on the screen then increase the jump force.
-			if(!CameraHandler.canPan){
+			if(CameraHandler.canPan == false && canJump == true){
 				IncreaseJumpForce();
 			}
 
 		} else {			
 			isCharging = false; // reset the charging if no longer charging.
+			canJump = true; // resets the can jump peram
 		}
 
 		// Check the jump power charging state.
-		if(isCharging == false && jumpForce != 0.0f) {			
+		if(isCharging == false && jumpForce != 0.0f) {
 			Jump(); // jump
 		} 
 
@@ -118,7 +144,7 @@ public class PlayerController : MonoBehaviour
 			//DrawTrajectory();
 		} 
 
-		if(jumpForce >= jumpForceMax) {
+		if(jumpForce > jumpForceMax) {
 			jumpForce = jumpForceMax;
 		}
 
@@ -176,6 +202,7 @@ public class PlayerController : MonoBehaviour
 		// Reset the jump force
 		if(jumpForce != 0.0f) {
 			jumpForce = 0.0f;
+			jumpTimer = jumpTimerMax;
 		}
 
 
@@ -187,10 +214,13 @@ public class PlayerController : MonoBehaviour
 			gameObject.transform.parent = col.gameObject.transform;
 		}
 	}
+
 	void OnCollisionExit(Collision col){
 		// remove parent so not still moving with the platform
 		if(col.gameObject.tag == "Platform") {
 			gameObject.transform.parent = null;
 		}
 	}
+
+
 }

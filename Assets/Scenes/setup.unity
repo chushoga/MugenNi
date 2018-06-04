@@ -4399,12 +4399,12 @@ Prefab:
     - target: {fileID: 114994248524784820, guid: a2a1c73b09075eb42ab319288bca3ab3,
         type: 2}
       propertyPath: isConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114994248524784820, guid: a2a1c73b09075eb42ab319288bca3ab3,
         type: 2}
       propertyPath: moveSpeed
-      value: 0
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 114994248524784820, guid: a2a1c73b09075eb42ab319288bca3ab3,
         type: 2}
@@ -4424,7 +4424,7 @@ Prefab:
     - target: {fileID: 114994248524784820, guid: a2a1c73b09075eb42ab319288bca3ab3,
         type: 2}
       propertyPath: moveCircular
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a2a1c73b09075eb42ab319288bca3ab3, type: 2}
