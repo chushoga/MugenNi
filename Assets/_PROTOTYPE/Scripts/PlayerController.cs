@@ -32,9 +32,17 @@ public class PlayerController : MonoBehaviour
 	private float jumpTimerMax = 2.0f; // max time at full force
 	private bool canJump = true;
 
+	// AUDIO
+	private AudioSource source;
+	public AudioClip jumpSound;
+
+	// MODEL
+	private Rigidbody modelRB;
+
 	void Awake(){
 		Physics.gravity = GRAVITY;
-		//rigidBody = GetComponent<Rigidbody>();
+		rigidBody = GetComponent<Rigidbody>();
+		modelRB = GameObject.Find("bunny").GetComponent<Rigidbody>();
 
 		// set fixed update interverval to a higher rate for more accurate results.
 		Time.fixedDeltaTime = 0.002f;
@@ -46,6 +54,10 @@ public class PlayerController : MonoBehaviour
 		//trajectoryContainer.name = "trajectoryContainer";
 		//trajectoryContainer.transform.parent = gameObject.transform;
 		//trajectoryContainer.transform.position = Vector3.zero;
+
+		// set up jump audio
+		source = gameObject.GetComponent<AudioSource>();
+
 		jumpTimer = jumpTimerMax;
 		DrawTrajectory();
 	}
@@ -65,12 +77,13 @@ public class PlayerController : MonoBehaviour
 
 		// reset the jump force if timer hits 0
 		if(jumpTimer < 0.0f) {
-			jumpTimer = jumpTimerMax;
 			jumpForce = 0.0f;
 			canJump = false; // do not allow jumping
 		}
 
-		Debug.Log("TIME PRESSED:" + jumpTimer);
+	
+
+		Debug.Log("TIME PRESSED:" + rigidBody.velocity);
 		// -------------------------------------------------------------------
 
 
@@ -191,7 +204,10 @@ public class PlayerController : MonoBehaviour
 	}
 
 	public void Jump(){
-		
+
+		// play the jump sound
+		source.PlayOneShot(jumpSound, 0.2f);
+
 		// Set the launch velocity and launch the player.
 		LAUNCH_VELOCITY = launchVector.transform.up * jumpForce;
 
