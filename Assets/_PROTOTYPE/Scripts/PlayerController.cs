@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 	private int NUM_DOTS_TO_SHOW = 15;
 	private float DOT_TIME_STEP = 0.02f;
 
-	private Rigidbody rigidBody;
+	private Rigidbody rb;
 
 	public GameObject trajectoryDotPrefab;
 	public GameObject trajectoryContainer;
@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
 	private float jumpTimer = 0.0f; // how much time held at max force
 	private float jumpTimerMax = 2.0f; // max time at full force
 	private bool canJump = true;
+	private bool isJumping = false;
 
 	// AUDIO
 	private AudioSource source;
@@ -41,7 +42,7 @@ public class PlayerController : MonoBehaviour
 
 	void Awake(){
 		Physics.gravity = GRAVITY;
-		rigidBody = GetComponent<Rigidbody>();
+		rb = GetComponent<Rigidbody>();
 		modelRB = GameObject.Find("bunny").GetComponent<Rigidbody>();
 
 		// set fixed update interverval to a higher rate for more accurate results.
@@ -49,49 +50,28 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void Start(){
-		// Set up the trajectory container
-		//trajectoryContainer = new GameObject();
-		//trajectoryContainer.name = "trajectoryContainer";
-		//trajectoryContainer.transform.parent = gameObject.transform;
-		//trajectoryContainer.transform.position = Vector3.zero;
 
 		// set up jump audio
 		source = gameObject.GetComponent<AudioSource>();
 
+		// set the starting jump timer to the max and get ready for countdown
 		jumpTimer = jumpTimerMax;
+
+		// Draw the inital trajectory
 		DrawTrajectory();
 	}
 
 	void Update(){
-		powerTxt.text = jumpForce + "";
-
-		// -------------------------------------------------------------------
-		// Check if the jump power is held down at max for more than n seconds
-		// -------------------------------------------------------------------
-
-
-		// count down the timer
-		if(jumpForce >= jumpForceMax) {
-			jumpTimer -= Time.deltaTime;	
-		}
-
-		// reset the jump force if timer hits 0
-		if(jumpTimer < 0.0f) {
-			jumpForce = 0.0f;
-			canJump = false; // do not allow jumping
-		}
-
-	
-
-		Debug.Log("TIME PRESSED:" + rigidBody.velocity);
-		// -------------------------------------------------------------------
-
-
+		// TEMP: Update the jump force
+		// TODO: Add a power bar at the bottom somwhere?
+		// 		 Need to have some kind of feedback....
+		powerTxt.text = jumpForce + ""; 
 	}
 
 	void FixedUpdate() {
-		
-		if(Input.touchCount > 0 || Input.GetMouseButton(0)) {
+
+		// If mouse down or finger down...
+		if(Input.touchCount > 0 || Input.GetMouseButton(0) == true) {
 
 			// -------------------------------------------------------------------------------
 			// PREVENT UI INTERACTION
@@ -102,7 +82,24 @@ public class PlayerController : MonoBehaviour
 				return;
 			}
 
-			// -------------------------------------------------------------------------------
+			// -------------------------------------------------------------------
+			// Check if the jump power is held down at max for more than n seconds
+			// -------------------------------------------------------------------
+
+			// count down the timer
+			if(jumpForce >= jumpForceMax) {
+				jumpTimer -= Time.deltaTime;	
+			} 
+
+			// reset the jump force if timer hits 0
+			if(jumpTimer <= 0.0f) {
+				jumpForce = 0.0f;
+				canJump = false; // do not allow jumping
+			} else {
+				canJump = true;
+			}
+
+			// -------------------------------------------------------------------
 
 			// if panning is toggled off and currently pressing on the screen then increase the jump force.
 			if(CameraHandler.canPan == false && canJump == true){
@@ -111,11 +108,14 @@ public class PlayerController : MonoBehaviour
 
 		} else {			
 			isCharging = false; // reset the charging if no longer charging.
-			canJump = true; // resets the can jump peram
+			jumpTimer = jumpTimerMax;
 		}
 
+		//canJump = true; // reset the can jump boolean
+		Debug.Log("NOT TOUCHING" + canJump);
+
 		// Check the jump power charging state.
-		if(isCharging == false && jumpForce != 0.0f) {
+		if(isCharging == false && jumpForce != 0.0f && isJumping == false) {
 			Jump(); // jump
 		} 
 
@@ -125,15 +125,14 @@ public class PlayerController : MonoBehaviour
 		}
 
 		// if the player is not moving and the power is not charging then hide the trajectory helper
-		if(jumpForce == 0.0f) {
-			
+		if(jumpForce == 0.0f) {			
 			trajectoryContainer.SetActive(false); // Hide the trajectory container if jumping
-
 		} 
 
 			
 	}
 
+	// Calculation used for the launch vector balls
 	private Vector3 CalculatePosition(float elapsedTime)
 	{
 		LAUNCH_VELOCITY = launchVector.transform.up * jumpForce;
@@ -147,20 +146,17 @@ public class PlayerController : MonoBehaviour
 	// Increase the jump power
 	public void IncreaseJumpForce(){
 
-		isCharging = true;
+		isCharging = true; // set the is charging bool to true
 
-		if(jumpForce != jumpForceMax) {
-			
-			//jumpForce += (chargeSpeed * Time.deltaTime);
+		// if the force is not currenly maxed the increment it.
+		if(jumpForce != jumpForceMax) {			
 			jumpForce += (chargeSpeed * Time.deltaTime);
-
-			//DrawTrajectory();
 		} 
 
+		// if the jump force is greater than the max then set it to the max
 		if(jumpForce > jumpForceMax) {
 			jumpForce = jumpForceMax;
 		}
-
 
 	}
 
@@ -183,7 +179,7 @@ public class PlayerController : MonoBehaviour
 
 				// Set the trajectroy dot positions
 				trajectoryDot.transform.position = CalculatePosition(DOT_TIME_STEP * i);
-				Debug.Log(CalculatePosition(DOT_TIME_STEP * i));
+				//Debug.Log(CalculatePosition(DOT_TIME_STEP * i));
 			}
 
 		} else {
@@ -211,16 +207,15 @@ public class PlayerController : MonoBehaviour
 		// Set the launch velocity and launch the player.
 		LAUNCH_VELOCITY = launchVector.transform.up * jumpForce;
 
-		//Debug.Log("JUMP: launch vector " + launchVector.transform.up + " * " + jumpForce + " = " + LAUNCH_VELOCITY);
-
-		gameObject.GetComponent<Rigidbody>().velocity = LAUNCH_VELOCITY;
+		rb.velocity = LAUNCH_VELOCITY;
 
 		// Reset the jump force
 		if(jumpForce != 0.0f) {
-			jumpForce = 0.0f;
-			jumpTimer = jumpTimerMax;
+			jumpForce = 0.0f; // reset the jump force after jumping
+			jumpTimer = jumpTimerMax; // reset the jump timer if not already 0.0f
 		}
 
+		isJumping = true; // allow jumping again
 
 	}
 
@@ -229,6 +224,9 @@ public class PlayerController : MonoBehaviour
 		if(col.gameObject.tag == "Platform") {
 			gameObject.transform.parent = col.gameObject.transform;
 		}
+
+		// reset the is jumping
+		isJumping = false;
 	}
 
 	void OnCollisionExit(Collision col){
