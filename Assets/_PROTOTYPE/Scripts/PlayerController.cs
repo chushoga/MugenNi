@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
 			// -------------------------------------------------------------------
 
 			// if panning is toggled off and currently pressing on the screen then increase the jump force.
-			if(CameraHandler.canPan == false && canJump == true){
+			if(CameraHandler.canPan == false && canJump == true && isJumping == false){
 				IncreaseJumpForce();
 			}
 

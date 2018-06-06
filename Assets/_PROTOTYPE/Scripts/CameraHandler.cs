@@ -34,7 +34,8 @@ public class CameraHandler : MonoBehaviour {
 	}
 
 	void Start(){
-		origPos = gameObject.transform.position;
+		origPos = cam.transform.position;
+		lastPanPosition = cam.transform.position;
 	}
 
 	void FixedUpdate(){
@@ -93,17 +94,20 @@ public class CameraHandler : MonoBehaviour {
 	}
 
 	void HandleMouse() {
-
+		
 		// On mouse down, capture it's position.
 		// Otherwise, if the mouse is still down, pan the camera.
 		if(Input.GetMouseButtonDown(0)) {
 			
 			lastPanPosition = Input.mousePosition;
 
+			print(lastPanPosition + " DOWN");
 		} else if(Input.GetMouseButton(0)) {
 			
-			if(canPan){					
+			if(canPan){
+				print(lastPanPosition + " HELD DOWN");
 				PanCamera(Input.mousePosition);
+
 			}
 
 		} else {
@@ -113,6 +117,7 @@ public class CameraHandler : MonoBehaviour {
 		// Check for scrolling to zoom the camera
 		float scroll = Input.GetAxis("Mouse ScrollWheel");
 		ZoomCamera(scroll, ZoomSpeedMouse);
+
 	}
 
 	void HandleTouch() {
@@ -190,9 +195,10 @@ public class CameraHandler : MonoBehaviour {
 
 
 	void PanCamera(Vector3 newPanPosition) {
+		
 		// check if can pan first.
 		if(isCameraMoving == false) {
-
+			
 			isPanning = true; // currently panning
 
 			// Determine how much to move the camera
@@ -220,6 +226,7 @@ public class CameraHandler : MonoBehaviour {
 	}
 
 	public void CanPan(){
+		
 		canPan = !canPan;
 	}
 
