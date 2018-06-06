@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
 		}
 
 		//canJump = true; // reset the can jump boolean
-		Debug.Log("NOT TOUCHING" + canJump);
+
 
 		// Check the jump power charging state.
 		if(isCharging == false && jumpForce != 0.0f && isJumping == false) {
