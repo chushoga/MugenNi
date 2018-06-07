@@ -35,10 +35,10 @@ public class CameraHandler : MonoBehaviour {
 
 	void Start(){
 		origPos = cam.transform.position;
-		lastPanPosition = cam.transform.position;
+		//lastPanPosition = cam.transform.position;
 	}
 
-	void FixedUpdate(){
+	void Update(){
 		
 		/*
 		if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetMouseButtonDown(0)) {
@@ -83,6 +83,7 @@ public class CameraHandler : MonoBehaviour {
 			if(EventSystem.current.IsPointerOverGameObject() || EventSystem.current.currentSelectedGameObject != null){
 				return;
 			}
+
 			HandleMouse();
 		}
 
@@ -97,20 +98,15 @@ public class CameraHandler : MonoBehaviour {
 		
 		// On mouse down, capture it's position.
 		// Otherwise, if the mouse is still down, pan the camera.
-		if(Input.GetMouseButtonDown(0)) {
-			
+		if(Input.GetMouseButtonDown(0) == true && canPan == true && isCameraMoving == false) {
 			lastPanPosition = Input.mousePosition;
+		}
 
-			print(lastPanPosition + " DOWN");
-		} else if(Input.GetMouseButton(0)) {
+		if(Input.GetMouseButton(0) == true && canPan == true) {
 			
-			if(canPan){
-				print(lastPanPosition + " HELD DOWN");
-				PanCamera(Input.mousePosition);
+			PanCamera(Input.mousePosition);
 
-			}
-
-		} else {
+		} else {			
 			isPanning = false;
 		}
 
@@ -228,6 +224,7 @@ public class CameraHandler : MonoBehaviour {
 	public void CanPan(){
 		
 		canPan = !canPan;
+
 	}
 
 }
