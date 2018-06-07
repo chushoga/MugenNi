@@ -30,8 +30,9 @@ public class PlayerController : MonoBehaviour
 	public Transform launchVector;
 	private float jumpTimer = 0.0f; // how much time held at max force
 	private float jumpTimerMax = 2.0f; // max time at full force
-	private bool canJump = true;
-	private bool isJumping = false;
+	public  bool canJump = true;
+	public static bool isJumping = false;
+	public Vector3 currentPos;
 
 	// AUDIO
 	private AudioSource source;
@@ -51,6 +52,9 @@ public class PlayerController : MonoBehaviour
 
 	void Start(){
 
+		// Current position
+		currentPos = gameObject.transform.localPosition;
+
 		// set up jump audio
 		source = gameObject.GetComponent<AudioSource>();
 
@@ -69,10 +73,16 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void FixedUpdate() {
+		
+		if(currentPos == gameObject.transform.localPosition){
+			isJumping = false;
+		}
+
+		currentPos = gameObject.transform.localPosition;
 
 		// If mouse down or finger down...
 		if(Input.touchCount > 0 || Input.GetMouseButton(0) == true) {
-
+			
 			// -------------------------------------------------------------------------------
 			// PREVENT UI INTERACTION
 			// use this to check if the event is over

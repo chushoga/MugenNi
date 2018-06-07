@@ -123,9 +123,9 @@ public class PlatformHandler : MonoBehaviour {
 
 			if(conveyorDirection) {
 				// move left
-				moveDir = Vector3.forward;
+				moveDir = Vector3.forward * moveSpeed * Time.deltaTime;
 			} else {
-				moveDir = Vector3.back;
+				moveDir = Vector3.back * moveSpeed * Time.deltaTime;
 			}
 		}
 
@@ -134,10 +134,10 @@ public class PlatformHandler : MonoBehaviour {
 			
 			if(conveyorDirection) {
 				// move forward
-				moveDir = Vector3.right;
+				moveDir = Vector3.right * moveSpeed * Time.deltaTime;
 			} else {
 				// move backward
-				moveDir = Vector3.left;
+				moveDir = Vector3.left * moveSpeed * Time.deltaTime;
 			}
 		}
 

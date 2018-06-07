@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class CameraHandler : MonoBehaviour {
+
+	// UI UPDATES
+	public Text updateText;
 
 	public Transform target; // target to follow
 	public float smoothTime = 0.5f; // easing smooth time from camera follow
@@ -39,7 +43,15 @@ public class CameraHandler : MonoBehaviour {
 	}
 
 	void Update(){
-		
+		// TEST TEXT THAT NEEDS TO BE SHOWN ON THE SCREEN....
+		if(PlayerController.isJumping){
+			updateText.color = Color.green;
+			updateText.text = "JUMPING";
+		} else {
+			updateText.color = Color.red;
+			updateText.text = "NOT JUMPING";
+		}
+
 		/*
 		if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetMouseButtonDown(0)) {
 			
