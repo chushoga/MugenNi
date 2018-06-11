@@ -253,7 +253,7 @@ public class PlatformHandler : MonoBehaviour {
 		isConveyor = false;
 
 		// fall down to the ground
-		gameObject.GetComponent<Rigidbody>().isKinematic = true;
+		//gameObject.GetComponent<Rigidbody>().isKinematic = false;
 	}
 
 }
