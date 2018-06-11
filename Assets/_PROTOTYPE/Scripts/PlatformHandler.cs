@@ -7,15 +7,14 @@ public class PlatformHandler : MonoBehaviour {
 	// -----------------------------------------------------------------
 	/* SHARED VARIABLES */
 	// -----------------------------------------------------------------
+	[Header("-- SHARED --")]
 	public float moveSpeed = 0.0f; // Movement speed
-	public Vector3 startPosition; // Starting position
 	public bool moveDirection = true; // TRUE is: clockwise, up, horizontal
-	public bool isChangingDirection = false; // Check to see if changing direction
+	private Vector3 startPosition; // Starting position
+	private bool isChangingDirection = false; // Check to see if changing direction
+	public GameObject model; // the model used
+	[Header("------------------------")]
 	// -----------------------------------------------------------------
-	public bool isConveyor = false; // is it a conveyor belt
-	private float conveyorSpeed = 1.0f; // the conveyor belt speed
-	public bool conveyorRotation = true; // true = left/right; false = forward/backward
-	public bool conveyorDirection = true; // true = left/forward, false = right/backward
 
 	// TO ADD: // public bool randomSpeed = false; // randomly add or remove speed temporarily
 
@@ -23,18 +22,37 @@ public class PlatformHandler : MonoBehaviour {
 	// -----------------------------------------------------------------
 	/* MOVEMENT TYPE */
 	/*  CHOOSE ONE   */
+	[Header("-- MOVEMENT TYPE --")]
+	[Header("Horizontal Movement")]
 	// -----------------------------------------------------------------
 	public bool moveHorizontal = false; // Follow a horizontal path
+
+	[Header("Vecticle Movement")]
 	// -----------------------------------------------------------------
 	public bool moveVerticle = false; // Follow a verticle path
-	public float moveVerticleMax = 5.0f;
+	public float moveVerticleMax = 5.0f; // max height for verticle
 	// -----------------------------------------------------------------
+
+	[Header("Circular Movement")]
 	public bool moveCircular = false; // Follow a circlular path
-	public Vector3 circleCenter; // Creates a center point for a circle
 	public float moveCircleRadius = 1.0f; // The circular path radius.
 	public float degreesPerSecond = 65.0f; // How fast for the rotation
+	private Vector3 circleCenter; // Creates a center point for a circle
 	private Vector3 v; // Rotation caculation variable
 	// -----------------------------------------------------------------
+
+	[Header("------------------------")]
+	[Header("-- CONVEYOR-- ")]
+	public bool isConveyor = false; // is it a conveyor belt
+	public float conveyorSpeed = 1.0f; // the conveyor belt speed
+	public bool conveyorRotation = true; // true = left/right; false = forward/backward
+	public bool conveyorDirection = true; // true = left/forward, false = right/backward
+
+	[Header("------------------------")]
+	[Header("TRAPS")]
+	public bool willFall = false; // if set to true it will fall if the player contacts it.
+	public float fallTimer = 1.0f; // platform will fall after timer finsihes.
+
 
 	void Start () {
 
@@ -46,6 +64,27 @@ public class PlatformHandler : MonoBehaviour {
 
 		// used to calculate the center of the circle rotaiton
 		v = transform.position - circleCenter; 
+
+		// -----------------------
+		// Prevent more than one 
+		// type of movement
+		// -----------------------
+		if(moveHorizontal == true) {
+			moveVerticle = false;
+			moveCircular = false;
+		}
+
+		if(moveVerticle == true) {
+			moveHorizontal = false;
+			moveCircular = false;
+		}
+
+		if(moveCircular == true) {
+			moveHorizontal = false;
+			moveVerticle = false;
+		}
+		// -----------------------
+
 	}
 	
 	// Update is called once per frame
@@ -154,11 +193,19 @@ public class PlatformHandler : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision col){
+
 		// set the parent to the platform so that it moves with it and not falls off
 		if(col.gameObject.tag != "Platform") {
 			col.gameObject.transform.SetParent(gameObject.transform, true); 
 		}
+
+		// if the collision is the player then...
+		if(col.gameObject.tag == "Player") {
+			StartCoroutine(StartFalling(fallTimer));
+		}
+
 	}
+
 	void OnCollisionExit(Collision col){
 		// remove parent so not still moving with the platform
 		if(col.gameObject.tag != "Platform") {
@@ -181,6 +228,32 @@ public class PlatformHandler : MonoBehaviour {
 	private IEnumerator ChangeDirectionTimer(float waitTime){		
 		yield return new WaitForSeconds(waitTime);
 		isChangingDirection = false;	
+	}
+
+	// Start the drop platform Timer
+	private IEnumerator StartFalling(float t){
+
+		float endTime = Time.time + t; // timer for a simple blink
+
+		// blink the renderer
+		while(Time.time < endTime){
+			yield return new WaitForSeconds(0.2f);	
+			model.GetComponent<Renderer>().enabled = false;
+			yield return new WaitForSeconds(0.2f);	
+			model.GetComponent<Renderer>().enabled = true;
+		}
+
+		// in case disabled re-enable the renederer as it falls
+		model.GetComponent<Renderer>().enabled = true;
+
+		// stop all movements
+		moveVerticle = false;
+		moveHorizontal = false;
+		moveCircular = false;
+		isConveyor = false;
+
+		// fall down to the ground
+		gameObject.GetComponent<Rigidbody>().isKinematic = true;
 	}
 
 }
