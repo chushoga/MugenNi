@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
 
 	private Vector3 LAUNCH_VELOCITY = new Vector3(20f, 60f, 0f);
-	private Vector3 NEW_LAUNCH_VELOCITY = new Vector3(20f, 60f, 0f);
+	//private Vector3 NEW_LAUNCH_VELOCITY = new Vector3(20f, 60f, 0f);
 	private Vector3 INITIAL_POSITION = Vector3.zero;
 	private readonly Vector3 GRAVITY = new Vector3(0f, -240f, 0f);
 	private int NUM_DOTS_TO_SHOW = 15;
@@ -38,13 +38,9 @@ public class PlayerController : MonoBehaviour
 	private AudioSource source;
 	public AudioClip jumpSound;
 
-	// MODEL
-	private Rigidbody modelRB;
-
 	void Awake(){
-		Physics.gravity = GRAVITY;
-		rb = GetComponent<Rigidbody>();
-		modelRB = GameObject.Find("bunny").GetComponent<Rigidbody>();
+		Physics.gravity = GRAVITY; // set the gravity
+		rb = GetComponent<Rigidbody>(); // get the rigidbody
 
 		// set fixed update interverval to a higher rate for more accurate results.
 		Time.fixedDeltaTime = 0.002f;

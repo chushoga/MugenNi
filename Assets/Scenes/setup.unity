@@ -4500,7 +4500,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4074349889102398, guid: a2a1c73b09075eb42ab319288bca3ab3, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 8.9
+      value: 6.4
       objectReference: {fileID: 0}
     - target: {fileID: 4074349889102398, guid: a2a1c73b09075eb42ab319288bca3ab3, type: 2}
       propertyPath: m_LocalPosition.y
@@ -4533,12 +4533,12 @@ Prefab:
     - target: {fileID: 114994248524784820, guid: a2a1c73b09075eb42ab319288bca3ab3,
         type: 2}
       propertyPath: isConveyor
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114994248524784820, guid: a2a1c73b09075eb42ab319288bca3ab3,
         type: 2}
       propertyPath: moveSpeed
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114994248524784820, guid: a2a1c73b09075eb42ab319288bca3ab3,
         type: 2}
@@ -4553,12 +4553,12 @@ Prefab:
     - target: {fileID: 114994248524784820, guid: a2a1c73b09075eb42ab319288bca3ab3,
         type: 2}
       propertyPath: conveyorRotation
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114994248524784820, guid: a2a1c73b09075eb42ab319288bca3ab3,
         type: 2}
       propertyPath: moveCircular
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114994248524784820, guid: a2a1c73b09075eb42ab319288bca3ab3,
         type: 2}
@@ -4568,7 +4568,7 @@ Prefab:
     - target: {fileID: 114994248524784820, guid: a2a1c73b09075eb42ab319288bca3ab3,
         type: 2}
       propertyPath: conveyorSpeed
-      value: 50
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114994248524784820, guid: a2a1c73b09075eb42ab319288bca3ab3,
         type: 2}
@@ -7066,7 +7066,7 @@ GameObject:
   - component: {fileID: 1984904312}
   m_Layer: 8
   m_Name: Cube
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7084,7 +7084,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!23 &1984904313
 MeshRenderer:
@@ -7146,7 +7146,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1984904311}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.14, y: 5.51, z: 0.28}
+  m_LocalPosition: {x: 6.8, y: 5.51, z: 0.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1558369359}

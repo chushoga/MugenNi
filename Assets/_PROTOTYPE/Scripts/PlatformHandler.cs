@@ -85,6 +85,9 @@ public class PlatformHandler : MonoBehaviour {
 		}
 		// -----------------------
 
+
+		// Prevent the platfrom from rotating
+		gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
 	}
 	
 	// Update is called once per frame
@@ -162,9 +165,9 @@ public class PlatformHandler : MonoBehaviour {
 
 			if(conveyorDirection) {
 				// move left
-				moveDir = Vector3.forward * moveSpeed * Time.deltaTime;
+				moveDir = Vector3.forward * conveyorSpeed * Time.deltaTime;
 			} else {
-				moveDir = Vector3.back * moveSpeed * Time.deltaTime;
+				moveDir = Vector3.back * conveyorSpeed * Time.deltaTime;
 			}
 		}
 
@@ -173,10 +176,10 @@ public class PlatformHandler : MonoBehaviour {
 			
 			if(conveyorDirection) {
 				// move forward
-				moveDir = Vector3.right * moveSpeed * Time.deltaTime;
+				moveDir = Vector3.right * conveyorSpeed * Time.deltaTime;
 			} else {
 				// move backward
-				moveDir = Vector3.left * moveSpeed * Time.deltaTime;
+				moveDir = Vector3.left * conveyorSpeed * Time.deltaTime;
 			}
 		}
 
@@ -194,14 +197,41 @@ public class PlatformHandler : MonoBehaviour {
 
 	void OnCollisionEnter(Collision col){
 
-		// set the parent to the platform so that it moves with it and not falls off
-		if(col.gameObject.tag != "Platform") {
+		// if the collision is the Environment then...
+		if(col.gameObject.tag == "Environment" && willFall == true) {
+			
+			// remove the children if not the model
+			for(int i = 0; i < gameObject.transform.childCount; i++) {
+
+				GameObject gm = gameObject.transform.GetChild(i).gameObject; // get the game object iterated over
+
+				// remove the children from the parent if not the model fo the gameobject
+				if(gm.name != model.name) {
+					gm.transform.SetParent(null, true);
+				}
+
+			}
+			willFall = false;
+
+			// stop the platform from falling
+			gameObject.GetComponent<Rigidbody>().isKinematic = true;
+		}
+
+		// if the collision is not the environment then...
+		if(col.gameObject.tag != "Environment" && col.gameObject.tag != "Player") {
+			// set the parent to the platform so that it moves with it and not falls off
 			col.gameObject.transform.SetParent(gameObject.transform, true); 
+
 		}
 
 		// if the collision is the player then...
 		if(col.gameObject.tag == "Player") {
-			StartCoroutine(StartFalling(fallTimer));
+			// set the parent to the platform so that it moves with it and not falls off
+			col.gameObject.transform.SetParent(gameObject.transform, true); 
+			// check if can fall first
+			if(willFall) {
+				StartCoroutine(StartFalling(fallTimer));
+			}
 		}
 
 	}
@@ -253,7 +283,7 @@ public class PlatformHandler : MonoBehaviour {
 		isConveyor = false;
 
 		// fall down to the ground
-		//gameObject.GetComponent<Rigidbody>().isKinematic = false;
+		gameObject.GetComponent<Rigidbody>().isKinematic = false;
 	}
 
 }
