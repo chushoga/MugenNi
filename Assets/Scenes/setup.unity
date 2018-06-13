@@ -4568,7 +4568,7 @@ Prefab:
     - target: {fileID: 114994248524784820, guid: a2a1c73b09075eb42ab319288bca3ab3,
         type: 2}
       propertyPath: conveyorSpeed
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114994248524784820, guid: a2a1c73b09075eb42ab319288bca3ab3,
         type: 2}
@@ -4579,6 +4579,11 @@ Prefab:
         type: 2}
       propertyPath: willFall
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114994248524784820, guid: a2a1c73b09075eb42ab319288bca3ab3,
+        type: 2}
+      propertyPath: fallTimer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a2a1c73b09075eb42ab319288bca3ab3, type: 2}
