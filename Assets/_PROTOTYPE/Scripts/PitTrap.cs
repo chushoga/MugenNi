@@ -11,11 +11,6 @@ public class PitTrap : MonoBehaviour {
 	void Start () {
 		hj = hing.GetComponent<HingeJoint>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
 	void OnCollisionEnter(Collision col){
 		if(col.gameObject.tag == "Player") {
