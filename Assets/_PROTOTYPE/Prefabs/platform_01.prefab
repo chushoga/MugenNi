@@ -166,16 +166,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
-  startPosition: {x: 0, y: 0, z: 0}
   moveDirection: 1
-  isChangingDirection: 0
-  isConveyor: 0
-  conveyorDirectionA: 1
-  conveyorDirectionB: 0
+  model: {fileID: 1718622393413142}
   moveHorizontal: 0
   moveVerticle: 0
   moveVerticleMax: 5
   moveCircular: 0
-  circleCenter: {x: 0, y: 0, z: 0}
   moveCircleRadius: 1
   degreesPerSecond: 65
+  isConveyor: 0
+  conveyorSpeed: 1
+  conveyorRotation: 1
+  conveyorDirection: 1
+  willFall: 0
+  fallTimer: 1
+  inPhase: 0
+  phaseTimer: 5

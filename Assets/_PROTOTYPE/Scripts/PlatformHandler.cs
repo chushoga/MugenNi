@@ -11,7 +11,7 @@ public class PlatformHandler : MonoBehaviour {
 	public float moveSpeed = 0.0f; // Movement speed
 	public bool moveDirection = true; // TRUE is: clockwise, up, horizontal
 	private Vector3 startPosition; // Starting position
-	private bool isChangingDirection = false; // Check to see if changing direction
+	public bool isChangingDirection = false; // Check to see if changing direction
 	public GameObject model; // the model used
 	[Header("------------------------")]
 	// -----------------------------------------------------------------
@@ -52,6 +52,9 @@ public class PlatformHandler : MonoBehaviour {
 	[Header("TRAPS")]
 	public bool willFall = false; // if set to true it will fall if the player contacts it.
 	public float fallTimer = 1.0f; // platform will fall after timer finsihes.
+	[Header("--")]
+	public bool inPhase = false; // does the platform continuously phase?
+	public float phaseTimer = 5.0f; // phase timing
 
 
 	void Start () {
@@ -85,9 +88,14 @@ public class PlatformHandler : MonoBehaviour {
 		}
 		// -----------------------
 
-
 		// Prevent the platfrom from rotating
 		gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
+
+		// If it is in phase start coroutine
+		if(inPhase) {
+			StartCoroutine(StartPhase(phaseTimer));
+		}
 	}
 	
 	// Update is called once per frame
@@ -243,22 +251,7 @@ public class PlatformHandler : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter(Collider collider){
-		
-		// If the collision is the environment, not changing direction, AND moving horizontally, then flip the direction
-		if(collider.gameObject.tag == "Environment" && isChangingDirection == false && moveHorizontal == true){
-			moveDirection = !moveDirection;
-			isChangingDirection = true;
-			StartCoroutine(ChangeDirectionTimer(0.25f));
-		}
 
-	}
-
-	// Timeout for the changin direction so does not togle moveDirection many times in one frame(which would make it stand still)
-	private IEnumerator ChangeDirectionTimer(float waitTime){		
-		yield return new WaitForSeconds(waitTime);
-		isChangingDirection = false;	
-	}
 
 	// Start the drop platform Timer
 	private IEnumerator StartFalling(float t){
@@ -284,6 +277,39 @@ public class PlatformHandler : MonoBehaviour {
 
 		// fall down to the ground
 		gameObject.GetComponent<Rigidbody>().isKinematic = false;
+	}
+
+	// start phasing the 
+	private IEnumerator StartPhase(float t){
+
+		Renderer ren = model.GetComponent<Renderer>();
+		BoxCollider col = gameObject.GetComponent<BoxCollider>();
+
+		while(inPhase == true){
+
+			yield return new WaitForSeconds(t); // wait for n*seconds
+
+			ren.enabled = false; // disable the renderer
+			col.enabled = false; // disable the collider
+
+			// remove all children after disabeling the collider if not the model
+			for(int i = 0; i < gameObject.transform.childCount; i++) {
+
+				GameObject gm = gameObject.transform.GetChild(i).gameObject; // get the game object iterated over
+
+				// remove the children from the parent if not the model fo the gameobject
+				if(gm.name != model.name) {
+					gm.transform.SetParent(null, true);
+				}
+
+			}
+
+			yield return new WaitForSeconds(t); // wait for n*seconds
+
+			ren.enabled = true; // enable the renderer
+			col.enabled = true; // enable the collider
+
+		}
 	}
 
 }
