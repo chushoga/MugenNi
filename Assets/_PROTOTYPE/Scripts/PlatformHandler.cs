@@ -120,6 +120,21 @@ public class PlatformHandler : MonoBehaviour {
 			MoveConveryor();
 		}
 		/* --------------------------- */
+
+		// remove all children after disabeling the collider if not the model
+		if(gameObject.GetComponent<BoxCollider>().enabled == false) {
+		
+			for(int i = 0; i < gameObject.transform.childCount; i++) {
+
+				GameObject gm = gameObject.transform.GetChild(i).gameObject; // get the game object iterated over
+
+				// remove the children from the parent if not the model fo the gameobject
+				if(gm.name != model.name) {
+					gm.transform.SetParent(null, true);
+				}
+			}
+
+		}
 	}
 
 	// Move the platform horizontal left or right depending on the move direction.
@@ -291,18 +306,6 @@ public class PlatformHandler : MonoBehaviour {
 
 			ren.enabled = false; // disable the renderer
 			col.enabled = false; // disable the collider
-
-			// remove all children after disabeling the collider if not the model
-			for(int i = 0; i < gameObject.transform.childCount; i++) {
-
-				GameObject gm = gameObject.transform.GetChild(i).gameObject; // get the game object iterated over
-
-				// remove the children from the parent if not the model fo the gameobject
-				if(gm.name != model.name) {
-					gm.transform.SetParent(null, true);
-				}
-
-			}
 
 			yield return new WaitForSeconds(t); // wait for n*seconds
 
