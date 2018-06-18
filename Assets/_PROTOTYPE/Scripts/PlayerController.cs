@@ -7,36 +7,38 @@ using UnityEngine.EventSystems;
 public class PlayerController : MonoBehaviour
 {
 
-	private Vector3 LAUNCH_VELOCITY = new Vector3(20f, 60f, 0f);
-	//private Vector3 NEW_LAUNCH_VELOCITY = new Vector3(20f, 60f, 0f);
+	private Vector3 LAUNCH_VELOCITY = new Vector3(0f, 0f, 0f);
 	private Vector3 INITIAL_POSITION = Vector3.zero;
 	private readonly Vector3 GRAVITY = new Vector3(0f, -240f, 0f);
 	private int NUM_DOTS_TO_SHOW = 15;
 	private float DOT_TIME_STEP = 0.02f;
 
-	private Rigidbody rb;
+	public Vector3 currentPos; // the current player position
+	private Rigidbody rb; // player rigidbody
+	public int health; // player health
+	public int initialHealth = 3; // the starting health amount
 
-	public GameObject trajectoryDotPrefab;
-	public GameObject trajectoryContainer;
+	public GameObject trajectoryDotPrefab; // prefab for the trajectory dot
+	public GameObject trajectoryContainer; // container for the trajectory dots
 
 	// UI UPDATES
-	public Text powerTxt;
+	public Text powerTxt; // current power TODO: change to a power bar or remove all together
+	public GameObject healthPanel;
 
 	// JUMP PERAMETERS
-	public float jumpForce = 0.0f;
-	private float jumpForceMax = 60.0f;
-	public bool isCharging = false;
-	private float chargeSpeed = 40.0f;
-	public Transform launchVector;
+	public float jumpForce = 0.0f; // strength of jump
+	private float jumpForceMax = 60.0f; // the max jump force
+	public bool isCharging = false; // is the jump currently charging
+	private float chargeSpeed = 70.0f; // jump chargin speed
+	public Transform launchVector; // the launch vector for jump
 	private float jumpTimer = 0.0f; // how much time held at max force
 	private float jumpTimerMax = 2.0f; // max time at full force
-	public  bool canJump = true;
-	public static bool isJumping = false;
-	public Vector3 currentPos;
+	public  bool canJump = true; // can the player jump
+	public static bool isJumping = false; // is the player currently jumping
 
 	// AUDIO
-	private AudioSource source;
-	public AudioClip jumpSound;
+	private AudioSource source; // audio source for sounds
+	public AudioClip jumpSound; // jumping sound
 
 	void Awake(){
 		Physics.gravity = GRAVITY; // set the gravity
@@ -47,6 +49,20 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void Start(){
+
+		// Set the starting health amount;
+		health = initialHealth;
+
+		// Get the health panel and initialize it
+		healthPanel = GameObject.Find("HealthPanel");
+
+		for(int i = 0; i < healthPanel.transform.childCount; i++) {
+			if(i < health) {
+				healthPanel.transform.GetChild(i).gameObject.SetActive(true);
+			} else {
+				healthPanel.transform.GetChild(i).gameObject.SetActive(false);
+			}
+		}
 
 		// Current position
 		currentPos = gameObject.transform.localPosition;
@@ -66,6 +82,15 @@ public class PlayerController : MonoBehaviour
 		// TODO: Add a power bar at the bottom somwhere?
 		// 		 Need to have some kind of feedback....
 		powerTxt.text = jumpForce + ""; 
+
+		// Update the health panel
+		for(int i = 0; i < healthPanel.transform.childCount; i++) {
+			if(i < health) {
+				healthPanel.transform.GetChild(i).gameObject.SetActive(true);
+			} else {
+				healthPanel.transform.GetChild(i).gameObject.SetActive(false);
+			}
+		}
 	}
 
 	void FixedUpdate() {
@@ -226,6 +251,7 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void OnCollisionEnter(Collision col){
+		
 		// set the parent to the platfomr so that it moves with it and not falls off
 		if(col.gameObject.tag == "Platform") {
 			gameObject.transform.parent = col.gameObject.transform;
@@ -236,11 +262,37 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void OnCollisionExit(Collision col){
+		
 		// remove parent so not still moving with the platform
 		if(col.gameObject.tag == "Platform") {
 			gameObject.transform.parent = null;
 		}
 	}
 
+	// Add health to the player
+	public void AddHealth(int x){
+		
+		int hp = x + health;
+
+		if(hp <= initialHealth) {
+			health = hp;
+		} else {
+			health = initialHealth;
+		}
+
+	}
+
+	// Remove health from the player
+	public void RemoveHealth(int x){
+
+		int hp = health - x;
+
+		if(hp >= 0) {
+			health = hp;
+		} else {
+			health = 0;
+		}
+
+	}
 
 }
