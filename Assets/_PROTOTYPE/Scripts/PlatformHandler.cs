@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class PlatformHandler : MonoBehaviour {
 	// -----------------------------------------------------------------
-	// -----------------------------------------------------------------
 	/* SHARED VARIABLES */
 	// -----------------------------------------------------------------
-	[Header("-- SHARED --")]
-	public float moveSpeed = 0.0f; // Movement speed
-	public bool moveDirection = true; // TRUE is: clockwise, up, horizontal
+	[Header("Shared Variables")]
+	[Tooltip("Platform movement speed")] public float moveSpeed = 0.0f; // Movement speed
+	[Tooltip("Movement direction - True = up, horizontal, clockwise")] public bool moveDirection = true; // TRUE is: clockwise, up, horizontal
+	[Tooltip("Game Model to use for the Platform")] public GameObject model; // the model used
 	private Vector3 startPosition; // Starting position
-	public bool isChangingDirection = false; // Check to see if changing direction
-	public GameObject model; // the model used
-	[Header("------------------------")]
 	// -----------------------------------------------------------------
 
 	// TO ADD: // public bool randomSpeed = false; // randomly add or remove speed temporarily
@@ -22,39 +19,39 @@ public class PlatformHandler : MonoBehaviour {
 	// -----------------------------------------------------------------
 	/* MOVEMENT TYPE */
 	/*  CHOOSE ONE   */
-	[Header("-- MOVEMENT TYPE --")]
-	[Header("Horizontal Movement")]
+	[Header("Movement Type --")]
+	[Header("Horizontal")]
 	// -----------------------------------------------------------------
-	public bool moveHorizontal = false; // Follow a horizontal path
+	[Tooltip("")] public bool moveHorizontal = false; // Follow a horizontal path
 
-	[Header("Vecticle Movement")]
+	[Header("Vecticle")]
 	// -----------------------------------------------------------------
-	public bool moveVerticle = false; // Follow a verticle path
-	public float moveVerticleMax = 5.0f; // max height for verticle
+	[Tooltip("")] public bool moveVerticle = false; // Follow a verticle path
+	[Tooltip("")] public float moveVerticleMax = 5.0f; // max height for verticle
 	// -----------------------------------------------------------------
 
-	[Header("Circular Movement")]
-	public bool moveCircular = false; // Follow a circlular path
-	public float moveCircleRadius = 1.0f; // The circular path radius.
-	public float degreesPerSecond = 65.0f; // How fast for the rotation
+	[Header("Circular")]
+	[Tooltip("")] public bool moveCircular = false; // Follow a circlular path
+	[Tooltip("")] public float moveCircleRadius = 1.0f; // The circular path radius.
+	[Tooltip("")] public float degreesPerSecond = 65.0f; // How fast for the rotation
 	private Vector3 circleCenter; // Creates a center point for a circle
 	private Vector3 v; // Rotation caculation variable
 	// -----------------------------------------------------------------
 
 	[Header("------------------------")]
 	[Header("-- CONVEYOR-- ")]
-	public bool isConveyor = false; // is it a conveyor belt
-	public float conveyorSpeed = 1.0f; // the conveyor belt speed
-	public bool conveyorRotation = true; // true = left/right; false = forward/backward
-	public bool conveyorDirection = true; // true = left/forward, false = right/backward
+	[Tooltip("")] public bool isConveyor = false; // is it a conveyor belt
+	[Tooltip("")] public float conveyorSpeed = 1.0f; // the conveyor belt speed
+	[Tooltip("")] public bool conveyorRotation = true; // true = left/right; false = forward/backward
+	[Tooltip("")] public bool conveyorDirection = true; // true = left/forward, false = right/backward
 
 	[Header("------------------------")]
 	[Header("TRAPS")]
-	public bool willFall = false; // if set to true it will fall if the player contacts it.
-	public float fallTimer = 1.0f; // platform will fall after timer finsihes.
+	[Tooltip("")] public bool willFall = false; // if set to true it will fall if the player contacts it.
+	[Tooltip("")] public float fallTimer = 1.0f; // platform will fall after timer finsihes.
 	[Header("--")]
-	public bool inPhase = false; // does the platform continuously phase?
-	public float phaseTimer = 5.0f; // phase timing
+	[Tooltip("")] public bool inPhase = false; // does the platform continuously phase?
+	[Tooltip("")] public float phaseTimer = 5.0f; // phase timing
 
 
 	void Start () {

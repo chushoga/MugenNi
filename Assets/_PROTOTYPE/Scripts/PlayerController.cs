@@ -6,39 +6,63 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
-
+	// -----------------------------------------------------------------
+	/* MAIN VARIABLES */
+	// -----------------------------------------------------------------
 	private Vector3 LAUNCH_VELOCITY = new Vector3(0f, 0f, 0f);
 	private Vector3 INITIAL_POSITION = Vector3.zero;
 	private readonly Vector3 GRAVITY = new Vector3(0f, -240f, 0f);
 	private int NUM_DOTS_TO_SHOW = 15;
 	private float DOT_TIME_STEP = 0.02f;
 
-	public Vector3 currentPos; // the current player position
+	// -----------------------------------------------------------------
+	/* SHARED VARIABLES */
+	// -----------------------------------------------------------------
 	private Rigidbody rb; // player rigidbody
-	public int health; // player health
-	public int initialHealth = 3; // the starting health amount
+	private Vector3 currentPos; // the current player position
 
-	public GameObject trajectoryDotPrefab; // prefab for the trajectory dot
-	public GameObject trajectoryContainer; // container for the trajectory dots
+	// -----------------------------------------------------------------
+	/* HEALTH */
+	// -----------------------------------------------------------------
+	[Header("Health")]
+	[Tooltip("Max health that player can have.")] public int initialHealth = 3; // the starting health amount
+	private int health; // player current health
 
-	// UI UPDATES
-	public Text powerTxt; // current power TODO: change to a power bar or remove all together
-	public GameObject healthPanel;
 
-	// JUMP PERAMETERS
-	public float jumpForce = 0.0f; // strength of jump
-	private float jumpForceMax = 60.0f; // the max jump force
-	public bool isCharging = false; // is the jump currently charging
-	private float chargeSpeed = 70.0f; // jump chargin speed
-	public Transform launchVector; // the launch vector for jump
+	// -----------------------------------------------------------------
+	/* TRAJECTORY SIMULATION */
+	// -----------------------------------------------------------------
+	[Header("Trajectory Sim")]
+	[Tooltip("Prefab for the trajectory dot.")] public GameObject trajectoryDotPrefab; // prefab for the trajectory dot
+	[Tooltip("The trajectory dot container.")] public GameObject trajectoryContainer; // container for the trajectory dots
+
+	// -----------------------------------------------------------------
+	/* UI */
+	// -----------------------------------------------------------------
+	[Header("UI")]
+	[Tooltip("Power Text UI.")] public Text powerTxt; // current power TODO: change to a power bar or remove all together
+	[Tooltip("Health Panel holding the hearts.")] public GameObject healthPanel; // health panel for showing lives left
+
+	// -----------------------------------------------------------------
+	/* JUMP VARIABLES */
+	// -----------------------------------------------------------------
+	[Header("Jump")]
+	[Tooltip("Max jump force.")] public float jumpForceMax = 60.0f; // the max jump force
+	[Tooltip("Charge speed for the jump.")] public float chargeSpeed = 70.0f; // jump chargin speed
+	[Tooltip("The transform for the launch vector.")] public Transform launchVector; // the launch vector for jump
+	private float jumpForce = 0.0f; // strength of jump
+	private bool isCharging = false; // is the jump currently charging
 	private float jumpTimer = 0.0f; // how much time held at max force
 	private float jumpTimerMax = 2.0f; // max time at full force
-	public  bool canJump = true; // can the player jump
-	public static bool isJumping = false; // is the player currently jumping
+	private bool canJump = true; // can the player jump
+	private static bool isJumping = false; // is the player currently jumping
 
-	// AUDIO
+	// -----------------------------------------------------------------
+	/* AUDIO */
+	// -----------------------------------------------------------------
+	[Header("Audio Information")]
+	[Tooltip("Jump sound")] public AudioClip jumpSound; // jumping sound
 	private AudioSource source; // audio source for sounds
-	public AudioClip jumpSound; // jumping sound
 
 	void Awake(){
 		Physics.gravity = GRAVITY; // set the gravity
