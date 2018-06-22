@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 	// -----------------------------------------------------------------
 	[Header("Health")]
 	[Tooltip("Max health that player can have.")] public int initialHealth = 3; // the starting health amount
-	private int health; // player current health
+	[SerializeField] private int health; // player current health
 
 
 	// -----------------------------------------------------------------
@@ -114,6 +114,11 @@ public class PlayerController : MonoBehaviour
 			} else {
 				healthPanel.transform.GetChild(i).gameObject.SetActive(false);
 			}
+		}
+
+		if(Input.GetKeyDown(KeyCode.Space)) {
+			RemoveHealth();
+			print("hp: " + health);
 		}
 	}
 
@@ -294,9 +299,9 @@ public class PlayerController : MonoBehaviour
 	}
 
 	// Add health to the player
-	public void AddHealth(int x){
+	public void AddHealth(){
 		
-		int hp = x + health;
+		int hp = 1 + health;
 
 		if(hp <= initialHealth) {
 			health = hp;
@@ -307,9 +312,9 @@ public class PlayerController : MonoBehaviour
 	}
 
 	// Remove health from the player
-	public void RemoveHealth(int x){
-
-		int hp = health - x;
+	public void RemoveHealth(){
+		print("remove health");
+		int hp = health - 1;
 
 		if(hp >= 0) {
 			health = hp;

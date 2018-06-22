@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class CameraHandler : MonoBehaviour {
 
 	// UI UPDATES
-	public Text updateText;
-	public static int coinCount = 0;
+	//public Text updateText;
+	//public static int coinCount = 0;
 
 	public Transform target; // target to follow
 	public float smoothTime = 0.5f; // easing smooth time from camera follow
@@ -54,7 +54,7 @@ public class CameraHandler : MonoBehaviour {
 			updateText.text = "NOT JUMPING";
 		}
 */
-		updateText.text = coinCount + "";
+		//updateText.text = coinCount + "";
 		/*
 		if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetMouseButtonDown(0)) {
 			
