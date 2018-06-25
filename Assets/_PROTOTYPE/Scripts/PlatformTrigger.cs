@@ -9,7 +9,12 @@ public class PlatformTrigger : MonoBehaviour {
 	void OnTriggerEnter(Collider collider){
 
 		// If the collision is the environment, not changing direction, AND moving horizontally, then flip the direction
-		if(collider.gameObject.tag == "Environment" && isChangingDirection == false && GetComponentInParent<PlatformHandler>().moveHorizontal == true){
+		if((collider.gameObject.tag == "Environment" ||
+			collider.gameObject.tag == "Bounds" ||
+			collider.gameObject.tag == "Ground") &&
+			isChangingDirection == false &&
+			GetComponentInParent<PlatformHandler>().moveHorizontal == true)
+		{
 			GetComponentInParent<PlatformHandler>().moveDirection = !GetComponentInParent<PlatformHandler>().moveDirection;
 			isChangingDirection = true;
 			StartCoroutine(ChangeDirectionTimer(0.25f));

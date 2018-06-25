@@ -218,7 +218,8 @@ public class PlatformHandler : MonoBehaviour {
 	void OnCollisionEnter(Collision col){
 
 		// if the collision is the Environment then...
-		if(col.gameObject.tag == "Environment" && willFall == true) {
+		// When the platform hits the ground remove the children from it
+		if((col.gameObject.tag == "Environment" || col.gameObject.tag == "Ground") && willFall == true) {
 			
 			// remove the children if not the model
 			for(int i = 0; i < gameObject.transform.childCount; i++) {
@@ -237,8 +238,8 @@ public class PlatformHandler : MonoBehaviour {
 			gameObject.GetComponent<Rigidbody>().isKinematic = true;
 		}
 
-		// if the collision is not the environment then...
-		if(col.gameObject.tag != "Environment" && col.gameObject.tag != "Player") {
+		// If collides with item other than the environemnt, player or ground(like dropped item) then parent to the platform
+		if(col.gameObject.tag != "Environment" && col.gameObject.tag != "Ground" && col.gameObject.tag != "Player") {
 			// set the parent to the platform so that it moves with it and not falls off
 			col.gameObject.transform.SetParent(gameObject.transform, true); 
 
