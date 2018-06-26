@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour {
+public class WalkingEnemy : MonoBehaviour {
 
 	[Header("Misc")]
 	[Tooltip("Can the object cause damage?")] public bool canDamage = true;
 
-	[Tooltip("Movement speed")] public float moveSpeed = 2.0f;
-	private bool direction = true;
-	private bool isDeleting = false;
+	[Tooltip("Movement speed")] public float moveSpeed = 2.0f; // Movement speed
+	private bool direction = true; // The direction flag
+	private bool isAlive = true; // While alive this is true
 
 	// Use this for initialization
 	void Start () {
@@ -26,28 +26,25 @@ public class Enemy : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision col){
-	
-		if(col.gameObject.tag == "Player" && isDeleting == false) {
 
-			// TODO: may need to work on this
-			//Vector3 colExplosionPos = new Vector3(col.gameObject.transform.position.x, col.gameObject.transform.position.y - 2f, col.gameObject.transform.position.z  - 2f);
-			//Vector3 GOexplosionPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 2f, gameObject.transform.position.z - 2f);
-
+		if(col.gameObject.tag == "Player" && isAlive == true) {
+			
 			col.gameObject.GetComponent<PlayerController>().RemoveHealth(); // remove a health from the player
 			col.gameObject.GetComponent<Rigidbody>().AddExplosionForce(100.0f, gameObject.transform.position, 1.0f, 1.0f, ForceMode.Impulse); // exploion under col
 			gameObject.GetComponent<Rigidbody>().AddExplosionForce(100.0f, col.gameObject.transform.position, 1.0f, 1.0f, ForceMode.Impulse); // explosion under enemy
-			// start delete
-			StartCoroutine(StartDecay(2f));
+
+			StartCoroutine(StartDecay(2f)); // Start deletion animation and then destory.
 		}
 
 	}
 
 	void OnTriggerEnter(Collider col){
 
-		// if the collision is the environment reverse movement
+		// if the collision is the bounds reverse movement
 		if(col.tag == "Bounds") {
 			ChangeDirection();
 		}
+
 	}
 
 	// Change the direction of movement
@@ -57,19 +54,19 @@ public class Enemy : MonoBehaviour {
 
 	private IEnumerator StartDecay(float t){
 
-		isDeleting = true;
+		isAlive = false; // is no longer alive
 
 		float endTime = Time.time + t; // timer for a simple blink
-		gameObject.GetComponent<Renderer>().enabled = false;
+		gameObject.GetComponent<Renderer>().enabled = false; // Hide the mesh to start before the timer starts
 
 		// blink the renderer
 		while(Time.time < endTime){
-			yield return new WaitForSeconds(0.2f);	
-			gameObject.GetComponent<Renderer>().enabled = true;
-			yield return new WaitForSeconds(0.2f);	
-			gameObject.GetComponent<Renderer>().enabled = false;
+			yield return new WaitForSeconds(0.2f);	// Wait for n seconds
+			gameObject.GetComponent<Renderer>().enabled = true; // Show mesh
+			yield return new WaitForSeconds(0.2f);	// Wait for n seconds
+			gameObject.GetComponent<Renderer>().enabled = false; // Show mesh
 		}
 
-		Destroy(gameObject);
+		Destroy(gameObject); // Destroy the gameObject
 	}
 }
