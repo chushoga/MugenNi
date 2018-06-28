@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WalkingEnemy : MonoBehaviour {
+public class FlyingEnemy : MonoBehaviour {
 
 	[Header("Misc")]
 	[Tooltip("Can the object cause damage?")] public bool canDamage = true;
@@ -10,14 +10,36 @@ public class WalkingEnemy : MonoBehaviour {
 	[Tooltip("Movement speed")] public float moveSpeed = 2.0f; // Movement speed
 	private bool direction = true; // The direction flag
 	private bool isAlive = true; // While alive this is true
+	private Vector3 origPos; // The origional postion
+
+	[Header("Verticle Movement")]
+	[Tooltip("The up down distance")]public float upDownDistance = 0.5f;
+	[Tooltip("The up down movement speed")]public float upDownSpeed = 3.0f;
+	private bool directionUpDown = true;
 
 	// Use this for initialization
 	void Start () {
-		
+		origPos = gameObject.transform.position;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		if(transform.position.y <= origPos.y-upDownDistance) {
+			ChangeFlyingDirection();
+		}
+		if(transform.position.y >= origPos.y+upDownDistance) {
+			ChangeFlyingDirection();
+		}
+
+		// Move up and down
+		if(directionUpDown) {
+			transform.position += Vector3.up * upDownSpeed * Time.deltaTime;
+		} else {
+			transform.position -= Vector3.up * upDownSpeed * Time.deltaTime;
+		}
+
+		// Move left and right
 		if(direction) {
 			transform.position += Vector3.forward * moveSpeed * Time.deltaTime;
 		} else {
@@ -54,6 +76,11 @@ public class WalkingEnemy : MonoBehaviour {
 	// Change the direction of movement
 	void ChangeDirection(){
 		direction = !direction;
+	}
+
+	// Change the flying up down
+	void ChangeFlyingDirection(){
+		directionUpDown = !directionUpDown;
 	}
 
 	private IEnumerator StartDecay(float t){
