@@ -162,6 +162,21 @@ Prefab:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 23836985158488426, guid: 43014a7c4c88b6340a9778d2cd473a77,
+        type: 2}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23836985158488426, guid: 43014a7c4c88b6340a9778d2cd473a77,
+        type: 2}
+      propertyPath: m_ReceiveShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23836985158488426, guid: 43014a7c4c88b6340a9778d2cd473a77,
+        type: 2}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114995675865461398, guid: 43014a7c4c88b6340a9778d2cd473a77, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 43014a7c4c88b6340a9778d2cd473a77, type: 2}
