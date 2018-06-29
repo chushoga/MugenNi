@@ -126,11 +126,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4510780790391100, guid: 43014a7c4c88b6340a9778d2cd473a77, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3.97
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4510780790391100, guid: 43014a7c4c88b6340a9778d2cd473a77, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 3.1
+      value: -1.86
       objectReference: {fileID: 0}
     - target: {fileID: 4510780790391100, guid: 43014a7c4c88b6340a9778d2cd473a77, type: 2}
       propertyPath: m_LocalRotation.x
@@ -4930,8 +4930,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canDamage: 1
   moveSpeed: 2
-  upDownDistance: 0.5
-  upDownSpeed: 2
+  upDownDistance: 0.25
+  upDownSpeed: 3
 --- !u!1 &633164364
 GameObject:
   m_ObjectHideFlags: 0

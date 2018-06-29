@@ -15,29 +15,37 @@ public class FlyingEnemy : MonoBehaviour {
 	[Header("Verticle Movement")]
 	[Tooltip("The up down distance")]public float upDownDistance = 0.5f;
 	[Tooltip("The up down movement speed")]public float upDownSpeed = 3.0f;
-	private bool directionUpDown = true;
+	private float upDownLow; // min fly high from orig position
+	private float upDownHigh; // max fly hight from orig position
+	private bool flyingDir = false; // going up or down
 
 	// Use this for initialization
 	void Start () {
 		origPos = gameObject.transform.position;
+		upDownLow = origPos.y - upDownDistance;
+		upDownHigh = origPos.y + upDownDistance;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
-		if(transform.position.y <= origPos.y-upDownDistance) {
-			ChangeFlyingDirection();
-		}
-		if(transform.position.y >= origPos.y+upDownDistance) {
-			ChangeFlyingDirection();
-		}
-
-		// Move up and down
-		if(directionUpDown) {
+		//-------------------------------------
+		// Fly up and down
+		if(flyingDir) {
 			transform.position += Vector3.up * upDownSpeed * Time.deltaTime;
 		} else {
 			transform.position -= Vector3.up * upDownSpeed * Time.deltaTime;
 		}
+
+		// switch 
+		if(transform.position.y < upDownLow) {
+			flyingDir = true;
+		}
+
+		if(transform.position.y > upDownHigh){
+			flyingDir = false;
+		}
+		//-------------------------------------		
 
 		// Move left and right
 		if(direction) {
@@ -45,6 +53,7 @@ public class FlyingEnemy : MonoBehaviour {
 		} else {
 			transform.position -= Vector3.forward * moveSpeed * Time.deltaTime;
 		}
+
 	}
 
 	void OnCollisionEnter(Collision col){
@@ -76,11 +85,6 @@ public class FlyingEnemy : MonoBehaviour {
 	// Change the direction of movement
 	void ChangeDirection(){
 		direction = !direction;
-	}
-
-	// Change the flying up down
-	void ChangeFlyingDirection(){
-		directionUpDown = !directionUpDown;
 	}
 
 	private IEnumerator StartDecay(float t){
