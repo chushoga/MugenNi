@@ -31,6 +31,12 @@ public class WalkingEnemy : MonoBehaviour {
 			ChangeDirection();
 		}
 
+		if(col.gameObject.tag == "Player") {
+			// will remove health and respawn at the last jumped position
+			StartCoroutine(col.gameObject.GetComponent<PlayerController>().Respawn());
+		}
+
+		/*
 		if(col.gameObject.tag == "Player" && isAlive == true) {
 			
 			col.gameObject.GetComponent<PlayerController>().RemoveHealth(); // remove a health from the player
@@ -39,6 +45,7 @@ public class WalkingEnemy : MonoBehaviour {
 
 			StartCoroutine(StartDecay(2f)); // Start deletion animation and then destory.
 		}
+		*/
 
 	}
 

@@ -14,12 +14,14 @@ public class PlayerController : MonoBehaviour
 	private readonly Vector3 GRAVITY = new Vector3(0f, -240f, 0f);
 	private int NUM_DOTS_TO_SHOW = 15;
 	private float DOT_TIME_STEP = 0.02f;
+	private float RESPAWN_TIME = 1.5f;
 
 	// -----------------------------------------------------------------
 	/* SHARED VARIABLES */
 	// -----------------------------------------------------------------
 	private Rigidbody rb; // player rigidbody
 	private Vector3 currentPos; // the current player position
+	public Vector3 previousPos; // previous position before jump
 
 	// -----------------------------------------------------------------
 	/* HEALTH */
@@ -91,6 +93,9 @@ public class PlayerController : MonoBehaviour
 		// Current position
 		currentPos = gameObject.transform.localPosition;
 
+		// Previous position initialize as same as current to start
+		previousPos = currentPos;
+
 		// set up jump audio
 		source = gameObject.GetComponent<AudioSource>();
 
@@ -124,7 +129,7 @@ public class PlayerController : MonoBehaviour
 
 	void FixedUpdate() {
 		
-		if(currentPos == gameObject.transform.localPosition){
+		if(currentPos == gameObject.transform.localPosition) {
 			isJumping = false;
 		}
 
@@ -261,6 +266,9 @@ public class PlayerController : MonoBehaviour
 
 	public void Jump(){
 
+		// set the previous position before the jump
+		previousPos = currentPos;
+
 		// play the jump sound
 		source.PlayOneShot(jumpSound, 0.2f);
 
@@ -313,14 +321,42 @@ public class PlayerController : MonoBehaviour
 
 	// Remove health from the player
 	public void RemoveHealth(){
-		print("remove health");
+
 		int hp = health - 1;
+
+		if(health < 0) {
+			FindObjectOfType<LevelManager>().GetComponent<LevelManager>().ReloadScene();
+		}
 
 		if(hp >= 0) {
 			health = hp;
 		} else {
 			health = 0;
 		}
+
+	}
+
+	// Move to last position
+	public IEnumerator Respawn(){
+
+		RemoveHealth(); // remove health
+
+		GameObject model = gameObject.transform.Find("Model").gameObject; // get the reference to the model
+
+		gameObject.transform.Find("shadowProjector").gameObject.GetComponent<Projector>().enabled = false; // turn off the shadowcaster
+		gameObject.transform.Find("Trail").GetComponent<TrailRenderer>().enabled = false; // turn off the trail
+		model.GetComponent<Renderer>().enabled = false; // turn off the renederer
+		canJump = false; // disable jumping
+
+		transform.position = previousPos;
+
+		yield return new WaitForSeconds(RESPAWN_TIME);
+
+
+		gameObject.transform.Find("shadowProjector").gameObject.GetComponent<Projector>().enabled = true; // turn on the shadowcaster
+		gameObject.transform.Find("Trail").GetComponent<TrailRenderer>().enabled = true; // turn on the trail renderer
+		model.GetComponent<Renderer>().enabled = true; // turn on the renderer
+		canJump = true; // enable jumping
 
 	}
 

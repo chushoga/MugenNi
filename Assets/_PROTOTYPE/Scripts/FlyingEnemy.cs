@@ -62,6 +62,12 @@ public class FlyingEnemy : MonoBehaviour {
 			ChangeDirection();
 		}
 
+		if(col.gameObject.tag == "Player") {
+			// will remove health and respawn at the last jumped position
+			StartCoroutine(col.gameObject.GetComponent<PlayerController>().Respawn());
+		}
+
+		/*
 		if(col.gameObject.tag == "Player" && isAlive == true) {
 			
 			col.gameObject.GetComponent<PlayerController>().RemoveHealth(); // remove a health from the player
@@ -69,12 +75,14 @@ public class FlyingEnemy : MonoBehaviour {
 			gameObject.GetComponent<Rigidbody>().AddExplosionForce(100.0f, col.gameObject.transform.position, 1.0f, 1.0f, ForceMode.Impulse); // explosion under enemy
 
 			StartCoroutine(StartDecay(2f)); // Start deletion animation and then destory.
+
 		}
+		*/
 
 	}
 
 	void OnTriggerEnter(Collider col){
-		print("collision: " + col);
+		
 		// if the collision is the bounds reverse movement
 		if(col.gameObject.tag == "Bounds") {
 			ChangeDirection();
