@@ -6,12 +6,11 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 
 	// UI UPDATES
-	public Text updateText;
+	private Text updateText;
 	public static int coinCount = 0;
 
-	// Use this for initialization
 	void Start () {
-		
+		updateText = GameObject.Find("UpdateText").GetComponent<Text>();
 	}
 	
 	// Update is called once per frame

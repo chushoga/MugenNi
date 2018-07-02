@@ -24,6 +24,12 @@ public class PlayerController : MonoBehaviour
 	public Vector3 previousPos; // previous position before jump
 
 	// -----------------------------------------------------------------
+	/* RESPAWN VARIABLES */
+	// -----------------------------------------------------------------
+	public static Vector3 respawnPoint; // the closest spawnPoint
+	private bool isRespawing = false; // check if currently in the process of respawning
+
+	// -----------------------------------------------------------------
 	/* HEALTH */
 	// -----------------------------------------------------------------
 	[Header("Health")]
@@ -42,7 +48,7 @@ public class PlayerController : MonoBehaviour
 	/* UI */
 	// -----------------------------------------------------------------
 	[Header("UI")]
-	[Tooltip("Power Text UI.")] public Text powerTxt; // current power TODO: change to a power bar or remove all together
+	[Tooltip("Power Text UI.")] private Text powerTxt; // current power TODO: change to a power bar or remove all together
 	[Tooltip("Health Panel holding the hearts.")] public GameObject healthPanel; // health panel for showing lives left
 
 	// -----------------------------------------------------------------
@@ -56,7 +62,7 @@ public class PlayerController : MonoBehaviour
 	private bool isCharging = false; // is the jump currently charging
 	private float jumpTimer = 0.0f; // how much time held at max force
 	private float jumpTimerMax = 2.0f; // max time at full force
-	private bool canJump = true; // can the player jump
+	[SerializeField]private bool canJump = true; // can the player jump
 	private static bool isJumping = false; // is the player currently jumping
 
 	// -----------------------------------------------------------------
@@ -90,14 +96,21 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
+
 		// Current position
 		currentPos = gameObject.transform.localPosition;
 
 		// Previous position initialize as same as current to start
 		previousPos = currentPos;
 
+		// Closest Respawn point as the starting pos
+		respawnPoint = currentPos;
+
 		// set up jump audio
 		source = gameObject.GetComponent<AudioSource>();
+
+		// find a set the power text
+		powerTxt = GameObject.Find("PowerText").GetComponent<Text>();
 
 		// set the starting jump timer to the max and get ready for countdown
 		jumpTimer = jumpTimerMax;
@@ -161,7 +174,9 @@ public class PlayerController : MonoBehaviour
 				jumpForce = 0.0f;
 				canJump = false; // do not allow jumping
 			} else {
-				canJump = true;
+				if(isRespawing == false){
+					canJump = true;
+				}
 			}
 
 			// -------------------------------------------------------------------
@@ -341,14 +356,16 @@ public class PlayerController : MonoBehaviour
 
 		RemoveHealth(); // remove health
 
+		isRespawing = true;
+		canJump = false; // disable jumping
+
 		GameObject model = gameObject.transform.Find("Model").gameObject; // get the reference to the model
 
 		gameObject.transform.Find("shadowProjector").gameObject.GetComponent<Projector>().enabled = false; // turn off the shadowcaster
 		gameObject.transform.Find("Trail").GetComponent<TrailRenderer>().enabled = false; // turn off the trail
 		model.GetComponent<Renderer>().enabled = false; // turn off the renederer
-		canJump = false; // disable jumping
 
-		transform.position = previousPos;
+		transform.position = respawnPoint;
 
 		yield return new WaitForSeconds(RESPAWN_TIME);
 
@@ -356,6 +373,8 @@ public class PlayerController : MonoBehaviour
 		gameObject.transform.Find("shadowProjector").gameObject.GetComponent<Projector>().enabled = true; // turn on the shadowcaster
 		gameObject.transform.Find("Trail").GetComponent<TrailRenderer>().enabled = true; // turn on the trail renderer
 		model.GetComponent<Renderer>().enabled = true; // turn on the renderer
+
+		isRespawing = false;
 		canJump = true; // enable jumping
 
 	}

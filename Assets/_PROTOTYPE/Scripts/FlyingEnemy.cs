@@ -9,7 +9,6 @@ public class FlyingEnemy : MonoBehaviour {
 
 	[Tooltip("Movement speed")] public float moveSpeed = 2.0f; // Movement speed
 	private bool direction = true; // The direction flag
-	private bool isAlive = true; // While alive this is true
 	private Vector3 origPos; // The origional postion
 
 	[Header("Verticle Movement")]
@@ -67,18 +66,6 @@ public class FlyingEnemy : MonoBehaviour {
 			StartCoroutine(col.gameObject.GetComponent<PlayerController>().Respawn());
 		}
 
-		/*
-		if(col.gameObject.tag == "Player" && isAlive == true) {
-			
-			col.gameObject.GetComponent<PlayerController>().RemoveHealth(); // remove a health from the player
-			col.gameObject.GetComponent<Rigidbody>().AddExplosionForce(100.0f, gameObject.transform.position, 1.0f, 1.0f, ForceMode.Impulse); // exploion under col
-			gameObject.GetComponent<Rigidbody>().AddExplosionForce(100.0f, col.gameObject.transform.position, 1.0f, 1.0f, ForceMode.Impulse); // explosion under enemy
-
-			StartCoroutine(StartDecay(2f)); // Start deletion animation and then destory.
-
-		}
-		*/
-
 	}
 
 	void OnTriggerEnter(Collider col){
@@ -96,9 +83,7 @@ public class FlyingEnemy : MonoBehaviour {
 	}
 
 	private IEnumerator StartDecay(float t){
-
-		isAlive = false; // is no longer alive
-
+		
 		float endTime = Time.time + t; // timer for a simple blink
 		gameObject.GetComponent<Renderer>().enabled = false; // Hide the mesh to start before the timer starts
 

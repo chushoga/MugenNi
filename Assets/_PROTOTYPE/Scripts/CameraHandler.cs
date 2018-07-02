@@ -6,85 +6,45 @@ using UnityEngine.UI;
 
 public class CameraHandler : MonoBehaviour {
 
-	// UI UPDATES
-	//public Text updateText;
-	//public static int coinCount = 0;
-
-	public Transform target; // target to follow
-	public float smoothTime = 0.5f; // easing smooth time from camera follow
-	public Vector3 velocity = Vector3.zero; // Base velocity
-
+	// -----------------------------------------------------------------
+	/* GERERAL VARIABLES */
+	// -----------------------------------------------------------------
+	private Camera cam; // Main Camera
+	private Transform target; // target to follow
+	private Vector3 velocity = Vector3.zero; // Base velocity
 	private Vector3 origPos; // The original position of the camera
 
+	// -----------------------------------------------------------------
+	/* CAMERA MOVEMENT */
+	// -----------------------------------------------------------------
 	private static readonly float PanSpeed = 20f; // Panning speed
 	private static readonly float ZoomSpeedTouch = 0.06f; // Touch screen zoom speed
 	private static readonly float ZoomSpeedMouse = 2.5f; // Mouse zoom speed
-
+	[Tooltip("The easing time for the camera to follow")] public float smoothTime = 0.5f; // easing smooth time from camera follow
 	private static readonly float[] ZoomBounds = new float[]{7f, 14f}; // Zoom boundry
 
-	private Camera cam; // Main Camera
-
-	private Vector3 lastPanPosition;
+	// -----------------------------------------------------------------
+	/* OTHER VARIABLES */
+	// -----------------------------------------------------------------
+	private Vector3 lastPanPosition; // last panned position
 	private int panFingerId; // Touch mode only
-
 	private bool wasZoomingLastFrame; // Touch mode only
 	private Vector2[] lastZoomPositions; // Touch mode only
-
-	public static bool isPanning = false; // Are we currently panning?
+	private bool isPanning = false; // Are we currently panning?
 	public static bool canPan = false; // Can we pan?
 	private bool isCameraMoving = false; // Is the camera moving?
 
-	void Awake() {
-		cam = GetComponent<Camera>();
-	}
-
 	void Start(){
-		origPos = cam.transform.position;
-		//lastPanPosition = cam.transform.position;
+		
+		cam = GetComponent<Camera>(); // set the camera into a variable
+		origPos = cam.transform.position; // set the origional position for the camera
+		target = FindObjectOfType<PlayerController>().gameObject.transform; // set the target to the player
+
 	}
 
 	void Update(){
-		// TEST TEXT THAT NEEDS TO BE SHOWN ON THE SCREEN....
-		/*
-		if(PlayerController.isJumping){
-			updateText.color = Color.green;
-			updateText.text = "JUMPING";
-		} else {
-			updateText.color = Color.red;
-			updateText.text = "NOT JUMPING";
-		}
-*/
-		//updateText.text = coinCount + "";
-		/*
-		if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetMouseButtonDown(0)) {
-			
-			Ray ray;
 
-			if(Input.GetMouseButtonDown(0)) {
-				ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			} else {
-				ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-			}
-
-			RaycastHit hit;
-			Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 100f);
-
-			if(Physics.Raycast(ray, out hit))
-			{
-				//Debug.Log(hit.transform.name);
-				if (hit.collider.name == "Player") {
-
-					GameObject touchedObject = hit.transform.gameObject;
-
-					touchedObject.GetComponent<Rigidbody>().velocity = new Vector3(20f, 50f, 0f);
-
-					//Debug.Log("Touched " + touchedObject.transform.name);
-				}
-			}
-
-		}
-		*/
-
+		// Handle touch if mobile and if not use mouse controlls
 		if (Input.touchSupported && Application.platform != RuntimePlatform.WebGLPlayer) {
 			// use this to check if the event is over
 			// a ui object and do not do the next action if it is.
@@ -92,6 +52,7 @@ public class CameraHandler : MonoBehaviour {
 				return;
 			}
 			HandleTouch();
+
 		} else {
 			// use this to check if the event is over
 			// a ui object and do not do the next action if it is.
@@ -109,6 +70,7 @@ public class CameraHandler : MonoBehaviour {
 
 	}
 
+	// For mouse controll
 	void HandleMouse() {
 		
 		// On mouse down, capture it's position.
@@ -131,6 +93,7 @@ public class CameraHandler : MonoBehaviour {
 
 	}
 
+	// For touch screens
 	void HandleTouch() {
 		switch(Input.touchCount) {
 
@@ -199,12 +162,10 @@ public class CameraHandler : MonoBehaviour {
 				//canPan = false; // turn off panning
 			}
 
-			
 		}
 	}
 
-
-
+	// pan the camera
 	void PanCamera(Vector3 newPanPosition) {
 		
 		// check if can pan first.
@@ -228,6 +189,7 @@ public class CameraHandler : MonoBehaviour {
 		}
 	}
 
+	// zoom the camera
 	void ZoomCamera(float offset, float speed) {
 		if (offset == 0) {
 			return;
@@ -236,10 +198,9 @@ public class CameraHandler : MonoBehaviour {
 		cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - (offset * speed), ZoomBounds[0], ZoomBounds[1]);
 	}
 
-	public void CanPan(){
-		
+	// flip if can pan or not
+	public void CanPan(){		
 		canPan = !canPan;
-
 	}
 
 }
