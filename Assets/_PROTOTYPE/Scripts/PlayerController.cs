@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 	/* SHARED VARIABLES */
 	// -----------------------------------------------------------------
 	private Rigidbody rb; // player rigidbody
+	private Vector3 startPos;
 	private Vector3 currentPos; // the current player position
 	public Vector3 previousPos; // previous position before jump
 
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour
 	/* RESPAWN VARIABLES */
 	// -----------------------------------------------------------------
 	public static Vector3 respawnPoint; // the closest spawnPoint
-	private bool isRespawing = false; // check if currently in the process of respawning
+	[SerializeField]private bool isRespawing = false; // check if currently in the process of respawning
 
 	// -----------------------------------------------------------------
 	/* HEALTH */
@@ -73,20 +74,19 @@ public class PlayerController : MonoBehaviour
 	private AudioSource source; // audio source for sounds
 
 	void Awake(){
+		// set fixed update interverval to a higher rate for more accurate results.
+		Time.fixedDeltaTime = 0.002f;
 		Physics.gravity = GRAVITY; // set the gravity
 		rb = GetComponent<Rigidbody>(); // get the rigidbody
 
-		// set fixed update interverval to a higher rate for more accurate results.
-		Time.fixedDeltaTime = 0.002f;
+		// Get the health panel and initialize it
+		healthPanel = GameObject.Find("HealthPanel");
 	}
 
 	void Start(){
 
 		// Set the starting health amount;
 		health = initialHealth;
-
-		// Get the health panel and initialize it
-		healthPanel = GameObject.Find("HealthPanel");
 
 		for(int i = 0; i < healthPanel.transform.childCount; i++) {
 			if(i < health) {
@@ -96,6 +96,8 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
+		// starting position
+		startPos = gameObject.transform.position;
 
 		// Current position
 		currentPos = gameObject.transform.localPosition;
@@ -137,6 +139,13 @@ public class PlayerController : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.Space)) {
 			RemoveHealth();
 			print("hp: " + health);
+		}
+
+		// check if have fallen out of bounds and respawn at last point if true
+		if(gameObject.transform.position.y <= startPos.y - 50.0f){
+			if(!isRespawing) {
+				StartCoroutine(Respawn());
+			}
 		}
 	}
 
@@ -353,6 +362,13 @@ public class PlayerController : MonoBehaviour
 
 	// Move to last position
 	public IEnumerator Respawn(){
+
+		LevelManager lm = FindObjectOfType<LevelManager>();
+		lm.coverImage.enabled = true;
+		lm.CrossAlphaWithCallback(lm.coverImage, 0.0f, 1f, delegate {
+			lm.coverImage.enabled = false;
+		});
+
 
 		RemoveHealth(); // remove health
 

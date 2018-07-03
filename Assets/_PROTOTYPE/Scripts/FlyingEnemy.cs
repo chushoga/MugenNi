@@ -82,6 +82,7 @@ public class FlyingEnemy : MonoBehaviour {
 		direction = !direction;
 	}
 
+	// start to delete the object
 	private IEnumerator StartDecay(float t){
 		
 		float endTime = Time.time + t; // timer for a simple blink

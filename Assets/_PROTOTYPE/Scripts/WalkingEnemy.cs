@@ -10,11 +10,6 @@ public class WalkingEnemy : MonoBehaviour {
 	[Tooltip("Movement speed")] public float moveSpeed = 2.0f; // Movement speed
 	private bool direction = true; // The direction flag
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
 	// Update is called once per frame
 	void Update () {
 		if(direction) {
@@ -51,6 +46,7 @@ public class WalkingEnemy : MonoBehaviour {
 		direction = !direction;
 	}
 
+	// Start deleting the enemy
 	private IEnumerator StartDecay(float t){
 		
 		float endTime = Time.time + t; // timer for a simple blink
