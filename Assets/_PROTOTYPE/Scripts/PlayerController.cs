@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
 	[Header("UI")]
 	[Tooltip("Power Text UI.")] private Text powerTxt; // current power TODO: change to a power bar or remove all together
 	[Tooltip("Health Panel holding the hearts.")] public GameObject healthPanel; // health panel for showing lives left
+	public GameObject lm;
 
 	// -----------------------------------------------------------------
 	/* JUMP VARIABLES */
@@ -116,6 +117,9 @@ public class PlayerController : MonoBehaviour
 
 		// set the starting jump timer to the max and get ready for countdown
 		jumpTimer = jumpTimerMax;
+
+		// set level manager instance
+		lm = GameObject.Find("LevelManager");
 
 		// Draw the inital trajectory
 		DrawTrajectory();
@@ -348,8 +352,9 @@ public class PlayerController : MonoBehaviour
 
 		int hp = health - 1;
 
-		if(health < 0) {
-			FindObjectOfType<LevelManager>().GetComponent<LevelManager>().ReloadScene();
+		if(hp < 0) {
+			//FindObjectOfType<LevelManager>().GetComponent<LevelManager>().ReloadScene();
+			lm.gameObject.GetComponent<LevelManager>().ReloadScene();
 		}
 
 		if(hp >= 0) {
@@ -358,18 +363,15 @@ public class PlayerController : MonoBehaviour
 			health = 0;
 		}
 
+		if(hp == 0)
+		{
+			//lm.ShowGameOver();
+		}
 	}
 
 	// Move to last position
 	public IEnumerator Respawn(){
-
-		LevelManager lm = FindObjectOfType<LevelManager>();
-		lm.coverImage.enabled = true;
-		lm.CrossAlphaWithCallback(lm.coverImage, 0.0f, 1f, delegate {
-			lm.coverImage.enabled = false;
-		});
-
-
+		
 		RemoveHealth(); // remove health
 
 		isRespawing = true;
