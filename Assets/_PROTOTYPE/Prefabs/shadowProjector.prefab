@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4661186468464014}
   - component: {fileID: 119323214163065674}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: shadowProjector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1343195832808452}
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 9.5, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -57,4 +57,4 @@ Projector:
   m_Material: {fileID: 2100000, guid: 8d60411ed4aff7c4b80649b4f2324cf6, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 1792
