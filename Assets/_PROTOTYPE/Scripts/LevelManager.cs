@@ -29,24 +29,32 @@ public class LevelManager : MonoBehaviour {
 
 		// set up the canvas properites
 		fadeCanvas.renderMode = RenderMode.ScreenSpaceOverlay; // set the render movde to overlay screen space
-		fadeCanvas.sortingOrder = 1; // change sorting order so it is above the rest of the GUI
+		//fadeCanvas.sortingOrder = 1; // change sorting order so it is above the rest of the GUI
 
 		// add an image to the canvas
 		coverImage = fadeCanvas.gameObject.AddComponent<Image>(); 
+		coverImage.name = "COVER_IMAGE";
 		coverImage.color = Color.black; // set the color to black
-		coverImage.enabled = true; // start by enabling the image
+		coverImage.canvasRenderer.SetAlpha(1.0f);
+		coverImage.rectTransform.anchorMin = new Vector2(1.0f, 0f);
+		coverImage.rectTransform.anchorMax = new Vector2(0f, 1.0f);
+		coverImage.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+
+		//coverImage.enabled = true; // start by enabling the image
 
 		// GAME OVER SCREEN SETUP
 		gameOverScreen = new GameObject("GameOverScreen"); // create gameoverScreen parent to the main canvas
 		gameOverScreen.gameObject.transform.parent = fadeCanvas.transform; // set the parent to the fade canvas
 		gameOverPanel = gameOverScreen.AddComponent<CanvasGroup>(); // add canvas group to the overlay gameobject
-		gameOverPanel.interactable = false; // do not let it be interactable
-		gameOverPanel.blocksRaycasts = true; // stop raycasts from ti
+		HideGameOver();
 
 		// start with fading in
+		FadeIn(2.0f);
+		/*
 		CrossAlphaWithCallback(coverImage, 0f, fadeSpeed, delegate {
 			coverImage.enabled = false;
 		});
+		*/
 
 	}
 
@@ -68,23 +76,27 @@ public class LevelManager : MonoBehaviour {
 	public void ReloadScene(){
 
 		Time.timeScale = 1.0f; // makes sure the timescale is reset if game was paused.
-		print("RELOAD SCENE");
-		CrossAlphaWithCallback(coverImage, 1f, fadeSpeed / 2f, delegate {
-			Scene scene = SceneManager.GetActiveScene();
-			SceneManager.LoadScene(scene.name);
-		});
 
+		Scene scene = SceneManager.GetActiveScene();
+		SceneManager.LoadScene(scene.name);
+
+		/*
+		CrossAlphaWithCallback(coverImage, 1f, fadeSpeed / 2f, delegate {
+			
+		});
+		*/
 	}
 
 	// load the scene with the provided name
 	public void LoadScene(string sceneName){
 
 		Time.timeScale = 1.0f; // make sure the time scale is reset incase game was paused.
-
+		/*
 		// fade out
 		CrossAlphaWithCallback(coverImage, 1f, fadeSpeed, delegate {
 			SceneManager.LoadScene(sceneName);
 		});
+		*/
 	}
 
 	// fade out screen
@@ -112,4 +124,12 @@ public class LevelManager : MonoBehaviour {
 
 	}
 
+
+	public void FadeOut(float fadeSpeed){
+		coverImage.CrossFadeAlpha(1.0f, fadeSpeed, true);
+	}	
+
+	public void FadeIn(float fadeSpeed){
+		coverImage.CrossFadeAlpha(0.0f, fadeSpeed, true);
+	}
 }

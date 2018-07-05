@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
 	private Vector3 startPos;
 	private Vector3 currentPos; // the current player position
 	public Vector3 previousPos; // previous position before jump
+	private Camera cam;
 
 	// -----------------------------------------------------------------
 	/* RESPAWN VARIABLES */
@@ -51,7 +52,7 @@ public class PlayerController : MonoBehaviour
 	[Header("UI")]
 	[Tooltip("Power Text UI.")] private Text powerTxt; // current power TODO: change to a power bar or remove all together
 	[Tooltip("Health Panel holding the hearts.")] public GameObject healthPanel; // health panel for showing lives left
-	public GameObject lm;
+	public LevelManager lm;
 
 	// -----------------------------------------------------------------
 	/* JUMP VARIABLES */
@@ -82,6 +83,9 @@ public class PlayerController : MonoBehaviour
 
 		// Get the health panel and initialize it
 		healthPanel = GameObject.Find("HealthPanel");
+
+		// Get a reference to the main camera
+		cam = Camera.main;
 	}
 
 	void Start(){
@@ -119,7 +123,7 @@ public class PlayerController : MonoBehaviour
 		jumpTimer = jumpTimerMax;
 
 		// set level manager instance
-		lm = GameObject.Find("LevelManager");
+		lm = GameObject.Find("LevelManager").gameObject.GetComponent<LevelManager>();
 
 		// Draw the inital trajectory
 		DrawTrajectory();
@@ -349,29 +353,35 @@ public class PlayerController : MonoBehaviour
 
 	// Remove health from the player
 	public void RemoveHealth(){
-
+		
 		int hp = health - 1;
 
-		if(hp < 0) {
-			//FindObjectOfType<LevelManager>().GetComponent<LevelManager>().ReloadScene();
-			lm.gameObject.GetComponent<LevelManager>().ReloadScene();
-		}
-
-		if(hp >= 0) {
+		// make sure that the health is not below 0 if it is then set to 0
+		if(hp >= 1) {
 			health = hp;
 		} else {
 			health = 0;
 		}
 
-		if(hp == 0)
-		{
-			//lm.ShowGameOver();
+		if(health == 0) {
+			lm.ReloadScene();
+			// TODO: this should be gameover screen not reload
+		} else {
+			// fade out screen
+			/*
+			lm.CrossAlphaWithCallback(lm.coverImage, 1f, 1f, delegate {
+				lm.coverImage.enabled = false;
+			});
+			*/
 		}
 	}
 
 	// Move to last position
 	public IEnumerator Respawn(){
-		
+
+		lm.FadeOut(RESPAWN_TIME);
+		yield return new WaitForSeconds(RESPAWN_TIME);
+
 		RemoveHealth(); // remove health
 
 		isRespawing = true;
@@ -383,14 +393,17 @@ public class PlayerController : MonoBehaviour
 		gameObject.transform.Find("Trail").GetComponent<TrailRenderer>().enabled = false; // turn off the trail
 		model.GetComponent<Renderer>().enabled = false; // turn off the renederer
 
-		transform.position = respawnPoint;
+		transform.position = respawnPoint; // reset position to last save point
+		cam.transform.position = gameObject.transform.position; // reset the position of the camera quick instead of follow with lerp
 
-		yield return new WaitForSeconds(RESPAWN_TIME);
+		lm.FadeIn(RESPAWN_TIME);
 
 
 		gameObject.transform.Find("shadowProjector").gameObject.GetComponent<Projector>().enabled = true; // turn on the shadowcaster
 		gameObject.transform.Find("Trail").GetComponent<TrailRenderer>().enabled = true; // turn on the trail renderer
 		model.GetComponent<Renderer>().enabled = true; // turn on the renderer
+
+		yield return new WaitForSeconds(RESPAWN_TIME);
 
 		isRespawing = false;
 		canJump = true; // enable jumping

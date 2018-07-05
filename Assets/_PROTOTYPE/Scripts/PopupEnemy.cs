@@ -10,7 +10,6 @@ public class PopupEnemy : MonoBehaviour {
 	[Tooltip("Range to start jumping from")]public float aggroRadius = 20.0f; // aggro range
 	private bool loopIt = true;	// keep looping the jump? if you want to stop jumping then set this to false
 	private bool isJumping = false; // set inital state
-	private bool canCauseDamage = true; // can cause damage
 	private SphereCollider aggroRange; // agro range
 	private Rigidbody rb; // ridged body
 
