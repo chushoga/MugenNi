@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 	private readonly Vector3 GRAVITY = new Vector3(0f, -240f, 0f);
 	private int NUM_DOTS_TO_SHOW = 15;
 	private float DOT_TIME_STEP = 0.02f;
-	private float RESPAWN_TIME = 1.5f;
+	private float RESPAWN_TIME = 0.5f;
 
 	// -----------------------------------------------------------------
 	/* SHARED VARIABLES */
@@ -379,13 +379,13 @@ public class PlayerController : MonoBehaviour
 	// Move to last position
 	public IEnumerator Respawn(){
 
+		isRespawing = true;
+		canJump = false; // disable jumping
+
 		lm.FadeOut(RESPAWN_TIME);
 		yield return new WaitForSeconds(RESPAWN_TIME);
 
 		RemoveHealth(); // remove health
-
-		isRespawing = true;
-		canJump = false; // disable jumping
 
 		GameObject model = gameObject.transform.Find("Model").gameObject; // get the reference to the model
 
@@ -396,6 +396,7 @@ public class PlayerController : MonoBehaviour
 		transform.position = respawnPoint; // reset position to last save point
 		cam.transform.position = gameObject.transform.position; // reset the position of the camera quick instead of follow with lerp
 
+		yield return new WaitForSeconds(RESPAWN_TIME/2);
 		lm.FadeIn(RESPAWN_TIME);
 
 

@@ -44,6 +44,7 @@ public class PopupEnemy : MonoBehaviour {
 
 	}
 
+	// WHEN THE PLAYER IS WITHIN RANGE START JUMPING UP AND DOWN
 	// if the collision is the player then respawn
 	void OnTriggerEnter(Collider col){
 		if(col.tag == "Player" && isJumping == false){
