@@ -80,23 +80,16 @@ public class LevelManager : MonoBehaviour {
 		Scene scene = SceneManager.GetActiveScene();
 		SceneManager.LoadScene(scene.name);
 
-		/*
-		CrossAlphaWithCallback(coverImage, 1f, fadeSpeed / 2f, delegate {
-			
-		});
-		*/
+
 	}
 
 	// load the scene with the provided name
 	public void LoadScene(string sceneName){
 
 		Time.timeScale = 1.0f; // make sure the time scale is reset incase game was paused.
-		/*
-		// fade out
-		CrossAlphaWithCallback(coverImage, 1f, fadeSpeed, delegate {
-			SceneManager.LoadScene(sceneName);
-		});
-		*/
+
+		FadeIn(2.0f);
+
 	}
 
 	// fade out screen

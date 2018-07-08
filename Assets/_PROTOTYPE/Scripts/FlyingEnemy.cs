@@ -82,20 +82,5 @@ public class FlyingEnemy : MonoBehaviour {
 		direction = !direction;
 	}
 
-	// start to delete the object
-	private IEnumerator StartDecay(float t){
-		
-		float endTime = Time.time + t; // timer for a simple blink
-		gameObject.GetComponent<Renderer>().enabled = false; // Hide the mesh to start before the timer starts
 
-		// blink the renderer
-		while(Time.time < endTime){
-			yield return new WaitForSeconds(0.2f);	// Wait for n seconds
-			gameObject.GetComponent<Renderer>().enabled = true; // Show mesh
-			yield return new WaitForSeconds(0.2f);	// Wait for n seconds
-			gameObject.GetComponent<Renderer>().enabled = false; // Show mesh
-		}
-
-		Destroy(gameObject); // Destroy the gameObject
-	}
 }

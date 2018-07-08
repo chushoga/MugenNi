@@ -12,8 +12,11 @@ public class LevelClear : MonoBehaviour {
 		lm = GameObject.Find("LevelManager").gameObject.GetComponent<LevelManager>();
 	}
 
-	void OnCollisionEnter(Collision col){
+	void OnTriggerEnter(Collider col){
 		if(col.gameObject.tag == "Player") {
+
+			gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
+
 			StartCoroutine(EndLevel(2.0f));
 		}
 	}
@@ -21,6 +24,7 @@ public class LevelClear : MonoBehaviour {
 	private IEnumerator EndLevel(float waitTime){
 
 		lm.FadeOut(waitTime);
+
 		yield return new WaitForSeconds(waitTime);
 
 		lm.LoadScene("LevelSelect");

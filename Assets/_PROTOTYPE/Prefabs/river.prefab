@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1685977217984202}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 18.16, y: -0.55, z: 0}
   m_LocalScale: {x: 1, y: 4, z: 6.81}
   m_Children:
   - {fileID: 4710398794121048}
@@ -165,17 +165,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9fe56914ca86249984a60990d74efd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  startPosition: {x: 0, y: 0, z: 0}
+  moveSpeed: 200
   moveDirection: 1
-  isChangingDirection: 0
-  isConveyor: 1
-  conveyorRotation: 1
-  conveyorDirection: 0
+  model: {fileID: 0}
   moveHorizontal: 0
+  moveHorizontalMax: 3
   moveVerticle: 0
   moveVerticleMax: 5
   moveCircular: 0
-  circleCenter: {x: 0, y: 0, z: 0}
   moveCircleRadius: 1
   degreesPerSecond: 65
+  isConveyor: 1
+  conveyorSpeed: 30
+  conveyorRotation: 1
+  conveyorDirection: 0
+  willFall: 0
+  fallTimer: 1
+  inPhase: 0
+  phaseTimer: 5

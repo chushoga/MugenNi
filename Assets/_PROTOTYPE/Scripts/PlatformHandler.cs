@@ -23,6 +23,7 @@ public class PlatformHandler : MonoBehaviour {
 	[Header("Horizontal")]
 	// -----------------------------------------------------------------
 	[Tooltip("")] public bool moveHorizontal = false; // Follow a horizontal path
+	public float moveHorizontalMax = 3.0f;
 
 	[Header("Vecticle")]
 	// -----------------------------------------------------------------
@@ -137,11 +138,19 @@ public class PlatformHandler : MonoBehaviour {
 	// Move the platform horizontal left or right depending on the move direction.
 	void MoveHorizontal(){
 
+		// Check that the y position is not above the max or below the starting point
+		// and if it is reverse the direction.
+		if(gameObject.transform.position.x > (startPosition.x + moveHorizontalMax)) {
+			moveDirection = !moveDirection;
+		} else if(gameObject.transform.position.x < startPosition.x) {
+			moveDirection = !moveDirection;
+		}
+
 		// move left or right
 		if(moveDirection) {
-			transform.position += Vector3.forward * moveSpeed * Time.deltaTime;
+			transform.position += Vector3.left * moveSpeed * Time.deltaTime;
 		} else {
-			transform.position -= Vector3.forward * moveSpeed * Time.deltaTime;
+			transform.position -= Vector3.left * moveSpeed * Time.deltaTime;
 		}
 	}
 

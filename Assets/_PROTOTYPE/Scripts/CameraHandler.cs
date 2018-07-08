@@ -12,7 +12,7 @@ public class CameraHandler : MonoBehaviour {
 	private Camera cam; // Main Camera
 	private Transform target; // target to follow
 	private Vector3 velocity = Vector3.zero; // Base velocity
-	private Vector3 origPos; // The original position of the camera
+	public Vector3 origPos; // The original position of the camera
 
 	// -----------------------------------------------------------------
 	/* CAMERA MOVEMENT */

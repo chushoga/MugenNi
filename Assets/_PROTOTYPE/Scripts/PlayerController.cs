@@ -394,7 +394,9 @@ public class PlayerController : MonoBehaviour
 		model.GetComponent<Renderer>().enabled = false; // turn off the renederer
 
 		transform.position = respawnPoint; // reset position to last save point
-		cam.transform.position = gameObject.transform.position; // reset the position of the camera quick instead of follow with lerp
+
+		// reset the position of the camera quick instead of follow with lerp
+		cam.transform.position = gameObject.transform.position + cam.GetComponent<CameraHandler>().origPos; 
 
 		yield return new WaitForSeconds(RESPAWN_TIME/2);
 		lm.FadeIn(RESPAWN_TIME);
