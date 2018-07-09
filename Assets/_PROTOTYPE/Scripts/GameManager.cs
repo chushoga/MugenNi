@@ -14,13 +14,13 @@ public class GameManager : MonoBehaviour {
 	private float GameTime = 0.0f; // Time since start of level TODO: if fading in or can not move char then pause the counter
 	private Text GameTimeText; // The text var for the game time.
 
-	void Start () {
+	void Start() {
 		CoinCounter = GameObject.Find("ItemPickupText").GetComponent<Text>(); // initalize the un-needed helper text
 		GameTimeText = GameObject.Find("GameTimerText").GetComponent<Text>(); // initialize the game timer text
 	}
 	
 	// Update is called once per frame
-	void Update () {		
+	void Update() {		
 		UpdateGameTime(); // update the game time.
 	}
 
@@ -38,7 +38,8 @@ public class GameManager : MonoBehaviour {
 
 	// Update teh coin counter text
 	public void UpdateCoinCounter(int x){
-		coinCount += x;
+		coinCount += x;        
 		CoinCounter.text = " x " + coinCount;
 	}
+
 }
