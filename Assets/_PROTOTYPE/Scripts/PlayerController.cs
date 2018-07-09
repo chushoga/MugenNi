@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
 	[Tooltip("Power Text UI.")] private Text powerTxt; // current power TODO: change to a power bar or remove all together
 	[Tooltip("Health Panel holding the hearts.")] public GameObject healthPanel; // health panel for showing lives left
 	public LevelManager lm;
+	public GameManager gm;
 
 	// -----------------------------------------------------------------
 	/* JUMP VARIABLES */
@@ -124,6 +125,9 @@ public class PlayerController : MonoBehaviour
 
 		// set level manager instance
 		lm = GameObject.Find("LevelManager").gameObject.GetComponent<LevelManager>();
+
+		// reference for the game manager
+		gm = GameObject.Find("GameManager").gameObject.GetComponent<GameManager>();
 
 		// Draw the inital trajectory
 		DrawTrajectory();
@@ -297,6 +301,9 @@ public class PlayerController : MonoBehaviour
 	}
 
 	public void Jump(){
+
+		// increase the jump count
+		gm.jumpCounter += 1;
 
 		// set the previous position before the jump
 		previousPos = currentPos;
