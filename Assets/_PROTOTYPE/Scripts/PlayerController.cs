@@ -50,8 +50,9 @@ public class PlayerController : MonoBehaviour
 	/* UI */
 	// -----------------------------------------------------------------
 	[Header("UI")]
-	[Tooltip("Power Text UI.")] private Text powerTxt; // current power TODO: change to a power bar or remove all together
 	[Tooltip("Health Panel holding the hearts.")] public GameObject healthPanel; // health panel for showing lives left
+	private Text powerTxt; // current power TODO: change to a power bar or remove all together
+	private Slider powerBar; // power bar
 	public LevelManager lm;
 	public GameManager gm;
 
@@ -120,6 +121,8 @@ public class PlayerController : MonoBehaviour
 		// find a set the power text
 		powerTxt = GameObject.Find("PowerText").GetComponent<Text>();
 
+		powerBar = GameObject.Find("PowerBar").GetComponent<Slider>();
+
 		// set the starting jump timer to the max and get ready for countdown
 		jumpTimer = jumpTimerMax;
 
@@ -136,8 +139,9 @@ public class PlayerController : MonoBehaviour
 	void Update(){
 		// TEMP: Update the jump force
 		// TODO: Add a power bar at the bottom somwhere?
-		// 		 Need to have some kind of feedback....
-		powerTxt.text = jumpForce + ""; 
+		//powerTxt.text = jumpForce + ""; 
+
+		powerBar.value = ((jumpForce * 100) / jumpForceMax) / 100 ;
 
 		// Update the health panel
 		for(int i = 0; i < healthPanel.transform.childCount; i++) {

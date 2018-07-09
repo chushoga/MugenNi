@@ -57,7 +57,6 @@ GameObject:
   - component: {fileID: 222743247691499522}
   - component: {fileID: 114194601912825506}
   - component: {fileID: 114020512557265136}
-  - component: {fileID: 114367904303589552}
   m_Layer: 5
   m_Name: Pan
   m_TagString: Untagged
@@ -268,7 +267,6 @@ GameObject:
   - component: {fileID: 222602270935206906}
   - component: {fileID: 114031037182041772}
   - component: {fileID: 114580705809440266}
-  - component: {fileID: 114397630176148692}
   m_Layer: 5
   m_Name: Restart
   m_TagString: Untagged
@@ -367,7 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.547}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.103}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -394,7 +392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.547}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.103}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -483,34 +481,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 0
---- !u!114 &114367904303589552
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1329794932301020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.125, g: 0.125, b: 0.125, a: 0.556}
-  m_EffectDistance: {x: 1, y: -1}
-  m_UseGraphicAlpha: 1
---- !u!114 &114397630176148692
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1928568379611012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.125, g: 0.125, b: 0.125, a: 0.556}
-  m_EffectDistance: {x: 2, y: -2}
-  m_UseGraphicAlpha: 1
 --- !u!114 &114428404755197902
 MonoBehaviour:
   m_ObjectHideFlags: 1
