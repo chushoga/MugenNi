@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour
 		//powerTxt.text = jumpForce + ""; 
 
 		powerBar.value = ((jumpForce * 100) / jumpForceMax) / 100 ;
-
+        
 		// Update the health panel
 		for(int i = 0; i < healthPanel.transform.childCount; i++) {
 			if(i < health) {
@@ -193,6 +193,17 @@ public class PlayerController : MonoBehaviour
 			if(jumpForce >= jumpForceMax) {
 				jumpTimer -= Time.deltaTime;	
 			} 
+
+            // change color of bar to show that the charge will end soon
+            if(jumpTimer <= jumpTimerMax / 2)
+            {   
+                Image img = GameObject.Find("PowerBarFill").gameObject.GetComponent<Image>();
+                img.color = Color.red;
+            } else
+            {
+                Image img = GameObject.Find("PowerBarFill").gameObject.GetComponent<Image>();
+                img.color = Color.white;
+            }
 
 			// reset the jump force if timer hits 0
 			if(jumpTimer <= 0.0f) {
