@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
 
 	// UI UPDATES
 	[Header("UI UPDATES")]
-	[Tooltip("Coins collected")]public static int coinCount = 0;
+	[Tooltip("Coins collected")]public int coinCount = 0;
 	[Tooltip("Current jumps taken")]public int jumpCounter = 0;
 
 	private Text CoinCounter; // Not needed, used for testing

@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
 	// -----------------------------------------------------------------
 	[Header("UI")]
 	[Tooltip("Health Panel holding the hearts.")] public GameObject healthPanel; // health panel for showing lives left
-	private Text powerTxt; // current power TODO: change to a power bar or remove all together
+	//private Text powerTxt; // current power TODO: change to a power bar or remove all together
 	private Slider powerBar; // power bar
 	public LevelManager lm;
 	public GameManager gm;
@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
 		source = gameObject.GetComponent<AudioSource>();
 
 		// find a set the power text
-		powerTxt = GameObject.Find("PowerText").GetComponent<Text>();
+		//powerTxt = GameObject.Find("PowerText").GetComponent<Text>();
 
 		powerBar = GameObject.Find("PowerBar").GetComponent<Slider>();
 
