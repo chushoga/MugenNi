@@ -1,0 +1,95 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class GameManager : MonoBehaviour {
+
+	// UI UPDATES
+	[Header("UI UPDATES")]
+	[Tooltip("Coins collected")]public int coinCount = 0;
+	[Tooltip("Current jumps taken")]public int jumpCounter = 0;
+
+    // -----------------------------------------------------------------
+    /* HEALTH */
+    // -----------------------------------------------------------------
+    [Header("Health")]
+    [Tooltip("Max health that player can have.")] public int initialHealth = 3; // the starting health amount
+    [Tooltip("Current player health")]   public int currentHealth; // player current health
+
+    // -----------------------------------------------------------------
+    /* UI */
+    // -----------------------------------------------------------------
+    [Header("UI")]
+    [Tooltip("Health Panel holding the hearts.")] public GameObject healthPanel; // health panel for showing lives left
+
+    private Text CoinCounter; // Not needed, used for testing
+	private float GameTime = 0.0f; // Time since start of level TODO: if fading in or can not move char then pause the counter
+	private Text GameTimeText; // The text var for the game time.
+
+    private void Awake()
+    {
+        // Get the health panel and initialize it
+        healthPanel = GameObject.Find("HealthPanel");
+    }
+
+    void Start() {
+
+        // Set the starting health amount;
+        currentHealth = initialHealth;
+
+        for (int i = 0; i < healthPanel.transform.childCount; i++)
+        {
+            if (i < currentHealth)
+            {
+                healthPanel.transform.GetChild(i).gameObject.SetActive(true);
+            }
+            else
+            {
+                healthPanel.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+
+
+        CoinCounter = GameObject.Find("ItemPickupText").GetComponent<Text>(); // initalize the un-needed helper text
+		GameTimeText = GameObject.Find("GameTimerText").GetComponent<Text>(); // initialize the game timer text
+	}
+	
+	// Update is called once per frame
+	void Update() {		
+		UpdateGameTime(); // update the game time.
+
+        // Update the health panel
+        for (int i = 0; i < healthPanel.transform.childCount; i++)
+        {
+            if (i < currentHealth)
+            {
+                healthPanel.transform.GetChild(i).gameObject.SetActive(true);
+            }
+            else
+            {
+                healthPanel.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+
+    }
+
+	// Update the game time
+	void UpdateGameTime(){
+		
+		GameTime = Time.time;
+
+		int minutes = Mathf.FloorToInt(GameTime / 60.0f);
+		int seconds = Mathf.FloorToInt(GameTime - minutes * 60);
+		string niceTime = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+		GameTimeText.text = niceTime;
+	}
+
+	// Update teh coin counter text
+	public void UpdateCoinCounter(int x){
+		coinCount += x;        
+		CoinCounter.text = " x " + coinCount;
+	}
+
+}

@@ -273,9 +273,7 @@ public class PlatformHandler : MonoBehaviour {
 		}
 	}
 
-
-
-	// Start the drop platform Timer
+    // Start the drop platform Timer
 	private IEnumerator StartFalling(float t){
 
 		float endTime = Time.time + t; // timer for a simple blink

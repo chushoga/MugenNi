@@ -31,13 +31,6 @@ public class PlayerController : MonoBehaviour
 	public static Vector3 respawnPoint; // the closest spawnPoint
 	[SerializeField]private bool isRespawing = false; // check if currently in the process of respawning
 
-	// -----------------------------------------------------------------
-	/* HEALTH */
-	// -----------------------------------------------------------------
-	[Header("Health")]
-	[Tooltip("Max health that player can have.")] public int initialHealth = 3; // the starting health amount
-	[SerializeField] private int health; // player current health
-
 
 	// -----------------------------------------------------------------
 	/* TRAJECTORY SIMULATION */
@@ -46,11 +39,7 @@ public class PlayerController : MonoBehaviour
 	[Tooltip("Prefab for the trajectory dot.")] public GameObject trajectoryDotPrefab; // prefab for the trajectory dot
 	[Tooltip("The trajectory dot container.")] public GameObject trajectoryContainer; // container for the trajectory dots
 
-	// -----------------------------------------------------------------
-	/* UI */
-	// -----------------------------------------------------------------
-	[Header("UI")]
-	[Tooltip("Health Panel holding the hearts.")] public GameObject healthPanel; // health panel for showing lives left
+
 	//private Text powerTxt; // current power TODO: change to a power bar or remove all together
 	private Slider powerBar; // power bar
 	public LevelManager lm;
@@ -83,26 +72,13 @@ public class PlayerController : MonoBehaviour
 		Physics.gravity = GRAVITY; // set the gravity
 		rb = GetComponent<Rigidbody>(); // get the rigidbody
 
-		// Get the health panel and initialize it
-		healthPanel = GameObject.Find("HealthPanel");
-
 		// Get a reference to the main camera
 		cam = Camera.main;
 	}
 
 	void Start(){
 
-		// Set the starting health amount;
-		health = initialHealth;
-
-		for(int i = 0; i < healthPanel.transform.childCount; i++) {
-			if(i < health) {
-				healthPanel.transform.GetChild(i).gameObject.SetActive(true);
-			} else {
-				healthPanel.transform.GetChild(i).gameObject.SetActive(false);
-			}
-		}
-
+		
 		// starting position
 		startPos = gameObject.transform.position;
 
@@ -142,23 +118,14 @@ public class PlayerController : MonoBehaviour
 		//powerTxt.text = jumpForce + ""; 
 
 		powerBar.value = ((jumpForce * 100) / jumpForceMax) / 100 ;
-        
-		// Update the health panel
-		for(int i = 0; i < healthPanel.transform.childCount; i++) {
-			if(i < health) {
-				healthPanel.transform.GetChild(i).gameObject.SetActive(true);
-			} else {
-				healthPanel.transform.GetChild(i).gameObject.SetActive(false);
-			}
-		}
 
-		if(Input.GetKeyDown(KeyCode.Space)) {
-			RemoveHealth();
-			print("hp: " + health);
-		}
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            RemoveHealth();
+        }
 
-		// check if have fallen out of bounds and respawn at last point if true
-		if(gameObject.transform.position.y <= startPos.y - 50.0f){
+        // check if have fallen out of bounds and respawn at last point if true
+        if (gameObject.transform.position.y <= startPos.y - 50.0f){
 			if(!isRespawing) {
 				StartCoroutine(Respawn());
 			}
@@ -218,7 +185,7 @@ public class PlayerController : MonoBehaviour
 			// -------------------------------------------------------------------
 
 			// if panning is toggled off and currently pressing on the screen then increase the jump force.
-			if(CameraHandler.canPan == false && canJump == true && isJumping == false){
+			if(CameraController.canPan == false && canJump == true && isJumping == false){
 				IncreaseJumpForce();
 			}
 
@@ -363,12 +330,12 @@ public class PlayerController : MonoBehaviour
 	// Add health to the player
 	public void AddHealth(){
 		
-		int hp = 1 + health;
+		int hp = 1 + gm.currentHealth;
 
-		if(hp <= initialHealth) {
-			health = hp;
+		if(hp <= gm.initialHealth) {
+			gm.currentHealth = hp;
 		} else {
-			health = initialHealth;
+			gm.currentHealth = gm.initialHealth;
 		}
 
 	}
@@ -376,16 +343,16 @@ public class PlayerController : MonoBehaviour
 	// Remove health from the player
 	public void RemoveHealth(){
 		
-		int hp = health - 1;
+		int hp = gm.currentHealth - 1;
 
 		// make sure that the health is not below 0 if it is then set to 0
 		if(hp >= 1) {
-			health = hp;
+			gm.currentHealth = hp;
 		} else {
-			health = 0;
+			gm.currentHealth = 0;
 		}
 
-		if(health == 0) {
+		if(gm.currentHealth == 0) {
 			lm.ReloadScene();
 			// TODO: this should be gameover screen not reload
 		} else {
@@ -418,7 +385,7 @@ public class PlayerController : MonoBehaviour
 		transform.position = respawnPoint; // reset position to last save point
 
 		// reset the position of the camera quick instead of follow with lerp
-		cam.transform.position = gameObject.transform.position + cam.GetComponent<CameraHandler>().origPos; 
+		cam.transform.position = gameObject.transform.position + cam.GetComponent<CameraController>().origPos; 
 
 		yield return new WaitForSeconds(RESPAWN_TIME/2);
 		lm.FadeIn(RESPAWN_TIME);
