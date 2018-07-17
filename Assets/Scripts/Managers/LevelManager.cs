@@ -80,29 +80,25 @@ public class LevelManager : MonoBehaviour {
 		Scene scene = SceneManager.GetActiveScene();
 		SceneManager.LoadScene(scene.name);
 
-
 	}
+   
+    // used to start a corutine from the buttons in editor
+    public void StartLoad(string sceneName) {
+        StartCoroutine(LoadScene(sceneName, 2.0f));
+    }
 
-	// load the scene with the provided name
-	public void LoadScene(string sceneName){
+    // load the scene with the provided name
+    public IEnumerator LoadScene(string sceneName, float fadeSpeed){
 
-		Time.timeScale = 1.0f; // make sure the time scale is reset incase game was paused.
-        print("attempted to load the scene " + sceneName);
-        FadeOut(2.0f);
-        print("attempted to load the scene " + sceneName);
+        //Time.timeScale = 0;
+        FadeOut(fadeSpeed);
+        yield return new WaitForSeconds(fadeSpeed);
         SceneManager.LoadScene(sceneName);
 
-        
-
-	}
-
-	// fade out screen
-	public void CrossAlphaWithCallback(Image img, float alpha, float duration, System.Action action){
-		StartCoroutine(CrossFadeAlphaCOR(img, alpha, duration, action));
-	}
+    }
 
 	// Start the fade
-	private IEnumerator CrossFadeAlphaCOR(Image img, float alpha, float duration, System.Action action){
+	private IEnumerator CrossFadeAlpha(Image img, float alpha, float duration, System.Action action){
 
 		img.enabled = true; // enable the image
 
@@ -120,7 +116,6 @@ public class LevelManager : MonoBehaviour {
 		action.Invoke();
 
 	}
-
 
 	public void FadeOut(float fadeSpeed){
 		coverImage.CrossFadeAlpha(1.0f, fadeSpeed, true);

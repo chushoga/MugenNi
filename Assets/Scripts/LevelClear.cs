@@ -17,8 +17,12 @@ public class LevelClear : MonoBehaviour {
 
 			gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
 
-			StartCoroutine(EndLevel(2.0f));
-		}
+            lm.StartLoad("LevelSelect");
+
+            //StartCoroutine(lm.LoadScene());
+            //StartCoroutine(EndLevel(2.0f));
+
+        }
 	}
 
 	private IEnumerator EndLevel(float waitTime){
@@ -27,7 +31,7 @@ public class LevelClear : MonoBehaviour {
 
 		yield return new WaitForSeconds(waitTime);
 
-		lm.LoadScene("LevelSelect");
+		StartCoroutine(lm.LoadScene("LevelSelect", 2.0f));
 
 	}
 }
