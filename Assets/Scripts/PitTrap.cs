@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PitTrap : MonoBehaviour {
 	
-	public GameObject hing;
-	private HingeJoint hj;
+	[Tooltip("The door")]public GameObject hing; // consider finding the object in the parent instead of making it public
+	private HingeJoint hj; // the hing
 
 	// Use this for initialization
-	void Start () {
-		hj = hing.GetComponent<HingeJoint>();
+	void Start (){
+		hj = hing.GetComponent<HingeJoint>(); // grab the hing
 	}
 
 	void OnCollisionEnter(Collision col){

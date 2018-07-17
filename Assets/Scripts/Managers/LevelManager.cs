@@ -87,8 +87,12 @@ public class LevelManager : MonoBehaviour {
 	public void LoadScene(string sceneName){
 
 		Time.timeScale = 1.0f; // make sure the time scale is reset incase game was paused.
+        print("attempted to load the scene " + sceneName);
+        FadeOut(2.0f);
+        print("attempted to load the scene " + sceneName);
+        SceneManager.LoadScene(sceneName);
 
-		FadeIn(2.0f);
+        
 
 	}
 
