@@ -49,7 +49,7 @@ public class LevelManager : MonoBehaviour {
 		HideGameOver();
 
 		// start with fading in
-		FadeIn(2.0f);
+		FadeIn(0.5f);
 		/*
 		CrossAlphaWithCallback(coverImage, 0f, fadeSpeed, delegate {
 			coverImage.enabled = false;
@@ -84,7 +84,7 @@ public class LevelManager : MonoBehaviour {
    
     // used to start a corutine from the buttons in editor
     public void StartLoad(string sceneName) {
-        StartCoroutine(LoadScene(sceneName, 2.0f));
+        StartCoroutine(LoadScene(sceneName, 0.5f));
     }
 
     // load the scene with the provided name
