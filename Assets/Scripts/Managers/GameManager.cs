@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -91,5 +93,67 @@ public class GameManager : MonoBehaviour {
 		coinCount += x;        
 		CoinCounter.text = " x " + coinCount;
 	}
+
+    // Save the game    
+    private Save CreateSaveGameObject()
+    {
+        Save save = new Save();
+        /*
+        int i = 0;
+        foreach(GameObject targetGameObject in targets)
+        {
+            TargetJoint2D target = targetGameObject.GetComponent<Target>();
+            if(target.activeRobot != null)
+            {
+                save.livingTargetPositions.Add(target.position);
+                save.livingTargetTypes.Add((int)target.activeRobot.GetComponent<Robot>().type);
+                i++;
+            }
+        }
+        */
+        save.coins = coinCount;
+
+        return save;
+    } 
+    
+    public void SaveGame()
+    {
+        
+        Save save = CreateSaveGameObject();
+
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
+        bf.Serialize(file, save);
+        file.Close();
+
+        print("SaveGame");
+    }
+
+    public void LoadGame()
+    {
+        if(File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        {
+
+            //1
+
+            //2 
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+            Save save = (Save)bf.Deserialize(file);
+            file.Close();
+
+            //3 
+
+            // 4
+
+            coinCount = save.coins;
+
+            print("GameLoaded");
+        } else
+        {
+            print("No game saved");
+        }
+    }
+
 
 }
