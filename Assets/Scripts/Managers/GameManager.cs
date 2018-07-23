@@ -4,11 +4,22 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
-	// UI UPDATES
-	[Header("UI UPDATES")]
+    // -----------------------------------------------------------------
+    /* LEVEL PROGRESS */
+    // -----------------------------------------------------------------
+    [Header("Level Progress")]
+    [Tooltip("The name of the current level")] public string levelName; // The current levels Name
+    [Tooltip("Add 3 Star objects for level progression")] public List<GameObject> LevelProgressionObj = new List<GameObject>(); // unlocked skins
+    [Tooltip("The current progression for this level")] public List<int> LevelProgression = new List<int>(); // unlocked skins
+
+    // -----------------------------------------------------------------
+    /* UI UPDATES */
+    // -----------------------------------------------------------------
+    [Header("UI Updates")]
 	[Tooltip("Coins collected")]public int coinCount = 0;
 	[Tooltip("Current jumps taken")]public int jumpCounter = 0;
 
@@ -55,6 +66,10 @@ public class GameManager : MonoBehaviour {
 
         CoinCounter = GameObject.Find("ItemPickupText").GetComponent<Text>(); // initalize the un-needed helper text
 		GameTimeText = GameObject.Find("GameTimerText").GetComponent<Text>(); // initialize the game timer text
+
+        // Set the name of the level as the current scene.
+        // This is used to manage saved progress.
+        levelName = SceneManager.GetActiveScene().name;
 	}
 	
 	// Update is called once per frame
