@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelClear : MonoBehaviour {
 
-	private LevelManager lm;
+	private LevelManager lm; // level manager reference.
 
 	void Start(){
 
@@ -15,6 +15,7 @@ public class LevelClear : MonoBehaviour {
 	void OnTriggerEnter(Collider col){
 		if(col.gameObject.tag == "Player") {
 
+            // TEMP: change the color of the model to red once triggered
 			gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
 
             lm.StartLoad("LevelSelect");

@@ -34,7 +34,7 @@ public class LevelManager : MonoBehaviour {
 		// add an image to the canvas
 		coverImage = fadeCanvas.gameObject.AddComponent<Image>(); 
 		coverImage.name = "COVER_IMAGE";
-		coverImage.color = Color.black; // set the color to black
+		coverImage.color = Color.white; // set the color to black
 		coverImage.canvasRenderer.SetAlpha(1.0f);
 		coverImage.rectTransform.anchorMin = new Vector2(1.0f, 0f);
 		coverImage.rectTransform.anchorMax = new Vector2(0f, 1.0f);
@@ -48,8 +48,8 @@ public class LevelManager : MonoBehaviour {
 		gameOverPanel = gameOverScreen.AddComponent<CanvasGroup>(); // add canvas group to the overlay gameobject
 		HideGameOver();
 
-		// start with fading in
-		FadeIn(0.5f);
+
+        FadeIn(0.5f);
 		/*
 		CrossAlphaWithCallback(coverImage, 0f, fadeSpeed, delegate {
 			coverImage.enabled = false;

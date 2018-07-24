@@ -40,6 +40,11 @@ public class GameManager : MonoBehaviour {
 	private float GameTime = 0.0f; // Time since start of level TODO: if fading in or can not move char then pause the counter
 	private Text GameTimeText; // The text var for the game time.
 
+    // -----------------------------------------------------------------
+    /* References */
+    // -----------------------------------------------------------------
+    
+
     private void Awake()
     {
         // Get the health panel and initialize it
@@ -70,7 +75,8 @@ public class GameManager : MonoBehaviour {
         // Set the name of the level as the current scene.
         // This is used to manage saved progress.
         levelName = SceneManager.GetActiveScene().name;
-	}
+        
+    }
 	
 	// Update is called once per frame
 	void Update() {		
