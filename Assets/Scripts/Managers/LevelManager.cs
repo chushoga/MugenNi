@@ -49,13 +49,8 @@ public class LevelManager : MonoBehaviour {
 		HideGameOver();
 
 
-        FadeIn(0.5f);
-		/*
-		CrossAlphaWithCallback(coverImage, 0f, fadeSpeed, delegate {
-			coverImage.enabled = false;
-		});
-		*/
-
+        FadeIn(0.5f); // START with a fade-in
+	
 	}
 
 	public void ShowGameOver(){
@@ -75,8 +70,7 @@ public class LevelManager : MonoBehaviour {
 	// restart the current level
 	public void ReloadScene(){
 
-		Time.timeScale = 1.0f; // makes sure the timescale is reset if game was paused.
-
+        FadeOut(0.5f);
 		Scene scene = SceneManager.GetActiveScene();
 		SceneManager.LoadScene(scene.name);
 
@@ -98,6 +92,7 @@ public class LevelManager : MonoBehaviour {
     }
 
 	// Start the fade
+    /*
 	private IEnumerator CrossFadeAlpha(Image img, float alpha, float duration, System.Action action){
 
 		img.enabled = true; // enable the image
@@ -113,15 +108,16 @@ public class LevelManager : MonoBehaviour {
 			img.color = Color.Lerp(currentColor, visibleColor, counter / duration);
 			yield return null;
 		}
-		action.Invoke();
+		action.Invoke();       
 
 	}
+    */
 
 	public void FadeOut(float fadeSpeed){
-		coverImage.CrossFadeAlpha(1.0f, fadeSpeed, true);
+		coverImage.CrossFadeAlpha(0.0f, fadeSpeed, true);
 	}	
 
 	public void FadeIn(float fadeSpeed){
-		coverImage.CrossFadeAlpha(0.0f, fadeSpeed, true);
+		coverImage.CrossFadeAlpha(1.0f, fadeSpeed, true);
 	}
 }
