@@ -51,4 +51,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f00391fbbee51d14e8b1e9d9b9656cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateText: {fileID: 0}
+  transitionSpeed: 0.5
+  levelName: 
+  LevelProgressionObj:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  LevelProgression: 
+  coinCount: 0
+  jumpCounter: 0
+  initialHealth: 3
+  currentHealth: 0
+  initalStars: 3
+  currentStars: 2
+  StarFull: {fileID: 21300126, guid: a0a66b7fbf55f214987bfae0725458a9, type: 3}
+  StarEmpty: {fileID: 21300042, guid: 0b92e6bc49e00404ea240c68d01d5ce7, type: 3}
+  healthPanel: {fileID: 0}
+  starPanel: {fileID: 0}

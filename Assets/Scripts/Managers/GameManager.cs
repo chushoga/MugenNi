@@ -7,6 +7,11 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
+    // -----------------------------------------------------------------
+    /* GAME SETTINGS */
+    // -----------------------------------------------------------------
+    [Header("Game Settings")]
+    [Tooltip("Transition speed for scenes")] public float transitionSpeed = 0.5f;
 
     // -----------------------------------------------------------------
     /* LEVEL PROGRESS */
@@ -31,10 +36,20 @@ public class GameManager : MonoBehaviour {
     [Tooltip("Current player health")]   public int currentHealth; // player current health
 
     // -----------------------------------------------------------------
+    /* STAR COUNT */
+    // -----------------------------------------------------------------
+    [Header("Stars")]
+    [Tooltip("Max health that player can have.")] public int initalStars = 3; // inicall star count
+    [Tooltip("Current star count.")] public int currentStars; // current amount of stars
+    [Tooltip("Full star image")] public Sprite StarFull;
+    [Tooltip("Empty star image")] public Sprite StarEmpty;
+
+    // -----------------------------------------------------------------
     /* UI */
     // -----------------------------------------------------------------
     [Header("UI")]
     [Tooltip("Health Panel holding the hearts.")] public GameObject healthPanel; // health panel for showing lives left
+    [Tooltip("Star Panel holding the stars.")] public GameObject starPanel; // health panel for showing lives left
 
     private Text CoinCounter; // Not needed, used for testing
 	private float GameTime = 0.0f; // Time since start of level TODO: if fading in or can not move char then pause the counter
@@ -49,6 +64,9 @@ public class GameManager : MonoBehaviour {
     {
         // Get the health panel and initialize it
         healthPanel = GameObject.Find("HealthPanel");
+
+        // Get the star panel and initialize it
+        starPanel = GameObject.Find("StarPanel");
     }
 
     void Start() {
@@ -68,6 +86,25 @@ public class GameManager : MonoBehaviour {
             }
         }
 
+        // set the starting star amount
+        for (int i = 0; i < starPanel.transform.childCount; i++)
+        {
+            if (i < currentStars)
+            {
+                starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().sprite = StarFull;
+                Color tmp = starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().color;
+                tmp.a = 1f;
+                starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().color = tmp;
+
+            }
+            else
+            {
+                starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().sprite = StarEmpty;
+                Color tmp = starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().color;
+                tmp.a = 0.5f;
+                starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().color = tmp;
+            }
+        }
 
         CoinCounter = GameObject.Find("ItemPickupText").GetComponent<Text>(); // initalize the un-needed helper text
 		GameTimeText = GameObject.Find("GameTimerText").GetComponent<Text>(); // initialize the game timer text

@@ -5,10 +5,16 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour {
-	// ----------------------------------------------
-	// GAME OVER
-	// ----------------------------------------------
-	private GameObject gameOverScreen;
+
+    // ----------------------------------------------
+    // GENERAL
+    // ----------------------------------------------
+    private GameManager gm; // reference to the Game Manager
+
+    // ----------------------------------------------
+    // GAME OVER
+    // ----------------------------------------------
+    private GameObject gameOverScreen;
 	private CanvasGroup gameOverPanel;
 
 	// ----------------------------------------------
@@ -22,9 +28,11 @@ public class LevelManager : MonoBehaviour {
 
 
 	public void Start(){
-		
-		// FADE SCREEN SETUP
-		fadeOutScreen = new GameObject("FadeOutScreen"); // create a gameobject for the fade out canvas
+
+        gm = GameObject.Find("GameManager").gameObject.GetComponent<GameManager>();
+
+        // FADE SCREEN SETUP
+        fadeOutScreen = new GameObject("FadeOutScreen"); // create a gameobject for the fade out canvas
 		fadeCanvas = fadeOutScreen.gameObject.AddComponent<Canvas>(); // add the canvas to the game object
 
 		// set up the canvas properites
@@ -35,7 +43,7 @@ public class LevelManager : MonoBehaviour {
 		coverImage = fadeCanvas.gameObject.AddComponent<Image>(); 
 		coverImage.name = "COVER_IMAGE";
 		coverImage.color = Color.white; // set the color to black
-		coverImage.canvasRenderer.SetAlpha(1.0f);
+		coverImage.canvasRenderer.SetAlpha(0.0f);
 		coverImage.rectTransform.anchorMin = new Vector2(1.0f, 0f);
 		coverImage.rectTransform.anchorMax = new Vector2(0f, 1.0f);
 		coverImage.rectTransform.pivot = new Vector2(0.5f, 0.5f);
@@ -49,7 +57,7 @@ public class LevelManager : MonoBehaviour {
 		HideGameOver();
 
 
-        FadeIn(0.5f); // START with a fade-in
+        FadeIn(gm.transitionSpeed); // START with a fade-in
 	
 	}
 
@@ -69,27 +77,33 @@ public class LevelManager : MonoBehaviour {
 
 	// restart the current level
 	public void ReloadScene(){
-
-        FadeOut(0.5f);
 		Scene scene = SceneManager.GetActiveScene();
-		SceneManager.LoadScene(scene.name);
-
-	}
+        StartCoroutine(scene.name, gm.transitionSpeed);
+    }
    
     // used to start a corutine from the buttons in editor
     public void StartLoad(string sceneName) {
-        StartCoroutine(LoadScene(sceneName, 0.5f));
+        StartCoroutine(LoadScene(sceneName, gm.transitionSpeed));
     }
 
     // load the scene with the provided name
     public IEnumerator LoadScene(string sceneName, float fadeSpeed){
 
         //Time.timeScale = 0;
-        FadeOut(fadeSpeed);
+        FadeOut(gm.transitionSpeed);
         yield return new WaitForSeconds(fadeSpeed);
         SceneManager.LoadScene(sceneName);
 
     }
+
+    //Start Respawning
+    public IEnumerator StartRespawn(string sceneName, float fadeSpeed)
+    {
+        FadeOut(gm.transitionSpeed);
+        yield return new WaitForSeconds(gm.transitionSpeed);
+        SceneManager.LoadScene(sceneName);
+    }
+
 
 	// Start the fade
     /*
@@ -114,10 +128,10 @@ public class LevelManager : MonoBehaviour {
     */
 
 	public void FadeOut(float fadeSpeed){
-		coverImage.CrossFadeAlpha(0.0f, fadeSpeed, true);
+		coverImage.CrossFadeAlpha(1.0f, fadeSpeed, true);
 	}	
 
 	public void FadeIn(float fadeSpeed){
-		coverImage.CrossFadeAlpha(1.0f, fadeSpeed, true);
+		coverImage.CrossFadeAlpha(0.0f, fadeSpeed, true);
 	}
 }
