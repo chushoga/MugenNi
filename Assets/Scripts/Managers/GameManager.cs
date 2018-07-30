@@ -202,7 +202,7 @@ public class GameManager : MonoBehaviour {
 
             //3 
 
-            // 4
+            //4
 
             coinCount = save.coins;
 

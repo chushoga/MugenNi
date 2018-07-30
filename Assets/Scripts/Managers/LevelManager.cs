@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour {
     // ----------------------------------------------
     // GENERAL
     // ----------------------------------------------
-    private GameManager gm; // reference to the Game Manager
+    private float transitionSpeed = 0.5f;
 
     // ----------------------------------------------
     // GAME OVER
@@ -28,9 +28,7 @@ public class LevelManager : MonoBehaviour {
 
 
 	public void Start(){
-
-        gm = GameObject.Find("GameManager").gameObject.GetComponent<GameManager>();
-
+        
         // FADE SCREEN SETUP
         fadeOutScreen = new GameObject("FadeOutScreen"); // create a gameobject for the fade out canvas
 		fadeCanvas = fadeOutScreen.gameObject.AddComponent<Canvas>(); // add the canvas to the game object
@@ -57,7 +55,7 @@ public class LevelManager : MonoBehaviour {
 		HideGameOver();
 
 
-        FadeIn(gm.transitionSpeed); // START with a fade-in
+        FadeIn(transitionSpeed); // START with a fade-in
 	
 	}
 
@@ -78,19 +76,19 @@ public class LevelManager : MonoBehaviour {
 	// restart the current level
 	public void ReloadScene(){
 		Scene scene = SceneManager.GetActiveScene();
-        StartCoroutine(scene.name, gm.transitionSpeed);
+        StartCoroutine(scene.name, transitionSpeed);
     }
    
     // used to start a corutine from the buttons in editor
     public void StartLoad(string sceneName) {
-        StartCoroutine(LoadScene(sceneName, gm.transitionSpeed));
+        StartCoroutine(LoadScene(sceneName, transitionSpeed));
     }
 
     // load the scene with the provided name
     public IEnumerator LoadScene(string sceneName, float fadeSpeed){
 
         //Time.timeScale = 0;
-        FadeOut(gm.transitionSpeed);
+        FadeOut(transitionSpeed);
         yield return new WaitForSeconds(fadeSpeed);
         SceneManager.LoadScene(sceneName);
 
@@ -99,8 +97,8 @@ public class LevelManager : MonoBehaviour {
     //Start Respawning
     public IEnumerator StartRespawn(string sceneName, float fadeSpeed)
     {
-        FadeOut(gm.transitionSpeed);
-        yield return new WaitForSeconds(gm.transitionSpeed);
+        FadeOut(transitionSpeed);
+        yield return new WaitForSeconds(transitionSpeed);
         SceneManager.LoadScene(sceneName);
     }
 
