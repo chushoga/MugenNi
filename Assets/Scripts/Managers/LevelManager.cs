@@ -101,8 +101,7 @@ public class LevelManager : MonoBehaviour {
         yield return new WaitForSeconds(transitionSpeed);
         SceneManager.LoadScene(sceneName);
     }
-
-
+    
 	// Start the fade
     /*
 	private IEnumerator CrossFadeAlpha(Image img, float alpha, float duration, System.Action action){
