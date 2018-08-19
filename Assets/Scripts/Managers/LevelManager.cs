@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour {
     // ----------------------------------------------
     // GENERAL
     // ----------------------------------------------
-    private float transitionSpeed = 0.5f;
+    private float transitionSpeed = 0.2f;
 
     // ----------------------------------------------
     // GAME OVER
@@ -40,8 +40,8 @@ public class LevelManager : MonoBehaviour {
 		// add an image to the canvas
 		coverImage = fadeCanvas.gameObject.AddComponent<Image>(); 
 		coverImage.name = "COVER_IMAGE";
-		coverImage.color = Color.white; // set the color to black
-		coverImage.canvasRenderer.SetAlpha(0.0f);
+		coverImage.color = Color.black; // set the color to black
+		coverImage.canvasRenderer.SetAlpha(1.0f);
 		coverImage.rectTransform.anchorMin = new Vector2(1.0f, 0f);
 		coverImage.rectTransform.anchorMax = new Vector2(0f, 1.0f);
 		coverImage.rectTransform.pivot = new Vector2(0.5f, 0.5f);
@@ -54,9 +54,8 @@ public class LevelManager : MonoBehaviour {
 		gameOverPanel = gameOverScreen.AddComponent<CanvasGroup>(); // add canvas group to the overlay gameobject
 		HideGameOver();
 
-
         FadeIn(transitionSpeed); // START with a fade-in
-	
+        
 	}
 
 	public void ShowGameOver(){
@@ -88,7 +87,7 @@ public class LevelManager : MonoBehaviour {
     public IEnumerator LoadScene(string sceneName, float fadeSpeed){
 
         //Time.timeScale = 0;
-        FadeOut(transitionSpeed);
+        FadeOut(fadeSpeed);
         yield return new WaitForSeconds(fadeSpeed);
         SceneManager.LoadScene(sceneName);
 
@@ -97,38 +96,18 @@ public class LevelManager : MonoBehaviour {
     //Start Respawning
     public IEnumerator StartRespawn(string sceneName, float fadeSpeed)
     {
-        FadeOut(transitionSpeed);
+        FadeOut(fadeSpeed);
         yield return new WaitForSeconds(transitionSpeed);
         SceneManager.LoadScene(sceneName);
     }
-    
-	// Start the fade
-    /*
-	private IEnumerator CrossFadeAlpha(Image img, float alpha, float duration, System.Action action){
 
-		img.enabled = true; // enable the image
-
-		Color currentColor = img.color; // set the current color
-		Color visibleColor = img.color; // set the visible color
-		visibleColor.a = alpha; // set the alpha
-
-		float counter = 0; // counter for time left for showing the overlay
-
-		while(counter < duration) {
-			counter += Time.deltaTime;
-			img.color = Color.Lerp(currentColor, visibleColor, counter / duration);
-			yield return null;
-		}
-		action.Invoke();       
-
-	}
-    */
-
+    // Fade out to full 100% black
 	public void FadeOut(float fadeSpeed){
 		coverImage.CrossFadeAlpha(1.0f, fadeSpeed, true);
-	}	
+	}
 
-	public void FadeIn(float fadeSpeed){
+    // Fade in to full 0% black aka. transparent
+    public void FadeIn(float fadeSpeed){
 		coverImage.CrossFadeAlpha(0.0f, fadeSpeed, true);
 	}
 }
