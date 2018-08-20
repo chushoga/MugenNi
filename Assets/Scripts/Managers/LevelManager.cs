@@ -110,4 +110,17 @@ public class LevelManager : MonoBehaviour {
     public void FadeIn(float fadeSpeed){
 		coverImage.CrossFadeAlpha(0.0f, fadeSpeed, true);
 	}
+
+    // ******************************************************************************
+    // ********************************* MENU SLIDE *********************************
+    // ******************************************************************************
+    public void SlideIn()
+    {
+
+    }
+
+    public void SlideOut()
+    {
+        // get the current panel and slide
+    }
 }

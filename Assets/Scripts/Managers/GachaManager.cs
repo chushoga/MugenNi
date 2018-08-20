@@ -6,13 +6,13 @@ public class GachaManager : MonoBehaviour {
 
     /* MANAGES the GACHA */
 
-    public List<GameObject> itemLootTable;// possible items to get
 
+    public List<GameObject> itemLootTable;// possible items to get
     public List<GameObject> avitarLootTable; // possible avitars to get
 
 	// Use this for initialization
 	void Start () {
-		
+        
 	}
 	
 	// Update is called once per frame
@@ -22,17 +22,30 @@ public class GachaManager : MonoBehaviour {
 
     // Choose the roll type.
     // Item or avatar
+    public void ChooseType(int choice)
+    {
+        if(choice == 1)
+        {
+            
+        }
+
+        if(choice == 2)
+        {
+
+        }
+    }
 
     // Roll random
-    public int Roll()
+    public void Roll()
     {
-        int min = 0;
-        int max = 0;
-        int result = 0;
-        
-        return result;
+        int min = 1;
+        int max = 10;
+        int result = 3;
+
+        print("rolled a " + result);
 
     }
+
 
     // Save results
 
