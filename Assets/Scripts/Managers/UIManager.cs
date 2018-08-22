@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour {
 
-    public Animator contentPanel;
+    public Animator contentPanel1;
+    public Animator contentPanel2;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -16,9 +17,9 @@ public class UIManager : MonoBehaviour {
 		
 	}
 
-    public void ToggleMenu()
+    public void ToggleMenu(Animator cont)
     {
-        bool isHidden = contentPanel.GetBool("isHidden");
-        contentPanel.SetBool("isHidden", !isHidden);
+        bool isHidden = cont.GetBool("isHidden");
+        cont.SetBool("isHidden", !isHidden);
     }
 }
