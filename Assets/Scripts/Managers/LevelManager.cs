@@ -17,6 +17,11 @@ public class LevelManager : MonoBehaviour {
     private GameObject gameOverScreen;
 	private CanvasGroup gameOverPanel;
 
+    // ----------------------------------------------
+    // PAUSE GAME
+    // ----------------------------------------------
+    private CanvasGroup pauseScreen;
+
 	// ----------------------------------------------
 	// FADE SCREEN
 	// ----------------------------------------------
@@ -54,11 +59,34 @@ public class LevelManager : MonoBehaviour {
 		gameOverPanel = gameOverScreen.AddComponent<CanvasGroup>(); // add canvas group to the overlay gameobject
 		HideGameOver();
 
+        // PAUSE GAME SCREEN
+        pauseScreen = GameObject.Find("PauseGame").gameObject.GetComponent<CanvasGroup>();
+        pauseScreen.alpha = 0;
+        pauseScreen.interactable = false;
+        pauseScreen.blocksRaycasts = false;
+
         FadeIn(transitionSpeed); // START with a fade-in
         
 	}
 
-	public void ShowGameOver(){
+    public void ShowPauseScreen()
+    {
+        pauseScreen.alpha = 1;
+        pauseScreen.interactable = true;
+        pauseScreen.blocksRaycasts = true;
+        Time.timeScale = 0f;
+    }
+
+    public void HidePauseScreen()
+    {
+        pauseScreen.alpha = 0;
+        pauseScreen.interactable = false;
+        pauseScreen.blocksRaycasts = false;
+        Time.timeScale = 1f;
+    }
+
+
+    public void ShowGameOver(){
 		// make it black
 		gameOverPanel.alpha = 1; // set to visible
 		gameOverPanel.interactable = true; // allow to touch
