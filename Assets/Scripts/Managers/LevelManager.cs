@@ -60,10 +60,18 @@ public class LevelManager : MonoBehaviour {
 		HideGameOver();
 
         // PAUSE GAME SCREEN
-        pauseScreen = GameObject.Find("PauseGame").gameObject.GetComponent<CanvasGroup>();
-        pauseScreen.alpha = 0;
-        pauseScreen.interactable = false;
-        pauseScreen.blocksRaycasts = false;
+        try
+        {
+            pauseScreen = GameObject.Find("PauseGame").gameObject.GetComponent<CanvasGroup>();
+            pauseScreen.alpha = 0;
+            pauseScreen.interactable = false;
+            pauseScreen.blocksRaycasts = false;
+        }
+        catch
+        {
+            print("error");
+        }
+        
 
         FadeIn(transitionSpeed); // START with a fade-in
         
@@ -103,7 +111,7 @@ public class LevelManager : MonoBehaviour {
 	// restart the current level
 	public void ReloadScene(){
 		Scene scene = SceneManager.GetActiveScene();
-        StartCoroutine(scene.name, transitionSpeed);
+        StartCoroutine(LoadScene(scene.name, transitionSpeed));
     }
    
     // used to start a corutine from the buttons in editor
@@ -132,23 +140,12 @@ public class LevelManager : MonoBehaviour {
     // Fade out to full 100% black
 	public void FadeOut(float fadeSpeed){
 		coverImage.CrossFadeAlpha(1.0f, fadeSpeed, true);
-	}
+        Time.timeScale = 1f;
+    }
 
     // Fade in to full 0% black aka. transparent
     public void FadeIn(float fadeSpeed){
 		coverImage.CrossFadeAlpha(0.0f, fadeSpeed, true);
 	}
-
-    // ******************************************************************************
-    // ********************************* MENU SLIDE *********************************
-    // ******************************************************************************
-    public void SlideIn()
-    {
-
-    }
-
-    public void SlideOut()
-    {
-        // get the current panel and slide
-    }
+ 
 }
