@@ -10,7 +10,7 @@ public class Master : MonoBehaviour {
     // Coin count
     public static int COIN_COUNT = 0;
     public static int TOTAL_JUMPS = 0;
-
+    public static string[,] = new string[]
 
 	// Use this for initialization
 	void Start () {
