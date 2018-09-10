@@ -17,6 +17,7 @@ public class DataController : MonoBehaviour
         LoadGameData();
 
         LoadPlayerProgress();
+        
 
        // SceneManager.LoadScene("MenuScreen");
     }
@@ -58,7 +59,10 @@ public class DataController : MonoBehaviour
             GameData loadedData = JsonUtility.FromJson<GameData>(dataAsJson);
 
             // Retrieve the allLevelData property of loadedData
-            allLevelData = loadedData.allLevelData;            
+            allLevelData = loadedData.allLevelData;
+            print("---------------");
+            print(allLevelData[0].name);
+            print("-----------------");
         }
         else
         {
