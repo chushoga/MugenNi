@@ -295,6 +295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 977056797}
   - component: {fileID: 977056796}
+  - component: {fileID: 977056798}
   m_Layer: 0
   m_Name: DataController
   m_TagString: Untagged
@@ -308,7 +309,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 977056795}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9f54d7ed8a007241805e6defb1f2a4a, type: 3}
   m_Name: 
@@ -326,6 +327,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &977056798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 977056795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b511520748ceae249a1d4de3e74eee4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionText: {fileID: 0}
+  scoreDisplay: {fileID: 0}
+  timeRemainingDisplay: {fileID: 0}
+  answerButtonParent: {fileID: 0}
+  questionDisplay: {fileID: 0}
+  roundEndDisplay: {fileID: 0}
+  highScoreDisplay: {fileID: 0}
 --- !u!1001 &1047939527
 Prefab:
   m_ObjectHideFlags: 0
@@ -918,13 +937,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1920620303}
-        m_MethodName: SaveGame
-        m_Mode: 1
+      - m_Target: {fileID: 977056796}
+        m_MethodName: SubmitNewPlayerScore
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

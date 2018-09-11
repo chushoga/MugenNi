@@ -69,7 +69,7 @@ public class LevelManager : MonoBehaviour {
         }
         catch
         {
-            print("error");
+            print("There is no pause screen...");
         }
         
 

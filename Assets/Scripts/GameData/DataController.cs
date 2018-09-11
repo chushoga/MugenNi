@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using System.IO;                                                        // The System.IO namespace contains functions related to loading and saving files
+using System.IO; // The System.IO namespace contains functions related to loading and saving files
 
 public class DataController : MonoBehaviour
 {
@@ -16,8 +16,7 @@ public class DataController : MonoBehaviour
 
         LoadGameData();
 
-        LoadPlayerProgress();
-        
+        //LoadPlayerProgress();
 
        // SceneManager.LoadScene("MenuScreen");
     }
@@ -61,7 +60,7 @@ public class DataController : MonoBehaviour
             // Retrieve the allLevelData property of loadedData
             allLevelData = loadedData.allLevelData;
             print("---------------");
-            print(allLevelData[0].name);
+            print(loadedData.allLevelData);
             print("-----------------");
         }
         else
