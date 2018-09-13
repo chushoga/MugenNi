@@ -10,6 +10,7 @@ public class Game : MonoBehaviour {
 
     public Text console;
 
+    private string levelName;
     public int coins;
 
     // TEST ADD COINS
@@ -24,7 +25,18 @@ public class Game : MonoBehaviour {
     {
         Save save = new Save();
 
+        int i = 0;
+        for (i = 0; i < 3; i++)
+        {                    
+            save.stars.Add("WorldNo " + i);
+            save.levelData.Add(new LevelInfo{
+                worldName = "WORLD " + i,
+                levelName = "LEVEL " + i
+            });
+        }
+
         save.coins = coins;
+
 
         return save;
     }
