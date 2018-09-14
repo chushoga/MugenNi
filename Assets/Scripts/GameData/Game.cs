@@ -10,8 +10,14 @@ public class Game : MonoBehaviour {
 
     public Text console;
 
-    private string levelName;
+    //private string levelName;
     public int coins;
+    public int[] currentStars;
+
+    public void Start()
+    {
+        currentStars = new int[3] { 0, 0, 0 };
+    }
 
     // TEST ADD COINS
     public void AddCoins()
@@ -31,8 +37,10 @@ public class Game : MonoBehaviour {
             save.stars.Add("WorldNo " + i);
             save.levelData.Add(new LevelInfo{
                 worldName = "WORLD " + i,
-                levelName = "LEVEL " + i
+                levelName = "LEVEL " + i,
+                //starSpecial = currentStars
             });
+
         }
 
         save.coins = coins;
