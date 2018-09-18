@@ -1,6 +1,8 @@
 ﻿[System.Serializable]
 public class LevelInfo {
-    public string worldName;
-    public string levelName;
-    public int[] starSpecial;
+    public int levelID;
+    public int worldID;
+    public int finishTimeSeconds;
+    public bool clear;
+    public int[] starSpecial;    
 }

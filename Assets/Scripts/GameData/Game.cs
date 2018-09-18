@@ -10,8 +10,10 @@ public class Game : MonoBehaviour {
 
     public Text console;
 
-    //private string levelName;
+    
     public int coins;
+    public int finishTimeSeconds;
+    public bool clear;
     public int[] currentStars;
 
     public void Start()
@@ -33,18 +35,40 @@ public class Game : MonoBehaviour {
 
         int i = 0;
         for (i = 0; i < 3; i++)
-        {                    
-            save.stars.Add("WorldNo " + i);
+        {   
             save.levelData.Add(new LevelInfo{
-                worldName = "WORLD " + i,
-                levelName = "LEVEL " + i,
-                //starSpecial = currentStars
+                worldID = i,
+                levelID = i,
+                clear = false,
+                finishTimeSeconds = 450,
+                starSpecial = currentStars
             });
 
         }
 
         save.coins = coins;
 
+
+        return save;
+    }
+
+    private Save CreateJSONGameObjectFullSave()
+    {
+        Save save = new Save();
+
+        for (int i = 0; i < 8; i++){
+            for (int j = 0; j < 8; j++){
+                save.levelData.Add(new LevelInfo
+                {
+                        worldID = i,
+                        levelID = j,                        
+                        clear = false,
+                        finishTimeSeconds = 450,
+                        starSpecial = new int[3] { 0, 0, 0 }
+                    }
+                );
+            }
+        }
 
         return save;
     }
@@ -95,16 +119,35 @@ public class Game : MonoBehaviour {
 
     public void SaveAsJSON()
     {
-        Save save = CreateSaveGameObject();
-        string json = JsonUtility.ToJson(save);
 
         string path = Application.persistentDataPath + "/saveGame.json";
-        File.WriteAllText(path, json);
+
+        if (File.Exists(path))
+        {
+
+            Save save = CreateSaveGameObject();
+            string json = JsonUtility.ToJson(save);
+
+            File.WriteAllText(path, json);
+
+            Debug.Log("Saveing as Json" + json);
+
+        } else
+        {
+
+            Save save = CreateJSONGameObjectFullSave();
+            string json = JsonUtility.ToJson(save);
+
+            File.WriteAllText(path, json);
+            Debug.Log("File does not exist. Creating Save file...");
+        }
+        
 
         //Save saver = JsonUtility.FromJson<Save>(json);
 
-        Debug.Log("Saveing as Json" + json);
+        
     }
+
 
     public void LoadAsJSON()
     {
