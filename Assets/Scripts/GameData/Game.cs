@@ -68,7 +68,7 @@ public class Game : MonoBehaviour {
                     levelID = j,
                     isCleared = false,
                     isLocked = true,
-                    timeLimit = 50,
+                    timeLimit = 60,
                     stars = new int[3] { 0, 0, 0 }
                 };
                 lister.Add(li);
@@ -158,6 +158,35 @@ public class Game : MonoBehaviour {
             // TODO: MAKE this Game.cs persistant
             LoadedData = save;
             print(LoadedData.worldData[0].isLocked);
+            //console.text = "WORLD 0 LOCKED: " + LoadedData.worldData[0].isLocked;
+            // clear console
+            console.text = "";
+            int counterA = 0;
+            
+            foreach (WorldInfo key in LoadedData.worldData)
+            {
+                int counterB = 0;
+                foreach (LevelInfo key2 in LoadedData.worldData[counterA].levelData)
+                {
+                    // temp if to only show one id
+                    //if (counterA == 0) {
+                        console.text += "worldId: " + LoadedData.worldData[counterA].worldID + "\n" ;
+                        console.text += "WORLD isLocked: " + LoadedData.worldData[counterA].isLocked + "\n"; ;
+                        console.text += "levelId: " + LoadedData.worldData[counterA].levelData[counterB].levelID + "\n";
+                        console.text += "LEVEL isLocked: " + LoadedData.worldData[counterA].levelData[counterB].isLocked + "\n";
+                        console.text += "isCleared: " + LoadedData.worldData[counterA].levelData[counterB].isCleared + "\n";
+                        console.text += "timeLimit: " + LoadedData.worldData[counterA].levelData[counterB].timeLimit + "\n";
+                        console.text += "stars: " + LoadedData.worldData[counterA].levelData[counterB].stars[0] + "\n";
+
+                        console.text += "\n --------------------------------- \n";
+                    //}
+                    
+                    counterB++;
+                }
+                //console.text += "WORLD " + counterA + " "+ key +": " + LoadedData.worldData[counterA].levelData[0].isCleared;
+                //console.text += " | - "+ key +" - \n";
+                counterA++;
+            }
         }
 
         
