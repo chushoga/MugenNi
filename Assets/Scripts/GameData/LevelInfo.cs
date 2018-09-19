@@ -1,8 +1,12 @@
-﻿[System.Serializable]
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
 public class LevelInfo {
     public int levelID;
-    public int worldID;
-    public int finishTimeSeconds;
-    public bool clear;
-    public int[] starSpecial;    
+    public bool isLocked;
+    public bool isCleared;
+    public int timeLimit;
+    public int[] stars;
 }

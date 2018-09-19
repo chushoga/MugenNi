@@ -9,12 +9,11 @@ using UnityEngine.UI;
 public class Game : MonoBehaviour {
 
     public Text console;
-
     
-    public int coins;
-    public int finishTimeSeconds;
-    public bool clear;
+    public int coins;    
     public int[] currentStars;
+
+    public Save LoadedData;
 
     public void Start()
     {
@@ -31,25 +30,27 @@ public class Game : MonoBehaviour {
     // Create a save game object
     private Save CreateSaveGameObject()
     {
+       
         Save save = new Save();
+        /*
+       int i = 0;
+       for (i = 0; i < 3; i++)
+       {   
+           save.levelData.Add(new LevelInfo{
+               worldID = i,
+               levelID = i,
+               clear = false,
+               finishTimeSeconds = 450,
+               starSpecial = currentStars
+           });
 
-        int i = 0;
-        for (i = 0; i < 3; i++)
-        {   
-            save.levelData.Add(new LevelInfo{
-                worldID = i,
-                levelID = i,
-                clear = false,
-                finishTimeSeconds = 450,
-                starSpecial = currentStars
-            });
+       }
 
-        }
-
-        save.coins = coins;
-
+       save.coins = coins;
+       */
 
         return save;
+        
     }
 
     private Save CreateJSONGameObjectFullSave()
@@ -57,19 +58,30 @@ public class Game : MonoBehaviour {
         Save save = new Save();
 
         for (int i = 0; i < 8; i++){
-            for (int j = 0; j < 8; j++){
-                save.levelData.Add(new LevelInfo
-                {
-                        worldID = i,
-                        levelID = j,                        
-                        clear = false,
-                        finishTimeSeconds = 450,
-                        starSpecial = new int[3] { 0, 0, 0 }
-                    }
-                );
-            }
-        }
 
+
+            List<LevelInfo> lister = new List<LevelInfo>();
+            for (int j = 0; j < 8; j++)
+            {
+                LevelInfo li = new LevelInfo
+                {
+                    levelID = j,
+                    isCleared = false,
+                    isLocked = true,
+                    timeLimit = 50,
+                    stars = new int[3] { 0, 0, 0 }
+                };
+                lister.Add(li);
+            }
+
+            save.worldData.Add(new WorldInfo
+            {
+                worldID = i,
+                isLocked = true,
+                levelData = lister
+            });
+            
+        }
         return save;
     }
 
@@ -122,7 +134,7 @@ public class Game : MonoBehaviour {
 
         string path = Application.persistentDataPath + "/saveGame.json";
 
-        if (File.Exists(path))
+        if (File.Exists(path) == false)
         {
 
             Save save = CreateSaveGameObject();
@@ -140,7 +152,14 @@ public class Game : MonoBehaviour {
 
             File.WriteAllText(path, json);
             Debug.Log("File does not exist. Creating Save file...");
+
+            // TODO: START FROM HERE
+            // Add the saved data to current instance of this Game.cs
+            // TODO: MAKE this Game.cs persistant
+            LoadedData = save;
+            print(LoadedData.worldData[0].isLocked);
         }
+
         
 
         //Save saver = JsonUtility.FromJson<Save>(json);
