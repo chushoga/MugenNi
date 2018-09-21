@@ -7,6 +7,6 @@ public class LevelInfo {
     public int levelID;
     public bool isLocked;
     public bool isCleared;
-    public int timeLimit;
+    public int bestTime;
     public int[] stars;
 }

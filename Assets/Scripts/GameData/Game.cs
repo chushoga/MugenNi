@@ -18,6 +18,8 @@ public class Game : MonoBehaviour {
     public void Start()
     {
         currentStars = new int[3] { 0, 0, 0 };
+
+        LoadAsJSON();
     }
 
     // TEST ADD COINS
@@ -25,6 +27,7 @@ public class Game : MonoBehaviour {
     {
         coins = coins + 1;
         console.text = "COINS: " + coins;
+        LoadedData.coins = coins; // JANKY
     }
     
     // Create a save game object
@@ -53,11 +56,11 @@ public class Game : MonoBehaviour {
         
     }
 
-    private Save CreateJSONGameObjectFullSave()
+    private Save CreateFreshSaveJSONGameObject()
     {
         Save save = new Save();
 
-        for (int i = 0; i < 8; i++){
+        for (int i = 0; i < 3; i++){
 
 
             List<LevelInfo> lister = new List<LevelInfo>();
@@ -68,7 +71,7 @@ public class Game : MonoBehaviour {
                     levelID = j,
                     isCleared = false,
                     isLocked = true,
-                    timeLimit = 60,
+                    bestTime = 0,
                     stars = new int[3] { 0, 0, 0 }
                 };
                 lister.Add(li);
@@ -125,6 +128,7 @@ public class Game : MonoBehaviour {
         } else
         {
             print("No gave saved-----!");
+            // create a new game if there is no save game present.
         }
 
     }
@@ -134,11 +138,12 @@ public class Game : MonoBehaviour {
 
         string path = Application.persistentDataPath + "/saveGame.json";
 
-        if (File.Exists(path) == false)
+        if (File.Exists(path))
         {
 
-            Save save = CreateSaveGameObject();
-            string json = JsonUtility.ToJson(save);
+            //Save save = CreateSaveGameObject();
+            
+            string json = JsonUtility.ToJson(LoadedData);
 
             File.WriteAllText(path, json);
 
@@ -147,7 +152,7 @@ public class Game : MonoBehaviour {
         } else
         {
 
-            Save save = CreateJSONGameObjectFullSave();
+            Save save = CreateFreshSaveJSONGameObject();
             string json = JsonUtility.ToJson(save);
 
             File.WriteAllText(path, json);
@@ -175,7 +180,7 @@ public class Game : MonoBehaviour {
                         console.text += "levelId: " + LoadedData.worldData[counterA].levelData[counterB].levelID + "\n";
                         console.text += "LEVEL isLocked: " + LoadedData.worldData[counterA].levelData[counterB].isLocked + "\n";
                         console.text += "isCleared: " + LoadedData.worldData[counterA].levelData[counterB].isCleared + "\n";
-                        console.text += "timeLimit: " + LoadedData.worldData[counterA].levelData[counterB].timeLimit + "\n";
+                        console.text +=  "Best Time: " + LoadedData.worldData[counterA].levelData[counterB].bestTime + "\n";
                         console.text += "stars: " + LoadedData.worldData[counterA].levelData[counterB].stars[0] + "\n";
 
                         console.text += "\n --------------------------------- \n";
@@ -214,10 +219,45 @@ public class Game : MonoBehaviour {
             console.text = "COINS: " + coins;
 
             print("Loaded" + json);
+
+            LoadedData = save; // load the save data into the master data
+
+            // ---------------------------------------------------------------------
+            // THIS IS FOR PREVIEWING ONLY HERE
+            
+            console.text = ""; // clear console
+            int counterA = 0; // reset counter
+
+            foreach (WorldInfo key in LoadedData.worldData)
+            {
+                int counterB = 0;
+                foreach (LevelInfo key2 in LoadedData.worldData[counterA].levelData)
+                {
+                    // temp if to only show one id
+                    //if (counterA == 0) {
+                    console.text += "worldId: " + LoadedData.worldData[counterA].worldID + "\n";
+                    console.text += "WORLD isLocked: " + LoadedData.worldData[counterA].isLocked + "\n"; ;
+                    console.text += "levelId: " + LoadedData.worldData[counterA].levelData[counterB].levelID + "\n";
+                    console.text += "LEVEL isLocked: " + LoadedData.worldData[counterA].levelData[counterB].isLocked + "\n";
+                    console.text += "isCleared: " + LoadedData.worldData[counterA].levelData[counterB].isCleared + "\n";
+                    console.text += "Best Time: " + LoadedData.worldData[counterA].levelData[counterB].bestTime + "\n";
+                    console.text += "stars: " + LoadedData.worldData[counterA].levelData[counterB].stars[0] + "\n";
+
+                    console.text += "\n --------------------------------- \n";
+                    //}
+
+                    counterB++;
+                }
+                //console.text += "WORLD " + counterA + " "+ key +": " + LoadedData.worldData[counterA].levelData[0].isCleared;
+                //console.text += " | - "+ key +" - \n";
+                counterA++;
+            }
+        // ---------------------------------------------------------------------
         }
         else
         {
             print("No gave saved-----!");
+            // create a new game if there is no save game present.
         }
     }
 
