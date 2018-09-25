@@ -71,12 +71,26 @@ public class LevelManager : MonoBehaviour {
         {
             print("There is no pause screen...");
         }
+
+        // CHECK THE UNLOCKED WORLDS
         
+        for (int i = 0; i < GlobalControl.Instance.LoadedData.worldData.Count; i++)
+        {   
+            // Check if the current scene is the world select scene
+            if(SceneManager.GetActiveScene().name == "WorldSelect")
+            {
+                // find the WorldPanel and change the color of the image... for TESTING
+                GameObject WorldSelectGO = GameObject.Find("WorldSelect");
+                WorldSelectGO.
+                print(GlobalControl.Instance.LoadedData.worldData[i].isLocked);
+            }
+        }
 
         FadeIn(transitionSpeed); // START with a fade-in
         
 	}
 
+    // show the pause screen
     public void ShowPauseScreen()
     {
         pauseScreen.alpha = 1;
@@ -85,6 +99,7 @@ public class LevelManager : MonoBehaviour {
         Time.timeScale = 0f;
     }
 
+    // hide the pause screen
     public void HidePauseScreen()
     {
         pauseScreen.alpha = 0;
@@ -93,7 +108,7 @@ public class LevelManager : MonoBehaviour {
         Time.timeScale = 1f;
     }
 
-
+    // show the game over overlay
     public void ShowGameOver(){
 		// make it black
 		gameOverPanel.alpha = 1; // set to visible
@@ -102,6 +117,7 @@ public class LevelManager : MonoBehaviour {
 		Time.timeScale = 0f; // show the game over and pause the game
 	}
 
+    // hide the game over overlay
 	public void HideGameOver(){
 		gameOverPanel.alpha = 0;
 		gameOverPanel.interactable = false;

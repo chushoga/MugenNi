@@ -145,8 +145,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 210.27399, y: -28.763561}
-  m_SizeDelta: {x: 380.54797, y: 17.527122}
+  m_AnchoredPosition: {x: 210.35315, y: -27.120987}
+  m_SizeDelta: {x: 380.7063, y: 14.241974}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114036939
 MonoBehaviour:
@@ -489,8 +489,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000045776367, y: 0.000030323285}
-  m_SizeDelta: {x: -0.000030517578, y: 57.527122}
+  m_AnchoredPosition: {x: 0.000045776367, y: -0.000018031655}
+  m_SizeDelta: {x: -0.000030517578, y: 54.241974}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &615106890
 MonoBehaviour:
@@ -801,7 +801,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 105
+    m_FontSize: 78
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -812,7 +812,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: JSON
+  m_Text: save JSON
 --- !u!222 &1003996536
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1594,8 +1594,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1201065974}
   m_HandleRect: {fileID: 1201065973}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 0.99999994
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2057,10 +2057,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 105
+    m_FontSize: 78
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 7
     m_MaxSize: 119
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -2068,7 +2068,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: JSON
+  m_Text: load JSON
 --- !u!222 &1699222469
 CanvasRenderer:
   m_ObjectHideFlags: 0

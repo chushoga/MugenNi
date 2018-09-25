@@ -16,6 +16,7 @@ public class GlobalControl : MonoBehaviour {
 
     public Text console; // DEBUGGING    
     public Save LoadedData; // MASTER SAVE DATA // persistant
+    public int currentWorld;
 
     private void Awake()
     {
@@ -221,7 +222,7 @@ public class GlobalControl : MonoBehaviour {
 
             // ---------------------------------------------------------------------
             // THIS IS FOR PREVIEWING ONLY HERE
-            
+            /*
             console.text = ""; // clear console
             int counterA = 0; // reset counter
 
@@ -248,6 +249,7 @@ public class GlobalControl : MonoBehaviour {
 
                 counterA++;
             }
+            */
         // ---------------------------------------------------------------------
         }
         else
