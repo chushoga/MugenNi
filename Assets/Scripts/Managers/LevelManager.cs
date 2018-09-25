@@ -81,7 +81,7 @@ public class LevelManager : MonoBehaviour {
             {
                 // find the WorldPanel and change the color of the image... for TESTING
                 GameObject WorldSelectGO = GameObject.Find("WorldSelect");
-                WorldSelectGO.
+               
                 print(GlobalControl.Instance.LoadedData.worldData[i].isLocked);
             }
         }
