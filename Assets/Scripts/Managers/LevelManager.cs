@@ -31,7 +31,7 @@ public class LevelManager : MonoBehaviour {
 	public Image coverImage; // black overlay
 	// ----------------------------------------------
 
-
+    
 	public void Start(){
         
         // FADE SCREEN SETUP
@@ -73,18 +73,20 @@ public class LevelManager : MonoBehaviour {
         }
 
         // CHECK THE UNLOCKED WORLDS
-        
-        for (int i = 0; i < GlobalControl.Instance.LoadedData.worldData.Count; i++)
-        {   
-            // Check if the current scene is the world select scene
-            if(SceneManager.GetActiveScene().name == "WorldSelect")
+        // Check if the current scene is the world select scene
+        if (SceneManager.GetActiveScene().name == "WorldSelect")
+        {
+            // find the WorldPanel and change the color of the image... for TESTING
+            GameObject WorldSelectGO = GameObject.Find("WorldSelect");
+
+            for (int i = 0; i < GlobalControl.Instance.LoadedData.worldData.Count; i++)
             {
-                // find the WorldPanel and change the color of the image... for TESTING
-                GameObject WorldSelectGO = GameObject.Find("WorldSelect");
-               
                 print(GlobalControl.Instance.LoadedData.worldData[i].isLocked);
             }
+            
         }
+
+        
 
         FadeIn(transitionSpeed); // START with a fade-in
         
