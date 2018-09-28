@@ -33,7 +33,10 @@ public class LevelManager : MonoBehaviour {
 
     
 	public void Start(){
-        
+
+        print("WORLD: " + GlobalControl.Instance.currentWorld); // TODO: REMOVE THIS
+        print("LEVEL: " + GlobalControl.Instance.currentLevel); // TODO: REMOVE THIS
+
         // FADE SCREEN SETUP
         fadeOutScreen = new GameObject("FadeOutScreen"); // create a gameobject for the fade out canvas
 		fadeCanvas = fadeOutScreen.gameObject.AddComponent<Canvas>(); // add the canvas to the game object
@@ -76,17 +79,52 @@ public class LevelManager : MonoBehaviour {
         // Check if the current scene is the world select scene
         if (SceneManager.GetActiveScene().name == "WorldSelect")
         {
-            // find the WorldPanel and change the color of the image... for TESTING
-            GameObject WorldSelectGO = GameObject.Find("WorldSelect");
+            // find the WorldPanel
+            GameObject WorldSelectGO = GameObject.Find("WorldPanel");
 
+            int counter = 0; // counter for the foreach
+            foreach(Transform child in WorldSelectGO.transform)
+            {                 
+                // check if the world is locked and if it is main interactable false and change opacity.
+                if(GlobalControl.Instance.LoadedData.worldData[counter].isLocked)
+                {
+                    print(child.transform.name);
+                    child.transform.GetComponent<Image>().color = new Color(255,255,255,0.5f);
+                    child.transform.GetComponent<Button>().interactable = false;
+                }
+                counter++;
+            }
+
+            //
             for (int i = 0; i < GlobalControl.Instance.LoadedData.worldData.Count; i++)
             {
                 print(GlobalControl.Instance.LoadedData.worldData[i].isLocked);
             }
             
         }
+//------------------------------------------------------------------------------------
 
+        if (SceneManager.GetActiveScene().name == "LevelSelect")
+        {
+            // find the WorldPanel
+            GameObject LevelSelectGO = GameObject.Find("LevelPanel");
+
+            int counter = 0; // counter for the foreach
+            foreach (Transform child in LevelSelectGO.transform)
+            {
+                // check if the world is locked and if it is main interactable false and change opacity.
+                if (GlobalControl.Instance.LoadedData.worldData[GlobalControl.Instance.currentWorld].levelData[counter].isLocked)
+                {
+                    print(child.transform.name);
+                    child.transform.GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
+                    child.transform.GetComponent<Button>().interactable = false;
+                }
+                counter++;
+            }
+        }
         
+//------------------------------------------------------------------------------------
+
 
         FadeIn(transitionSpeed); // START with a fade-in
         
@@ -132,6 +170,18 @@ public class LevelManager : MonoBehaviour {
         StartCoroutine(LoadScene(scene.name, transitionSpeed));
     }
    
+    // set the current world id
+    public void SetCurrentWorld(int id)
+    {
+        GlobalControl.Instance.currentWorld = id;
+    }
+
+    // set the current level id
+    public void SetCurrentLevel(int id)
+    {
+        GlobalControl.Instance.currentLevel = id;
+    }
+
     // used to start a corutine from the buttons in editor
     public void StartLoad(string sceneName) {
         StartCoroutine(LoadScene(sceneName, transitionSpeed));

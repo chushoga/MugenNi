@@ -16,7 +16,8 @@ public class GlobalControl : MonoBehaviour {
 
     public Text console; // DEBUGGING    
     public Save LoadedData; // MASTER SAVE DATA // persistant
-    public int currentWorld;
+    public int currentWorld = 0;
+    public int currentLevel = 0;
 
     private void Awake()
     {
