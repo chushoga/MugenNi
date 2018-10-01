@@ -58,11 +58,15 @@ public class PlayerController : MonoBehaviour
 	private float jumpTimerMax = 2.0f; // max time at full force
 	[SerializeField]private bool canJump = true; // can the player jump
 	private static bool isJumping = false; // is the player currently jumping
+    private float lastColorChangeTime; // charge bar overcharge blink.
+    private Image powerBarImage;
+    private Color powerBarStartColor = Color.white; // orig color
+    private Color powerBarEndColor = Color.red; // blink color
 
-	// -----------------------------------------------------------------
-	/* AUDIO */
-	// -----------------------------------------------------------------
-	[Header("Audio Information")]
+    // -----------------------------------------------------------------
+    /* AUDIO */
+    // -----------------------------------------------------------------
+    [Header("Audio Information")]
 	[Tooltip("Jump sound")] public AudioClip jumpSound; // jumping sound
 	private AudioSource source; // audio source for sounds
 
@@ -99,8 +103,10 @@ public class PlayerController : MonoBehaviour
 
 		powerBar = GameObject.Find("PowerBar").GetComponent<Slider>();
 
-		// set the starting jump timer to the max and get ready for countdown
-		jumpTimer = jumpTimerMax;
+        powerBarImage =  GameObject.Find("PowerBarFill").gameObject.GetComponent<Image>();
+
+        // set the starting jump timer to the max and get ready for countdown
+        jumpTimer = jumpTimerMax;
 
 		// set level manager instance
 		lm = GameObject.Find("LevelManager").gameObject.GetComponent<LevelManager>();
@@ -164,12 +170,16 @@ public class PlayerController : MonoBehaviour
             // change color of bar to show that the charge will end soon
             if(jumpTimer <= jumpTimerMax / 2)
             {   
-                Image img = GameObject.Find("PowerBarFill").gameObject.GetComponent<Image>();
-                img.color = Color.red;
+                //Image img = GameObject.Find("PowerBarFill").gameObject.GetComponent<Image>();
+                //img.color = Color.red;
+
+                BlinkPowerBar();
             } else
             {
-                Image img = GameObject.Find("PowerBarFill").gameObject.GetComponent<Image>();
-                img.color = Color.white;
+                // reset the color of the power bar to white
+                powerBarStartColor = Color.white; // reset color to default
+                powerBarEndColor = Color.red; // reset the color to default
+                powerBarImage.color = powerBarStartColor;
             }
 
 			// reset the jump force if timer hits 0
@@ -402,4 +412,22 @@ public class PlayerController : MonoBehaviour
 
 	}
 
+    // Blink the power bar
+    public void BlinkPowerBar()
+    {
+        // lerp the colors to create a blinking effect.
+        float ratio = (Time.time - lastColorChangeTime) / 0.35f;
+        ratio = Mathf.Clamp01(ratio);
+        powerBarImage.color = Color.Lerp(powerBarStartColor, powerBarEndColor, ratio);
+
+        // if at the ratio amount then switch the colors and update the last time counter...
+        if(ratio == 1.0f)
+        {
+            lastColorChangeTime = Time.time;
+            Color temp = powerBarStartColor;
+            powerBarStartColor = powerBarEndColor;
+            powerBarEndColor = temp; 
+
+        }
+    }
 }
