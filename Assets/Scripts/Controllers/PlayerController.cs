@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
     private Image powerBarImage;
     private Color powerBarStartColor = Color.white; // orig color
     private Color powerBarEndColor = Color.red; // blink color
+    private float distanceFromExit;
 
     // -----------------------------------------------------------------
     /* AUDIO */
