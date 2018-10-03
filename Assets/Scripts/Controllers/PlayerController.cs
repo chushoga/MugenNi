@@ -23,7 +23,8 @@ public class PlayerController : MonoBehaviour
 	private Vector3 startPos;
 	private Vector3 currentPos; // the current player position
 	public Vector3 previousPos; // previous position before jump
-	private Camera cam;
+    [Tooltip("End Of level marker")] public GameObject exitPos; // end of level position
+    private Camera cam;
 
 	// -----------------------------------------------------------------
 	/* RESPAWN VARIABLES */
@@ -42,6 +43,8 @@ public class PlayerController : MonoBehaviour
 
 	//private Text powerTxt; // current power TODO: change to a power bar or remove all together
 	private Slider powerBar; // power bar
+    private Slider distanceToEndSlider; // distance to the exit
+    private Text distanceToEndText; // distance to end text.
 	public LevelManager lm;
 	public GameManager gm;
 
@@ -62,7 +65,6 @@ public class PlayerController : MonoBehaviour
     private Image powerBarImage;
     private Color powerBarStartColor = Color.white; // orig color
     private Color powerBarEndColor = Color.red; // blink color
-    private float distanceFromExit;
 
     // -----------------------------------------------------------------
     /* AUDIO */
@@ -106,6 +108,10 @@ public class PlayerController : MonoBehaviour
 
         powerBarImage =  GameObject.Find("PowerBarFill").gameObject.GetComponent<Image>();
 
+        // distance to the end from current position slider
+        distanceToEndSlider = GameObject.Find("DistanceToEndSlider").GetComponent<Slider>();
+        distanceToEndText = GameObject.Find("DistanceToEndText").GetComponent<Text>();
+
         // set the starting jump timer to the max and get ready for countdown
         jumpTimer = jumpTimerMax;
 
@@ -115,21 +121,24 @@ public class PlayerController : MonoBehaviour
 		// reference for the game manager
 		gm = GameObject.Find("GameManager").gameObject.GetComponent<GameManager>();
 
+        // make sure that there is and end of level and if not put one out at 5m.
+        if(exitPos == null)
+        {
+            exitPos = new GameObject("exitPos");
+            exitPos.transform.position = new Vector3(10, 0, 0);
+        }
+
 		// Draw the inital trajectory
 		DrawTrajectory();
 	}
 
 	void Update(){
-		// TEMP: Update the jump force
-		// TODO: Add a power bar at the bottom somwhere?
-		//powerTxt.text = jumpForce + ""; 
 
-		powerBar.value = ((jumpForce * 100) / jumpForceMax) / 100 ;
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            RemoveHealth();
-        }
+        // ----------------------------------------------------------
+        // TEMP: REMOVE HEALTH IF PRESS SPACE FOR TESTING
+        if (Input.GetKeyDown(KeyCode.Space)) {  RemoveHealth();  }
+        // TODO: REMOVE THIS LITTLE BLOCK OF CODE....
+        // ----------------------------------------------------------
 
         // check if have fallen out of bounds and respawn at last point if true
         if (gameObject.transform.position.y <= startPos.y - 50.0f){
@@ -205,9 +214,6 @@ public class PlayerController : MonoBehaviour
 			jumpTimer = jumpTimerMax;
 		}
 
-		//canJump = true; // reset the can jump boolean
-
-
 		// Check the jump power charging state.
 		if(isCharging == false && jumpForce != 0.0f && isJumping == false) {
 			Jump(); // jump
@@ -221,13 +227,13 @@ public class PlayerController : MonoBehaviour
 		// if the player is not moving and the power is not charging then hide the trajectory helper
 		if(jumpForce == 0.0f) {			
 			trajectoryContainer.SetActive(false); // Hide the trajectory container if jumping
-		} 
+		}
 
-			
-	}
+        UpdateSliders(); // Update the slider information
+    }
 
-	// Calculation used for the launch vector balls
-	private Vector3 CalculatePosition(float elapsedTime)
+    // Calculation used for the launch vector balls
+    private Vector3 CalculatePosition(float elapsedTime)
 	{
 		LAUNCH_VELOCITY = launchVector.transform.up * jumpForce;
 		INITIAL_POSITION = launchVector.transform.position;
@@ -430,5 +436,24 @@ public class PlayerController : MonoBehaviour
             powerBarEndColor = temp; 
 
         }
+    }
+
+    // Update Power bars
+    private void UpdateSliders()
+    {
+        // -------------------------------------------------------
+        // Update the jump power bar
+        powerBar.value = ((jumpForce * 100) / jumpForceMax) / 100;
+        // -------------------------------------------------------
+
+        // -------------------------------------------------------
+        // Update the distance to exit power bar and text
+        float totalDistance = exitPos.transform.position.x - startPos.x; // calculate the total distance from start to finish
+        float distanceRemaining = exitPos.transform.position.x - gameObject.transform.position.x; // get the remaining distance from current distance and end distance
+
+        // Set the slider value and text for remaining distance.
+        distanceToEndSlider.value = (totalDistance - distanceRemaining) / totalDistance; // will give a 0.0 - 1.0 value for the slider.
+        distanceToEndText.text = Mathf.Round(distanceRemaining) + "m";
+        // -------------------------------------------------------
     }
 }
