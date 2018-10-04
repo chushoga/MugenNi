@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 	private Vector3 startPos;
 	private Vector3 currentPos; // the current player position
 	public Vector3 previousPos; // previous position before jump
-    [Tooltip("End Of level marker")] public GameObject exitPos; // end of level position
+    [Tooltip("End Of level marker")] private GameObject LEVEL_CLEAR; // end of level position
     private Camera cam;
 
 	// -----------------------------------------------------------------
@@ -85,7 +85,6 @@ public class PlayerController : MonoBehaviour
 
 	void Start(){
 
-		
 		// starting position
 		startPos = gameObject.transform.position;
 
@@ -101,9 +100,6 @@ public class PlayerController : MonoBehaviour
 		// set up jump audio
 		source = gameObject.GetComponent<AudioSource>();
 
-		// find a set the power text
-		//powerTxt = GameObject.Find("PowerText").GetComponent<Text>();
-
 		powerBar = GameObject.Find("PowerBar").GetComponent<Slider>();
 
         powerBarImage =  GameObject.Find("PowerBarFill").gameObject.GetComponent<Image>();
@@ -111,7 +107,7 @@ public class PlayerController : MonoBehaviour
         // distance to the end from current position slider
         distanceToEndSlider = GameObject.Find("DistanceToEndSlider").GetComponent<Slider>();
         distanceToEndText = GameObject.Find("DistanceToEndText").GetComponent<Text>();
-
+        
         // set the starting jump timer to the max and get ready for countdown
         jumpTimer = jumpTimerMax;
 
@@ -121,11 +117,22 @@ public class PlayerController : MonoBehaviour
 		// reference for the game manager
 		gm = GameObject.Find("GameManager").gameObject.GetComponent<GameManager>();
 
-        // make sure that there is and end of level and if not put one out at 5m.
-        if(exitPos == null)
+        // make sure that there is and end of level and if not put one out at 10m.
+        LEVEL_CLEAR = GameObject.Find("LevelClear");
+        if(LEVEL_CLEAR == null)
         {
-            exitPos = new GameObject("exitPos");
-            exitPos.transform.position = new Vector3(10, 0, 0);
+            LEVEL_CLEAR = new GameObject("LevelClear"); // create a new clear level at the position below.
+            LEVEL_CLEAR.AddComponent<LevelClear>();
+            LEVEL_CLEAR.AddComponent<SphereCollider>().radius = 1.5f;
+            LEVEL_CLEAR.GetComponent<SphereCollider>().isTrigger = true;
+
+            GameObject platform = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            platform.transform.localScale = new Vector3(3f, 0.1f, 3f);
+            platform.transform.parent = LEVEL_CLEAR.transform;
+            Destroy(platform.GetComponent<CapsuleCollider>());
+            platform.transform.position = new Vector3(0, 0, 0);
+            
+            LEVEL_CLEAR.transform.position = new Vector3(10, 0, 0);
         }
 
 		// Draw the inital trajectory
@@ -448,8 +455,8 @@ public class PlayerController : MonoBehaviour
 
         // -------------------------------------------------------
         // Update the distance to exit power bar and text
-        float totalDistance = exitPos.transform.position.x - startPos.x; // calculate the total distance from start to finish
-        float distanceRemaining = exitPos.transform.position.x - gameObject.transform.position.x; // get the remaining distance from current distance and end distance
+        float totalDistance = LEVEL_CLEAR.transform.position.x - startPos.x; // calculate the total distance from start to finish
+        float distanceRemaining = LEVEL_CLEAR.transform.position.x - gameObject.transform.position.x; // get the remaining distance from current distance and end distance
 
         // Set the slider value and text for remaining distance.
         distanceToEndSlider.value = (totalDistance - distanceRemaining) / totalDistance; // will give a 0.0 - 1.0 value for the slider.

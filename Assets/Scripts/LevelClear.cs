@@ -26,6 +26,11 @@ public class LevelClear : MonoBehaviour {
         }
 	}
 
+    public void OpenLevelClearScreen()
+    {
+        print("LEVEL CLEAR!!!!");
+    }
+        
 	private IEnumerator EndLevel(float waitTime){
 
 		lm.FadeOut(waitTime);
