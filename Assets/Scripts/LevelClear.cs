@@ -18,11 +18,12 @@ public class LevelClear : MonoBehaviour {
             // TEMP: change the color of the model to red once triggered
 			gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
 
-            lm.StartLoad("LevelSelect");
+            //lm.StartLoad("LevelSelect");
+
 
             //StartCoroutine(lm.LoadScene());
             //StartCoroutine(EndLevel(2.0f));
-
+            lm.ShowGameCLearScreen();
         }
 	}
 

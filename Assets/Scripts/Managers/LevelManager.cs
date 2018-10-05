@@ -22,10 +22,15 @@ public class LevelManager : MonoBehaviour {
     // ----------------------------------------------
     private CanvasGroup pauseScreen;
 
-	// ----------------------------------------------
-	// FADE SCREEN
-	// ----------------------------------------------
-	private GameObject fadeOutScreen; // parent for the fade out screen
+    // ----------------------------------------------
+    // GAME CLEAR SCREEN
+    // ----------------------------------------------
+    private CanvasGroup gameClearScreen;
+
+    // ----------------------------------------------
+    // FADE SCREEN
+    // ----------------------------------------------
+    private GameObject fadeOutScreen; // parent for the fade out screen
 	//private float fadeSpeed = 1f; // fade speed
 	private Canvas fadeCanvas; // overlay canvas
 	public Image coverImage; // black overlay
@@ -73,6 +78,19 @@ public class LevelManager : MonoBehaviour {
         catch
         {
             print("There is no pause screen...");
+        }
+
+        // GAME CLEAR SCREEN
+        try
+        {
+            gameClearScreen = GameObject.Find("GameClear").gameObject.GetComponent<CanvasGroup>();
+            gameClearScreen.alpha = 0;
+            gameClearScreen.interactable = false;
+            gameClearScreen.blocksRaycasts = false;
+        }
+        catch
+        {
+            print("There is no game clear screen...");
         }
 
         // CHECK THE UNLOCKED WORLDS
@@ -145,6 +163,24 @@ public class LevelManager : MonoBehaviour {
         pauseScreen.alpha = 0;
         pauseScreen.interactable = false;
         pauseScreen.blocksRaycasts = false;
+        Time.timeScale = 1f;
+    }
+
+    // show the game clear screen
+    public void ShowGameCLearScreen()
+    {
+        gameClearScreen.alpha = 1;
+        gameClearScreen.interactable = true;
+        gameClearScreen.blocksRaycasts = true;
+        Time.timeScale = 0f;
+    }
+
+    // hide the game clear screen
+    public void HideGameClearScreen()
+    {
+        gameClearScreen.alpha = 0;
+        gameClearScreen.interactable = false;
+        gameClearScreen.blocksRaycasts = false;
         Time.timeScale = 1f;
     }
 

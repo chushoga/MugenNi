@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
             Destroy(platform.GetComponent<CapsuleCollider>());
             platform.transform.position = new Vector3(0, 0, 0);
             
-            LEVEL_CLEAR.transform.position = new Vector3(10, 0, 0);
+            LEVEL_CLEAR.transform.position = new Vector3(5, 0, 0);
         }
 
 		// Draw the inital trajectory
