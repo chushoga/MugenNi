@@ -18,18 +18,57 @@ public class LevelClear : MonoBehaviour {
             // TEMP: change the color of the model to red once triggered
 			gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
 
-            //lm.StartLoad("LevelSelect");
-
-
-            //StartCoroutine(lm.LoadScene());
-            //StartCoroutine(EndLevel(2.0f));
-            lm.ShowGameCLearScreen();
+            OpenLevelClearScreen();
         }
 	}
 
     public void OpenLevelClearScreen()
     {
         print("LEVEL CLEAR!!!!");
+
+        lm.ShowGameCLearScreen();
+
+        int currentWorld = GlobalControl.Instance.currentWorld;
+        int currentLevel = GlobalControl.Instance.currentLevel;
+
+        int worldLength = GlobalControl.Instance.LoadedData.worldData.Count;
+        int levelLength = GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData.Count;
+
+        // check if there is a level after the current level in this current world.
+        if (currentLevel != levelLength)
+        {
+
+            // update the current level as clear and next level as unlocked
+            GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData[currentLevel].isCleared = true;
+            GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData[currentLevel + 1].isLocked = false;
+
+        }
+        else
+        {
+
+            // check if the last world
+            if (currentWorld != worldLength)
+            {
+
+                //GlobalControl.Instance.LoadedData.worldData[currentWorld].isCleared = true; // update currentWorld as CLEAR
+                GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData[currentLevel].isCleared = true; // clear this level
+
+                GlobalControl.Instance.LoadedData.worldData[currentWorld + 1].isLocked = true; // update currentWorld + 1 as unlocked
+                GlobalControl.Instance.LoadedData.worldData[currentWorld + 1].levelData[0].isLocked = false; // update currentWorld + 1[level 0] as unlocked			
+
+            }
+            else
+            {
+
+                //GlobalControl.Instance.LoadedData.worldData[currentWorld].isCleared = true; // update currentWorld as CLEAR
+                GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData[currentLevel].isCleared = true; // clear this level
+
+                // TODO: maybe include an unlock hidden level feature here because everything is clear?
+            }
+
+        }
+
+        GlobalControl.Instance.SaveAsJSON();
     }
         
 	private IEnumerator EndLevel(float waitTime){

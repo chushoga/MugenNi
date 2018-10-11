@@ -12,6 +12,12 @@ public class LevelManager : MonoBehaviour {
     private float transitionSpeed = 0.2f;
 
     // ----------------------------------------------
+    // GUI NAVI
+    // ----------------------------------------------
+    private CanvasGroup navi; // game gui navi bar top
+    private CanvasGroup powerBar; // power bar 
+
+    // ----------------------------------------------
     // GAME OVER
     // ----------------------------------------------
     private GameObject gameOverScreen;
@@ -67,6 +73,7 @@ public class LevelManager : MonoBehaviour {
 		gameOverPanel = gameOverScreen.AddComponent<CanvasGroup>(); // add canvas group to the overlay gameobject
 		HideGameOver();
 
+        // -----------------------------------------------------------------------------
         // PAUSE GAME SCREEN
         try
         {
@@ -79,7 +86,7 @@ public class LevelManager : MonoBehaviour {
         {
             print("There is no pause screen...");
         }
-
+        // -----------------------------------------------------------------------------
         // GAME CLEAR SCREEN
         try
         {
@@ -93,6 +100,28 @@ public class LevelManager : MonoBehaviour {
             print("There is no game clear screen...");
         }
 
+        // -----------------------------------------------------------------------------
+        // GUI NAVI
+        try
+        {
+            navi = GameObject.Find("Navi").gameObject.GetComponent<CanvasGroup>();
+        }
+        catch
+        {
+            print("There is no Navi...");
+        }
+        // -----------------------------------------------------------------------------
+
+        try
+        {
+            powerBar = GameObject.Find("PowerBar").gameObject.GetComponent<CanvasGroup>();
+        } 
+        catch
+        {
+            print("There is no Power Bar...");
+        }
+
+        // -----------------------------------------------------------------------------
         // CHECK THE UNLOCKED WORLDS
         // Check if the current scene is the world select scene
         if (SceneManager.GetActiveScene().name == "WorldSelect")
@@ -172,6 +201,11 @@ public class LevelManager : MonoBehaviour {
         gameClearScreen.alpha = 1;
         gameClearScreen.interactable = true;
         gameClearScreen.blocksRaycasts = true;
+        // -----------------------------------------------------------------------------
+        // hide the power bar and navi
+        navi.alpha = 0;
+        powerBar.alpha = 0;        
+        // -----------------------------------------------------------------------------
         Time.timeScale = 0f;
     }
 
