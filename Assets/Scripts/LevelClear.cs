@@ -31,9 +31,10 @@ public class LevelClear : MonoBehaviour {
         int currentWorld = GlobalControl.Instance.currentWorld;
         int currentLevel = GlobalControl.Instance.currentLevel;
 
-        int worldLength = GlobalControl.Instance.LoadedData.worldData.Count;
-        int levelLength = GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData.Count;
+        int worldLength = GlobalControl.Instance.LoadedData.worldData.Count - 1;
+        int levelLength = GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData.Count - 1;
 
+        print("current level" + currentLevel + " | levelLength: " + levelLength);
         // check if there is a level after the current level in this current world.
         if (currentLevel != levelLength)
         {
@@ -53,7 +54,7 @@ public class LevelClear : MonoBehaviour {
                 //GlobalControl.Instance.LoadedData.worldData[currentWorld].isCleared = true; // update currentWorld as CLEAR
                 GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData[currentLevel].isCleared = true; // clear this level
 
-                GlobalControl.Instance.LoadedData.worldData[currentWorld + 1].isLocked = true; // update currentWorld + 1 as unlocked
+                GlobalControl.Instance.LoadedData.worldData[currentWorld + 1].isLocked = false; // update currentWorld + 1 as unlocked
                 GlobalControl.Instance.LoadedData.worldData[currentWorld + 1].levelData[0].isLocked = false; // update currentWorld + 1[level 0] as unlocked			
 
             }

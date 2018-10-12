@@ -155,17 +155,22 @@ public class LevelManager : MonoBehaviour {
         {
             // find the WorldPanel
             GameObject LevelSelectGO = GameObject.Find("LevelPanel");
+            int currentWorldId = GlobalControl.Instance.currentWorld;
 
             int counter = 0; // counter for the foreach
+
             foreach (Transform child in LevelSelectGO.transform)
             {
                 // check if the world is locked and if it is main interactable false and change opacity.
-                if (GlobalControl.Instance.LoadedData.worldData[GlobalControl.Instance.currentWorld].levelData[counter].isLocked)
+               
+                if (GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[counter].isLocked)
                 {
                     print(child.transform.name);
                     child.transform.GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
                     child.transform.GetComponent<Button>().interactable = false;
                 }
+              
+                print("counter: " + counter);
                 counter++;
             }
         }
