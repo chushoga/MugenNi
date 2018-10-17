@@ -161,16 +161,46 @@ public class LevelManager : MonoBehaviour {
 
             foreach (Transform child in LevelSelectGO.transform)
             {
+
+
+                //print(GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[counter].stars.Length);
+
+                // --------------------------------
+                // Grab the current star count.
+                // (order does not matter...)
+                // --------------------------------
+
+                int starCount = 0; // counter for stars
+
+                // Go through the stars array and increment the counter where the int is 1.
+                foreach(int stars in GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[counter].stars)
+                {
+                    if(stars == 1)
+                    {
+                        starCount++;
+                    }
+                }
+             
+                // Set opacity to 1 for each star per star count
+                Color visible = new Color(255, 255, 255, 1f);                    
+                for(int i = 0; i < starCount; i++)
+                {
+                    int starId = i + 1; // skip the first star because it starts at 0 in the project
+                    child.transform.Find("Stars"+starId).gameObject.GetComponent<Image>().color = visible;
+                }
+
+                // Set the level text
+                child.transform.Find("LevelText").gameObject.GetComponent<Text>().text = (counter + 1) + "";
+
                 // check if the world is locked and if it is main interactable false and change opacity.
-               
                 if (GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[counter].isLocked)
                 {
-                    print(child.transform.name);
+                    //print(child.transform.name);
                     child.transform.GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
                     child.transform.GetComponent<Button>().interactable = false;
                 }
               
-                print("counter: " + counter);
+                //print("counter: " + counter);
                 counter++;
             }
         }
