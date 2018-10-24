@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4525538735268504}
   - component: {fileID: 95627170535992486}
   - component: {fileID: 135960243717186206}
-  - component: {fileID: 114599670803760958}
+  - component: {fileID: 114553615667023846}
   m_Layer: 0
   m_Name: StarPickup
   m_TagString: Untagged
@@ -194,7 +194,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114599670803760958
+--- !u!114 &114553615667023846
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -202,9 +202,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1420704637040324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a638cbc4fc15cf43be3897c64fa02c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 049f7d6149024174c8e87f2e33568f8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  starPosition: 0
 --- !u!119 &119259426943037536
 Projector:
   m_ObjectHideFlags: 1
