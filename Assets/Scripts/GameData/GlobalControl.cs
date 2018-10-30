@@ -216,7 +216,7 @@ public class GlobalControl : MonoBehaviour {
             
             //coins = save.coins;
             
-            print("JSON Loaded: " + json);
+            //print("JSON Loaded: " + json);
 
             // load the save data into the master variable
             LoadedData = save; 
