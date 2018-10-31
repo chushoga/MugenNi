@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class StarPickup : MonoBehaviour {
 
-    //public int starPosition;
-    //public bool isActive;
+    public int starPosition;
+    public bool isActive;
 
     void Start()
     {
@@ -17,8 +17,18 @@ public class StarPickup : MonoBehaviour {
         int starCount = 0; // total stars at true
         
         
-            print(GlobalControl.Instance.LoadedData.worldData.Count + " [TEST-----------------]");
+        print(GlobalControl.Instance.LoadedData.worldData[0].levelData[0].stars.Length + " [TEST-----------------]");
         
+        if(GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[currentLevelId].stars[starPosition] == 1)
+        {
+            print("ACTIVE +++++++++++++++++++++++++++++++++");
+            isActive = true;
+        } else
+        {
+            print("INACTIVE xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            isActive = false;
+        }
+
         /*
              foreach (int stars in GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[counter].stars)
              {

@@ -204,9 +204,9 @@ public class LevelManager : MonoBehaviour {
                 counter++;
             }
         }
-        
-//------------------------------------------------------------------------------------
 
+        //------------------------------------------------------------------------------------
+        print(GlobalControl.Instance.LoadedData.worldData.Count + " [------------------TEST-----------------]");
 
         FadeIn(transitionSpeed); // START with a fade-in
         
