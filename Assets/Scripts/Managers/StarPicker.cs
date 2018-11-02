@@ -10,8 +10,9 @@ public class StarPicker : MonoBehaviour {
     int currentWorldId;
     int currentLevelId;
 
-    private Color starColor;
-    private GameObject materialGO;
+    private Color starColor; // material color(will change the alpha of the material)
+    private GameObject materialGO; // mesh and material game object
+    private GameObject partGO; // particles game object
 
     // Use this for initialization
     void Start () {
@@ -33,13 +34,19 @@ public class StarPicker : MonoBehaviour {
                 starColor = child.GetComponent<Renderer>().material.color;
                 starColor.a = 0.5f;
             }
+
+            if(child.name == "particles")
+            {
+                partGO = child.gameObject;
+            }
         }
 
 
-        if (GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[currentLevelId].stars[starIndex] == 0)
+        if (GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[currentLevelId].stars[starIndex] == 1)
         {
             // Set the opacity of the object
-            materialGO.GetComponent<Renderer>().material.color = starColor;
+            materialGO.GetComponent<Renderer>().material.color = starColor; // change the opacity
+            partGO.SetActive(false); // turn off the particles
             currentlyActive = false;
         }
         else
