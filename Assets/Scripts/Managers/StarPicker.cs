@@ -62,6 +62,9 @@ public class StarPicker : MonoBehaviour {
         if (col.gameObject.tag == "Player")
         {
             GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[currentLevelId].stars[starIndex] = 1;
+            // Update star bar
+            GameObject.Find("GameManager").GetComponent<GameManager>().UpdateStarBar();
+
             Destroy(gameObject);
         }
     }

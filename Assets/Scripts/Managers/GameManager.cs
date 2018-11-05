@@ -86,6 +86,14 @@ public class GameManager : MonoBehaviour {
             }
         }
 
+        // set the current star count
+        int worldIndex = GlobalControl.Instance.currentWorld;
+        int lvlIndex = GlobalControl.Instance.currentLevel;
+        print(worldIndex);
+        print(lvlIndex);
+
+        currentStars = GlobalControl.Instance.LoadedData.worldData[worldIndex].levelData[lvlIndex].stars.Length;
+
         // set the starting star amount
         for (int i = 0; i < starPanel.transform.childCount; i++)
         {
@@ -116,21 +124,16 @@ public class GameManager : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update() {		
-		UpdateGameTime(); // update the game time.
+	void Update() {
+
+        // update the game time.
+        UpdateGameTime(); 
 
         // Update the health panel
-        for (int i = 0; i < healthPanel.transform.childCount; i++)
-        {
-            if (i < currentHealth)
-            {
-                healthPanel.transform.GetChild(i).gameObject.SetActive(true);
-            }
-            else
-            {
-                healthPanel.transform.GetChild(i).gameObject.SetActive(false);
-            }
-        }
+        //UpdateHealthBar();
+
+        // Update star bar
+        //UpdateStarBar();
 
     }
 
@@ -151,5 +154,50 @@ public class GameManager : MonoBehaviour {
 		coinCount += x;        
 		CoinCounter.text = " x " + coinCount;
 	}
+
+    // Update the health panel
+    public void UpdateHealthBar()
+    {
+        for (int i = 0; i < healthPanel.transform.childCount; i++)
+        {
+            if (i < currentHealth)
+            {
+                healthPanel.transform.GetChild(i).gameObject.SetActive(true);
+            }
+            else
+            {
+                healthPanel.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+    }
+
+    // Update star bar
+    public void UpdateStarBar()
+    {
+        // set the current star count
+        int worldIndex = GlobalControl.Instance.currentWorld;
+        int lvlIndex = GlobalControl.Instance.currentLevel;
+        currentStars = GlobalControl.Instance.LoadedData.worldData[worldIndex].levelData[lvlIndex].stars.Length;
+
+        // set the starting star amount
+        for (int i = 0; i < starPanel.transform.childCount; i++)
+        {
+            if (i < currentStars)
+            {
+                starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().sprite = StarFull;
+                Color tmp = starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().color;
+                tmp.a = 1f;
+                starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().color = tmp;
+
+            }
+            else
+            {
+                starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().sprite = StarEmpty;
+                Color tmp = starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().color;
+                tmp.a = 0.5f;
+                starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().color = tmp;
+            }
+        }
+    }
 
 }
