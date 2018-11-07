@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour {
     /* STAR COUNT */
     // -----------------------------------------------------------------
     [Header("Stars")]
-    [Tooltip("Max health that player can have.")] public int initalStars = 3; // inicall star count
+    //[Tooltip("Max health that player can have.")] public int initalStars = 3; // inicall star count
     [Tooltip("Current star count.")] public int currentStars; // current amount of stars
     [Tooltip("Full star image")] public Sprite StarFull;
     [Tooltip("Empty star image")] public Sprite StarEmpty;
@@ -86,15 +86,10 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        // set the current star count
-        int worldIndex = GlobalControl.Instance.currentWorld;
-        int lvlIndex = GlobalControl.Instance.currentLevel;
-        print(worldIndex);
-        print(lvlIndex);
-
-        currentStars = GlobalControl.Instance.LoadedData.worldData[worldIndex].levelData[lvlIndex].stars.Length;
-
+        
+ 
         // set the starting star amount
+        /*
         for (int i = 0; i < starPanel.transform.childCount; i++)
         {
             if (i < currentStars)
@@ -113,6 +108,7 @@ public class GameManager : MonoBehaviour {
                 starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().color = tmp;
             }
         }
+        */
 
         CoinCounter = GameObject.Find("ItemPickupText").GetComponent<Text>(); // initalize the un-needed helper text
 		GameTimeText = GameObject.Find("GameTimerText").GetComponent<Text>(); // initialize the game timer text
@@ -120,7 +116,9 @@ public class GameManager : MonoBehaviour {
         // Set the name of the level as the current scene.
         // This is used to manage saved progress.
         levelName = SceneManager.GetActiveScene().name;
-        
+
+        // update the star bar
+        UpdateStarBar();
     }
 	
 	// Update is called once per frame
@@ -174,10 +172,21 @@ public class GameManager : MonoBehaviour {
     // Update star bar
     public void UpdateStarBar()
     {
+
         // set the current star count
         int worldIndex = GlobalControl.Instance.currentWorld;
         int lvlIndex = GlobalControl.Instance.currentLevel;
-        currentStars = GlobalControl.Instance.LoadedData.worldData[worldIndex].levelData[lvlIndex].stars.Length;
+
+        currentStars = 0;
+        for (int i = 0; i < 3; i++)
+        {
+            if (GlobalControl.Instance.LoadedData.worldData[worldIndex].levelData[lvlIndex].stars[i] == 1)
+            {
+                currentStars++;
+            }
+        }
+
+        print("CURRENT STARS: " + currentStars);
 
         // set the starting star amount
         for (int i = 0; i < starPanel.transform.childCount; i++)
