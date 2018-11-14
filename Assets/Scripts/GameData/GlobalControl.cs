@@ -92,7 +92,7 @@ public class GlobalControl : MonoBehaviour {
                     isCleared = false,
                     isLocked = isLevelLocked,
                     bestTime = 0,
-                    stars = new int[3] { 0, 0, 0 }
+                    stars = new List<int>() { 0, 0, 0 }
                 };
 
                 // add the info to the level info list

@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour {
     // GENERAL
     // ----------------------------------------------
     private float transitionSpeed = 0.2f;
+    private GameManager gm;
 
     // ----------------------------------------------
     // GUI NAVI
@@ -45,6 +46,8 @@ public class LevelManager : MonoBehaviour {
     
 	public void Start(){
 
+        
+
         print("WORLD: " + GlobalControl.Instance.currentWorld); // TODO: REMOVE THIS
         print("LEVEL: " + GlobalControl.Instance.currentLevel); // TODO: REMOVE THIS
 
@@ -73,6 +76,17 @@ public class LevelManager : MonoBehaviour {
 		gameOverPanel = gameOverScreen.AddComponent<CanvasGroup>(); // add canvas group to the overlay gameobject
 		HideGameOver();
 
+
+        // -----------------------------------------------------------------------------
+        // GAME MANAGER
+        try
+        {
+            gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        }
+        catch
+        {
+            print("There is no game manager...");
+        }
         // -----------------------------------------------------------------------------
         // PAUSE GAME SCREEN
         try
@@ -232,6 +246,10 @@ public class LevelManager : MonoBehaviour {
     // show the game clear screen
     public void ShowGameCLearScreen()
     {
+                
+        gm.UpdateClearTimeText(); // set the game clear time text
+        gm.UpdateStarBar(); // update the collected stars
+
         gameClearScreen.alpha = 1;
         gameClearScreen.interactable = true;
         gameClearScreen.blocksRaycasts = true;

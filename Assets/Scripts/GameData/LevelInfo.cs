@@ -8,5 +8,5 @@ public class LevelInfo {
     public bool isLocked;
     public bool isCleared;
     public int bestTime;
-    public int[] stars;
+    public List<int> stars;
 }

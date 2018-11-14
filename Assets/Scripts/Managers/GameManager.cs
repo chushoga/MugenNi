@@ -50,11 +50,12 @@ public class GameManager : MonoBehaviour {
     [Header("UI")]
     [Tooltip("Health Panel holding the hearts.")] public GameObject healthPanel; // health panel for showing lives left
     [Tooltip("Star Panel holding the stars.")] public GameObject starPanel; // health panel for showing lives left
+    [Tooltip("Star Panel holding the stars for game clear.")] public GameObject starPanel_gameClear; // health panel for showing lives left
 
     private Text CoinCounter; // Not needed, used for testing
 	private float GameTime = 0.0f; // Time since start of level TODO: if fading in or can not move char then pause the counter
 	private Text GameTimeText; // The text var for the game time.
-
+    private Text ClearTimeText; // the clear time for the end of level
     // -----------------------------------------------------------------
     /* References */
     // -----------------------------------------------------------------
@@ -67,6 +68,9 @@ public class GameManager : MonoBehaviour {
 
         // Get the star panel and initialize it
         starPanel = GameObject.Find("StarPanel");
+
+        // Get the star panel for the game clear stars and initalize it.
+        starPanel_gameClear = GameObject.Find("StarPanel_GameClear");
     }
 
     void Start() {
@@ -112,6 +116,7 @@ public class GameManager : MonoBehaviour {
 
         CoinCounter = GameObject.Find("ItemPickupText").GetComponent<Text>(); // initalize the un-needed helper text
 		GameTimeText = GameObject.Find("GameTimerText").GetComponent<Text>(); // initialize the game timer text
+        ClearTimeText = GameObject.Find("ClearTimeText").GetComponent<Text>(); // initialize the clear time text
 
         // Set the name of the level as the current scene.
         // This is used to manage saved progress.
@@ -153,6 +158,11 @@ public class GameManager : MonoBehaviour {
 		CoinCounter.text = " x " + coinCount;
 	}
 
+    public void UpdateClearTimeText()
+    {
+        ClearTimeText.text = "Clear Time: " + GameTimeText.text;
+    }
+
     // Update the health panel
     public void UpdateHealthBar()
     {
@@ -176,10 +186,14 @@ public class GameManager : MonoBehaviour {
         // set the current star count
         int worldIndex = GlobalControl.Instance.currentWorld;
         int lvlIndex = GlobalControl.Instance.currentLevel;
+        int starTotalCount = GlobalControl.Instance.LoadedData.worldData[worldIndex].levelData[lvlIndex].stars.Count;
+
+        print(" TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT " + starTotalCount);
 
         currentStars = 0;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < starTotalCount; i++)
         {
+            //print(i + " TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT " + starTotalCount);
             if (GlobalControl.Instance.LoadedData.worldData[worldIndex].levelData[lvlIndex].stars[i] == 1)
             {
                 currentStars++;
@@ -205,6 +219,26 @@ public class GameManager : MonoBehaviour {
                 Color tmp = starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().color;
                 tmp.a = 0.5f;
                 starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().color = tmp;
+            }
+        }
+
+        // set the starAmount for the final collected stars on game clear
+        for (int i = 0; i < starPanel_gameClear.transform.childCount; i++)
+        {
+            if (i < currentStars)
+            {
+                starPanel_gameClear.transform.GetChild(i).gameObject.GetComponent<Image>().sprite = StarFull;
+                Color tmp = starPanel_gameClear.transform.GetChild(i).gameObject.GetComponent<Image>().color;
+                tmp.a = 1f;
+                starPanel_gameClear.transform.GetChild(i).gameObject.GetComponent<Image>().color = tmp;
+
+            }
+            else
+            {
+                starPanel_gameClear.transform.GetChild(i).gameObject.GetComponent<Image>().sprite = StarEmpty;
+                Color tmp = starPanel_gameClear.transform.GetChild(i).gameObject.GetComponent<Image>().color;
+                tmp.a = 0.5f;
+                starPanel_gameClear.transform.GetChild(i).gameObject.GetComponent<Image>().color = tmp;
             }
         }
     }
