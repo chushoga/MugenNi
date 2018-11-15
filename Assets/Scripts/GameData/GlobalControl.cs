@@ -25,20 +25,21 @@ public class GlobalControl : MonoBehaviour {
         // make sure that there is only ever one of these gameobjects in existance
         // ------------------------------------------------------------------------
         if (Instance == null)
-        {
+        {            
             DontDestroyOnLoad(gameObject);
             Instance = this;
-        } else if(Instance != this)
+        }
+        else if (Instance != this)
         {
             Destroy(gameObject);
         }
         // ------------------------------------------------------------------------
+        // Load the inital JSON file ** moved from the start function and works well now.
+        LoadAsJSON();
     }
 
     public void Start()
     {       
-        // Load the inital JSON file
-        LoadAsJSON();
     }
 
     // TEST ADD COINS

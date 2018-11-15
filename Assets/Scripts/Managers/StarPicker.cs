@@ -13,6 +13,7 @@ public class StarPicker : MonoBehaviour {
     private Color starColor; // material color(will change the alpha of the material)
     private GameObject materialGO; // mesh and material game object
     private GameObject partGO; // particles game object
+    public float rotSpeed = 50f;
 
     // Use this for initialization
     void Start () {
@@ -54,6 +55,11 @@ public class StarPicker : MonoBehaviour {
             currentlyActive = true;
         }
 
+    }
+
+    private void Update()
+    {
+        transform.Rotate(Vector3.up, rotSpeed * Time.deltaTime);
     }
 
     void OnTriggerEnter(Collider col)

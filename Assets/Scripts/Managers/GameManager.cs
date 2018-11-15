@@ -187,13 +187,10 @@ public class GameManager : MonoBehaviour {
         int worldIndex = GlobalControl.Instance.currentWorld;
         int lvlIndex = GlobalControl.Instance.currentLevel;
         int starTotalCount = GlobalControl.Instance.LoadedData.worldData[worldIndex].levelData[lvlIndex].stars.Count;
-
-        print(" TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT " + starTotalCount);
-
+        
         currentStars = 0;
         for (int i = 0; i < starTotalCount; i++)
-        {
-            //print(i + " TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT " + starTotalCount);
+        {           
             if (GlobalControl.Instance.LoadedData.worldData[worldIndex].levelData[lvlIndex].stars[i] == 1)
             {
                 currentStars++;
@@ -205,7 +202,7 @@ public class GameManager : MonoBehaviour {
         // set the starting star amount
         for (int i = 0; i < starPanel.transform.childCount; i++)
         {
-            if (i < currentStars)
+            if (GlobalControl.Instance.LoadedData.worldData[worldIndex].levelData[lvlIndex].stars[i] == 1)
             {
                 starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().sprite = StarFull;
                 Color tmp = starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().color;
@@ -225,7 +222,8 @@ public class GameManager : MonoBehaviour {
         // set the starAmount for the final collected stars on game clear
         for (int i = 0; i < starPanel_gameClear.transform.childCount; i++)
         {
-            if (i < currentStars)
+
+            if (GlobalControl.Instance.LoadedData.worldData[worldIndex].levelData[lvlIndex].stars[i] == 1)
             {
                 starPanel_gameClear.transform.GetChild(i).gameObject.GetComponent<Image>().sprite = StarFull;
                 Color tmp = starPanel_gameClear.transform.GetChild(i).gameObject.GetComponent<Image>().color;
