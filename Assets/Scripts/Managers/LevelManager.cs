@@ -46,11 +46,6 @@ public class LevelManager : MonoBehaviour {
     
 	public void Start(){
 
-        
-
-        print("WORLD: " + GlobalControl.Instance.currentWorld); // TODO: REMOVE THIS
-        print("LEVEL: " + GlobalControl.Instance.currentLevel); // TODO: REMOVE THIS
-
         // FADE SCREEN SETUP
         fadeOutScreen = new GameObject("FadeOutScreen"); // create a gameobject for the fade out canvas
 		fadeCanvas = fadeOutScreen.gameObject.AddComponent<Canvas>(); // add the canvas to the game object

@@ -21,9 +21,8 @@ public class StarPicker : MonoBehaviour {
         currentWorldId = GlobalControl.Instance.currentWorld;
         currentLevelId = GlobalControl.Instance.currentLevel;
 
-        print(GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[currentLevelId].stars[starIndex] + " [TEST-----------------]");
-
-
+        //print(GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[currentLevelId].stars[starIndex] + " [TEST-----------------]");
+        
         // set the star color for each starMesh child.        
         foreach (Transform child in gameObject.transform)
         {

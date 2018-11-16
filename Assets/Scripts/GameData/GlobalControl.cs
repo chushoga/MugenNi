@@ -36,10 +36,13 @@ public class GlobalControl : MonoBehaviour {
         // ------------------------------------------------------------------------
         // Load the inital JSON file ** moved from the start function and works well now.
         LoadAsJSON();
+
     }
 
     public void Start()
-    {       
+    {
+        // run the game as fast as possible.
+        Application.targetFrameRate = 300;
     }
 
     // TEST ADD COINS

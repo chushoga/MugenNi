@@ -75,6 +75,9 @@ public class GameManager : MonoBehaviour {
 
     void Start() {
 
+        // Reset the gametime if starting the game scene 
+        GameTime = 0.0f;
+
         // Set the starting health amount;
         currentHealth = initialHealth;
 
@@ -197,7 +200,7 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        print("CURRENT STARS: " + currentStars);
+        //print("CURRENT STARS: " + currentStars);
 
         // set the starting star amount
         for (int i = 0; i < starPanel.transform.childCount; i++)
