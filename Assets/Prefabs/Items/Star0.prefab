@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4959123363286924}
   - component: {fileID: 33926381005545026}
   - component: {fileID: 23588048257652892}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: starMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 4433690324751850}
   - component: {fileID: 198145559768624322}
   - component: {fileID: 199445614486816902}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 4749079942671950}
   - component: {fileID: 135395318919485028}
   - component: {fileID: 114123019102613946}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Star0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -32,7 +32,7 @@ public class StarPicker : MonoBehaviour {
                 materialGO = child.gameObject;
 
                 starColor = child.GetComponent<Renderer>().material.color;
-                starColor.a = 0.5f;
+                starColor = new Color(255, 255, 255);
             }
 
             if(child.name == "particles")

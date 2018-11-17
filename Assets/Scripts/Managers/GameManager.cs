@@ -75,9 +75,6 @@ public class GameManager : MonoBehaviour {
 
     void Start() {
 
-        // Reset the gametime if starting the game scene 
-        GameTime = 0.0f;
-
         // Set the starting health amount;
         currentHealth = initialHealth;
 
@@ -146,7 +143,7 @@ public class GameManager : MonoBehaviour {
 	// Update the game time
 	void UpdateGameTime(){
 		
-		GameTime = Time.time;
+		GameTime = Time.timeSinceLevelLoad;
 
 		int minutes = Mathf.FloorToInt(GameTime / 60.0f);
 		int seconds = Mathf.FloorToInt(GameTime - minutes * 60);
