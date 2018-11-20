@@ -5,11 +5,16 @@ using UnityEngine;
 public class LevelClear : MonoBehaviour {
 
 	private LevelManager lm; // level manager reference.
+    private GameManager gm; // game manager reference.
 
 	void Start(){
 
 		// get reference to the level manager
 		lm = GameObject.Find("LevelManager").gameObject.GetComponent<LevelManager>();
+
+        // get reference to the game manager
+        gm = GameObject.Find("GameManager").gameObject.GetComponent<GameManager>();
+
 	}
 
 	void OnTriggerEnter(Collider col){
@@ -81,4 +86,14 @@ public class LevelClear : MonoBehaviour {
 		StartCoroutine(lm.LoadScene("LevelSelect", 2.0f));
 
 	}
+
+    private void UpdateStarCount()
+    {
+        int currentWorld = GlobalControl.Instance.currentWorld;
+        int currentLevel = GlobalControl.Instance.currentLevel;
+
+        // set the loaded data to the currentStars on levl clear only
+        GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData[currentLevel].stars = gm.currentStars;
+
+    }
 }

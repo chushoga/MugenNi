@@ -134,6 +134,8 @@ public class GlobalControl : MonoBehaviour {
 
         Debug.Log("Resetting JSON data...");
 
+        LoadAsJSON();
+
     }
 
     // SAVE GAME as JSON

@@ -77,6 +77,11 @@ public class LevelManager : MonoBehaviour {
         try
         {
             gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+            // reset the stars the what is currently been saved(kind of a reset of data happening here.)
+            int currentWorld = GlobalControl.Instance.currentWorld;
+            int currentLevel = GlobalControl.Instance.currentLevel;
+            gm.currentStars = GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData[currentLevel].stars;
         }
         catch
         {
