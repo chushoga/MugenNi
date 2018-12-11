@@ -127,7 +127,13 @@ public class GameManager : MonoBehaviour {
         int worldIndex = GlobalControl.Instance.currentWorld;
         int lvlIndex = GlobalControl.Instance.currentLevel;        
         currentStars = GlobalControl.Instance.LoadedData.worldData[worldIndex].levelData[lvlIndex].stars;
-        
+
+        // Update the health panel
+        //UpdateHealthBar();
+
+        // Update star bar
+        UpdateStarBar();
+
     }
 	
 	// Update is called once per frame
@@ -135,12 +141,6 @@ public class GameManager : MonoBehaviour {
 
         // update the game time.
         UpdateGameTime(); 
-
-        // Update the health panel
-        //UpdateHealthBar();
-
-        // Update star bar
-        //UpdateStarBar();
 
     }
 

@@ -62,6 +62,10 @@ public class FlyingEnemy : MonoBehaviour {
 		}
 
 		if(col.gameObject.tag == "Player") {
+
+            // remove health
+            col.gameObject.GetComponent<PlayerController>().RemoveHealth();
+
 			// will remove health and respawn at the last jumped position
 			StartCoroutine(col.gameObject.GetComponent<PlayerController>().Respawn());
 		}

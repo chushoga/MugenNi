@@ -7,6 +7,10 @@ public class StationaryObstacle : MonoBehaviour {
 	void OnCollisionEnter(Collision col){
 		
 		if(col.gameObject.tag == "Player") {
+
+            // Remove health
+            col.gameObject.GetComponent<PlayerController>().RemoveHealth();
+
 			// will remove health and respawn at the last jumped position
 			StartCoroutine(col.gameObject.GetComponent<PlayerController>().Respawn());
 

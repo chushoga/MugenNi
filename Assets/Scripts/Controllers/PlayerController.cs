@@ -362,6 +362,9 @@ public class PlayerController : MonoBehaviour
 			gm.currentHealth = gm.initialHealth;
 		}
 
+        //Update the health bar
+        gm.UpdateHealthBar();
+
 	}
 
 	// Remove health from the player
@@ -387,7 +390,10 @@ public class PlayerController : MonoBehaviour
 			});
 			*/
 		}
-	}
+
+        //Update the health bar
+        gm.UpdateHealthBar();
+    }
 
 	// Move to last position
 	public IEnumerator Respawn(){
@@ -397,9 +403,7 @@ public class PlayerController : MonoBehaviour
 
 		lm.FadeOut(RESPAWN_TIME);
 		yield return new WaitForSeconds(RESPAWN_TIME);
-
-		RemoveHealth(); // remove health
-
+        
 		GameObject model = gameObject.transform.Find("Model").gameObject; // get the reference to the model
 
 		gameObject.transform.Find("shadowProjector").gameObject.GetComponent<Projector>().enabled = false; // turn off the shadowcaster
@@ -424,7 +428,10 @@ public class PlayerController : MonoBehaviour
 		isRespawing = false;
 		canJump = true; // enable jumping
 
-	}
+
+        //Update the health bar
+        gm.UpdateHealthBar();
+    }
 
     // Blink the power bar
     public void BlinkPowerBar()

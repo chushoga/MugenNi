@@ -12,8 +12,7 @@ public class PopupEnemy : MonoBehaviour {
 	private bool isJumping = false; // set inital state
 	private SphereCollider aggroRange; // agro range
 	private Rigidbody rb; // ridged body
-
-
+    
 	void Start(){
 
 		// require a box collider
@@ -57,6 +56,10 @@ public class PopupEnemy : MonoBehaviour {
 
 	void OnCollisionEnter(Collision col){
 		if(col.gameObject.tag == "Player"){
+
+            // remove some health 
+            col.gameObject.GetComponent<PlayerController>().RemoveHealth();
+
 			// will remove health and respawn at the last jumped position
 			StartCoroutine(col.gameObject.GetComponent<PlayerController>().Respawn());	
 		}
