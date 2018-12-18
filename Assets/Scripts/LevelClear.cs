@@ -17,6 +17,7 @@ public class LevelClear : MonoBehaviour {
 
 	}
 
+    /* When touched by the player change the landing platform to red */
 	void OnTriggerEnter(Collider col){
 		if(col.gameObject.tag == "Player") {
 
@@ -27,6 +28,7 @@ public class LevelClear : MonoBehaviour {
         }
 	}
 
+    /* Open the level clear screen */
     public void OpenLevelClearScreen()
     {
         print("LEVEL CLEAR!!!!");
@@ -87,6 +89,8 @@ public class LevelClear : MonoBehaviour {
 
 	}
 
+
+    /* Update the star count */
     private void UpdateStarCount()
     {
         int currentWorld = GlobalControl.Instance.currentWorld;

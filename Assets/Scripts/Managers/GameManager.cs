@@ -91,30 +91,7 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        
- 
-        // set the starting star amount
-        /*
-        for (int i = 0; i < starPanel.transform.childCount; i++)
-        {
-            if (i < currentStars)
-            {
-                starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().sprite = StarFull;
-                Color tmp = starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().color;
-                tmp.a = 1f;
-                starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().color = tmp;
-
-            }
-            else
-            {
-                starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().sprite = StarEmpty;
-                Color tmp = starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().color;
-                tmp.a = 0.5f;
-                starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().color = tmp;
-            }
-        }
-        */
-
+        // Find the text components for displaying information.
         CoinCounter = GameObject.Find("ItemPickupText").GetComponent<Text>(); // initalize the un-needed helper text
 		GameTimeText = GameObject.Find("GameTimerText").GetComponent<Text>(); // initialize the game timer text
         ClearTimeText = GameObject.Find("ClearTimeText").GetComponent<Text>(); // initialize the clear time text

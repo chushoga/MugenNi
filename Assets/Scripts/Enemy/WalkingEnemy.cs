@@ -37,7 +37,7 @@ public class WalkingEnemy : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col){
-		print("collision: " + col);
+
 		// if the collision is the bounds reverse movement
 		if(col.gameObject.tag == "Bounds") {
 			ChangeDirection();
