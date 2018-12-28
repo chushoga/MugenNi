@@ -46,6 +46,7 @@ public class GlobalControl : MonoBehaviour {
     }
 
     // TEST ADD COINS
+    // added via a test button in the scene
     public void AddCoins()
     {
         // add a coin
@@ -55,11 +56,15 @@ public class GlobalControl : MonoBehaviour {
         console.text = "COINS: " + LoadedData.coins;
     }
     
+    // Create a basic empty save game file.
     private Save CreateFreshSaveJSONGameObject()
-    {
-        Save save = new Save();
+    {        
+        int maxWorlds = 3; // max number of worlds
+        int maxLevels = 8; // max number of levels per world
 
-        for (int i = 0; i < 3; i++){
+        Save save = new Save(); // game save
+
+        for (int i = 0; i < maxWorlds; i++){
 
             // ------------------------------
             // Set the first world as unlocked
@@ -76,7 +81,7 @@ public class GlobalControl : MonoBehaviour {
             List<LevelInfo> lister = new List<LevelInfo>();
 
             // create data for 8 levels per world            
-            for (int j = 0; j < 8; j++)
+            for (int j = 0; j < maxLevels; j++)
             {
                 // ------------------------------
                 // Set the first Level to unlocked

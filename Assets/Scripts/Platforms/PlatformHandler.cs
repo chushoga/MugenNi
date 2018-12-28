@@ -22,37 +22,37 @@ public class PlatformHandler : MonoBehaviour {
 	[Header("Movement Type --")]
 	[Header("Horizontal")]
 	// -----------------------------------------------------------------
-	[Tooltip("")] public bool moveHorizontal = false; // Follow a horizontal path
+	[Tooltip("Follow a horizontal path")] public bool moveHorizontal = false; // Follow a horizontal path
 	public float moveHorizontalMax = 3.0f;
 
 	[Header("Vecticle")]
 	// -----------------------------------------------------------------
-	[Tooltip("")] public bool moveVerticle = false; // Follow a verticle path
-	[Tooltip("")] public float moveVerticleMax = 5.0f; // max height for verticle
+	[Tooltip("Follow a verticle path")] public bool moveVerticle = false; // Follow a verticle path
+	[Tooltip("Max height for verticle")] public float moveVerticleMax = 5.0f; // max height for verticle
 	// -----------------------------------------------------------------
 
 	[Header("Circular")]
-	[Tooltip("")] public bool moveCircular = false; // Follow a circlular path
-	[Tooltip("")] public float moveCircleRadius = 1.0f; // The circular path radius.
-	[Tooltip("")] public float degreesPerSecond = 65.0f; // How fast for the rotation
+	[Tooltip("Follow a circlular path")] public bool moveCircular = false; // Follow a circlular path
+	[Tooltip("The circular path radius.")] public float moveCircleRadius = 1.0f; // The circular path radius.
+	[Tooltip(" How fast for the rotation")] public float degreesPerSecond = 65.0f; // How fast for the rotation
 	private Vector3 circleCenter; // Creates a center point for a circle
 	private Vector3 v; // Rotation caculation variable
 	// -----------------------------------------------------------------
 
 	[Header("------------------------")]
 	[Header("-- CONVEYOR-- ")]
-	[Tooltip("")] public bool isConveyor = false; // is it a conveyor belt
-	[Tooltip("")] public float conveyorSpeed = 1.0f; // the conveyor belt speed
-	[Tooltip("")] public bool conveyorRotation = true; // true = left/right; false = forward/backward
-	[Tooltip("")] public bool conveyorDirection = true; // true = left/forward, false = right/backward
+	[Tooltip("Is it a conveyor belt")] public bool isConveyor = false; // is it a conveyor belt
+	[Tooltip("Conveyor belt speed")] public float conveyorSpeed = 1.0f; // the conveyor belt speed
+	[Tooltip("true = left/right; false = forward/backward")] public bool conveyorRotation = true; // true = left/right; false = forward/backward
+	[Tooltip("true = left/forward, false = right/backward")] public bool conveyorDirection = true; // true = left/forward, false = right/backward
 
 	[Header("------------------------")]
 	[Header("TRAPS")]
-	[Tooltip("")] public bool willFall = false; // if set to true it will fall if the player contacts it.
-	[Tooltip("")] public float fallTimer = 1.0f; // platform will fall after timer finsihes.
+	[Tooltip("Will fall if the player contacts it.")] public bool willFall = false; // if set to true it will fall if the player contacts it.
+	[Tooltip("Will fall after timer finsihes")] public float fallTimer = 1.0f; // platform will fall after timer finsihes.
 	[Header("--")]
-	[Tooltip("")] public bool inPhase = false; // does the platform continuously phase?
-	[Tooltip("")] public float phaseTimer = 5.0f; // phase timing
+	[Tooltip("Does the platform continuously phase")] public bool inPhase = false; // does the platform continuously phase?
+	[Tooltip("Phase timing")] public float phaseTimer = 5.0f; // phase timing
 
 
 	void Start () {
