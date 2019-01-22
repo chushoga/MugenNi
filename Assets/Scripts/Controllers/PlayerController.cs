@@ -73,7 +73,12 @@ public class PlayerController : MonoBehaviour
 	[Tooltip("Jump sound")] public AudioClip jumpSound; // jumping sound
 	private AudioSource source; // audio source for sounds
 
-	void Awake(){
+    // -----------------------------------------------------------------
+    /* ANIMATION */
+    // -----------------------------------------------------------------
+    private Animator anim;
+
+    void Awake(){
 		// set fixed update interverval to a higher rate for more accurate results.
 		Time.fixedDeltaTime = 0.002f;
 		Physics.gravity = GRAVITY; // set the gravity
@@ -84,6 +89,9 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void Start(){
+
+        // set the animator
+        anim = GetComponent<Animator>();
 
 		// starting position
 		startPos = gameObject.transform.position;
@@ -317,6 +325,9 @@ public class PlayerController : MonoBehaviour
 		// play the jump sound
 		source.PlayOneShot(jumpSound, 0.2f);
 
+        // play the jump start animation
+        anim.Play("StartJumping");
+
 		// Set the launch velocity and launch the player.
 		LAUNCH_VELOCITY = launchVector.transform.up * jumpForce;
 
@@ -329,7 +340,7 @@ public class PlayerController : MonoBehaviour
 		}
 
 		isJumping = true; // allow jumping again
-
+        
 	}
 
 	void OnCollisionEnter(Collision col){
