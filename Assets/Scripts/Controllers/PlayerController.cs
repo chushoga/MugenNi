@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
 	void Start(){
 
         // set the animator
-        anim = GetComponent<Animator>();
+        anim = transform.Find("bunny2").gameObject.GetComponent<Animator>();
 
 		// starting position
 		startPos = gameObject.transform.position;
@@ -326,7 +326,7 @@ public class PlayerController : MonoBehaviour
 		source.PlayOneShot(jumpSound, 0.2f);
 
         // play the jump start animation
-        anim.Play("StartJumping");
+        anim.SetBool("isJumping", true);
 
 		// Set the launch velocity and launch the player.
 		LAUNCH_VELOCITY = launchVector.transform.up * jumpForce;
@@ -350,8 +350,11 @@ public class PlayerController : MonoBehaviour
 			gameObject.transform.parent = col.gameObject.transform;
 		}
 
-		// reset the is jumping
-		isJumping = false;
+        // stop the jumping animation -> transition into idle
+        anim.SetBool("isJumping", false);
+
+        // reset the is jumping
+        isJumping = false;
 	}
 
 	void OnCollisionExit(Collision col){
