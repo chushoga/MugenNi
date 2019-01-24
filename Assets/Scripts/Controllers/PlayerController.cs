@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
 	void Start(){
 
         // set the animator
-        anim = transform.Find("bunny2").gameObject.GetComponent<Animator>();
+        anim = transform.Find("Model").gameObject.GetComponentInChildren<Animator>();
 
 		// starting position
 		startPos = gameObject.transform.position;
@@ -273,7 +273,7 @@ public class PlayerController : MonoBehaviour
 			jumpForce = jumpForceMax;
 		}
 
-	}
+    }
 
 	// Draw the trajectory prediction
 	public void DrawTrajectory(){
@@ -315,18 +315,18 @@ public class PlayerController : MonoBehaviour
 	}
 
 	public void Jump(){
+        
+        // play the jump start animation
+        anim.SetBool("isJumping", true);
 
-		// increase the jump count
-		gm.jumpCounter += 1;
+        // increase the jump count
+        gm.jumpCounter += 1;
 
 		// set the previous position before the jump
 		previousPos = currentPos;
 
 		// play the jump sound
 		source.PlayOneShot(jumpSound, 0.2f);
-
-        // play the jump start animation
-        anim.SetBool("isJumping", true);
 
 		// Set the launch velocity and launch the player.
 		LAUNCH_VELOCITY = launchVector.transform.up * jumpForce;
@@ -413,16 +413,17 @@ public class PlayerController : MonoBehaviour
 	public IEnumerator Respawn(){
 
 		isRespawing = true;
-		canJump = false; // disable jumping
+		canJump = false; // disable jumping        
+        anim.Play("Idle");// stop the jumping animation -> transition into idle
 
-		lm.FadeOut(RESPAWN_TIME);
+        lm.FadeOut(RESPAWN_TIME);
 		yield return new WaitForSeconds(RESPAWN_TIME);
         
 		GameObject model = gameObject.transform.Find("Model").gameObject; // get the reference to the model
 
 		gameObject.transform.Find("shadowProjector").gameObject.GetComponent<Projector>().enabled = false; // turn off the shadowcaster
 		gameObject.transform.Find("Trail").GetComponent<TrailRenderer>().enabled = false; // turn off the trail
-		model.GetComponent<Renderer>().enabled = false; // turn off the renederer
+		model.GetComponentInChildren<Renderer>().enabled = false; // turn off the renederer
 
 		transform.position = respawnPoint; // reset position to last save point
 
@@ -435,7 +436,7 @@ public class PlayerController : MonoBehaviour
 
 		gameObject.transform.Find("shadowProjector").gameObject.GetComponent<Projector>().enabled = true; // turn on the shadowcaster
 		gameObject.transform.Find("Trail").GetComponent<TrailRenderer>().enabled = true; // turn on the trail renderer
-		model.GetComponent<Renderer>().enabled = true; // turn on the renderer
+		model.GetComponentInChildren<Renderer>().enabled = true; // turn on the renderer
 
 		yield return new WaitForSeconds(RESPAWN_TIME);
 
