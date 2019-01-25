@@ -121,10 +121,8 @@ ModelImporter:
     400112: toesControl.L_end
     400114: toesControl.R
     400116: toesControl.R_end
-    2100000: Material.001
-    2100002: Material.002
-    2100004: Material.003
-    2100006: No Name
+    2100000: Bunny2
+    2100002: No Name
     2300000: MasterBoneShape
     3300000: MasterBoneShape
     4300000: Cube
