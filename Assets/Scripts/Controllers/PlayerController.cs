@@ -211,6 +211,10 @@ public class PlayerController : MonoBehaviour
 			if(jumpTimer <= 0.0f) {
 				jumpForce = 0.0f;
 				canJump = false; // do not allow jumping
+
+                //anim.SetBool("isCharging", false);
+                //anim.SetBool("isJumping", false);
+
 			} else {
 				if(isRespawing == false){
 					canJump = true;
@@ -226,6 +230,9 @@ public class PlayerController : MonoBehaviour
 
 		} else {			
 			isCharging = false; // reset the charging if no longer charging.
+            anim.Play("Jump_Start", -1, 0f);// reset the animaiton for jumping if not charging any more.
+            //anim.SetBool("isCharging", false);// reset is charging
+
 			jumpTimer = jumpTimerMax;
 		}
 
@@ -273,6 +280,15 @@ public class PlayerController : MonoBehaviour
 			jumpForce = jumpForceMax;
 		}
 
+        // play the jump start animation
+        // normalize the jump force and set that as the animation location.
+        float jumpPowerNormalized = ((jumpForce * 100) / jumpForceMax) / 100;
+
+        anim.Play("Jump_Start", -1, jumpPowerNormalized);
+
+        //anim.SetBool("isCharging", true);
+        //anim.SetBool("isJumping", false);
+
     }
 
 	// Draw the trajectory prediction
@@ -316,9 +332,6 @@ public class PlayerController : MonoBehaviour
 
 	public void Jump(){
         
-        // play the jump start animation
-        anim.SetBool("isJumping", true);
-
         // increase the jump count
         gm.jumpCounter += 1;
 
@@ -340,8 +353,12 @@ public class PlayerController : MonoBehaviour
 		}
 
 		isJumping = true; // allow jumping again
-        
-	}
+
+        // play the jump start animation
+        anim.SetBool("isCharging", false);
+        anim.SetBool("isJumping", true);
+
+    }
 
 	void OnCollisionEnter(Collision col){
 		
@@ -351,7 +368,7 @@ public class PlayerController : MonoBehaviour
 		}
 
         // stop the jumping animation -> transition into idle
-        anim.SetBool("isJumping", false);
+        anim.Play("Jump_End");
 
         // reset the is jumping
         isJumping = false;
@@ -442,7 +459,6 @@ public class PlayerController : MonoBehaviour
 
 		isRespawing = false;
 		canJump = true; // enable jumping
-
 
         //Update the health bar
         gm.UpdateHealthBar();

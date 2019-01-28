@@ -129,8 +129,9 @@ ModelImporter:
     4300002: MasterBoneShape
     7400000: Rig|Idle
     7400002: Rig|Jump_End
-    7400004: Rig|Jump_Idle
-    7400006: Rig|Jump_Start
+    7400004: Rig|Jump_Go
+    7400006: Rig|Jump_Idle
+    7400008: Rig|Jump_Start
     9500000: //RootNode
     13700000: Cube
   externalObjects: {}
@@ -218,6 +219,34 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
+      name: Rig|Jump_Go
+      takeName: Rig|Jump_Go
+      firstFrame: 0
+      lastFrame: 6
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
       name: Rig|Jump_Idle
       takeName: Rig|Jump_Idle
       firstFrame: 0
@@ -249,7 +278,7 @@ ModelImporter:
       name: Rig|Jump_Start
       takeName: Rig|Jump_Start
       firstFrame: 0
-      lastFrame: 10
+      lastFrame: 6
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
