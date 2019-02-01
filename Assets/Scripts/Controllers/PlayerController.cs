@@ -212,9 +212,11 @@ public class PlayerController : MonoBehaviour
 				jumpForce = 0.0f;
 				canJump = false; // do not allow jumping
 
-                //anim.SetBool("isCharging", false);
-                //anim.SetBool("isJumping", false);
-
+                if (anim.GetCurrentAnimatorStateInfo(0).IsName("Jump_Charge"))                
+                {
+                    anim.Play("Idle");
+                }
+                
 			} else {
 				if(isRespawing == false){
 					canJump = true;
@@ -230,10 +232,8 @@ public class PlayerController : MonoBehaviour
 
 		} else {			
 			isCharging = false; // reset the charging if no longer charging.
-            anim.Play("Jump_Start", -1, 0f);// reset the animaiton for jumping if not charging any more.
-            //anim.SetBool("isCharging", false);// reset is charging
 
-			jumpTimer = jumpTimerMax;
+            jumpTimer = jumpTimerMax;
 		}
 
 		// Check the jump power charging state.
@@ -283,12 +283,11 @@ public class PlayerController : MonoBehaviour
         // play the jump start animation
         // normalize the jump force and set that as the animation location.
         float jumpPowerNormalized = ((jumpForce * 100) / jumpForceMax) / 100;
-
-        anim.Play("Jump_Start", -1, jumpPowerNormalized);
-
-        //anim.SetBool("isCharging", true);
-        //anim.SetBool("isJumping", false);
-
+        
+        // set the animation position to the charge amount to give the effect of
+        // gettting ready to jump.
+        anim.Play("Jump_Charge", -1, jumpPowerNormalized);
+        
     }
 
 	// Draw the trajectory prediction
@@ -355,8 +354,7 @@ public class PlayerController : MonoBehaviour
 		isJumping = true; // allow jumping again
 
         // play the jump start animation
-        anim.SetBool("isCharging", false);
-        anim.SetBool("isJumping", true);
+        anim.Play("Jump_TakeOff");
 
     }
 
@@ -367,8 +365,16 @@ public class PlayerController : MonoBehaviour
 			gameObject.transform.parent = col.gameObject.transform;
 		}
 
-        // stop the jumping animation -> transition into idle
-        anim.Play("Jump_End");
+        if (col.gameObject.tag == "Enemy")
+        {
+            // play die
+            anim.Play("Die");
+        } else
+        {
+            // play landing
+            anim.Play("Jump_Landing");
+        }
+        
 
         // reset the is jumping
         isJumping = false;
