@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 	private readonly Vector3 GRAVITY = new Vector3(0f, -240f, 0f);
 	private int NUM_DOTS_TO_SHOW = 15;
 	private float DOT_TIME_STEP = 0.02f;
-	private float RESPAWN_TIME = 0.5f;
+	private float RESPAWN_TIME = 1.0f;
 
 	// -----------------------------------------------------------------
 	/* SHARED VARIABLES */
@@ -26,10 +26,11 @@ public class PlayerController : MonoBehaviour
     [Tooltip("End Of level marker")] private GameObject LEVEL_CLEAR; // end of level position
     private Camera cam;
 
-	// -----------------------------------------------------------------
-	/* RESPAWN VARIABLES */
-	// -----------------------------------------------------------------
-	public static Vector3 respawnPoint; // the closest spawnPoint
+    // -----------------------------------------------------------------
+    /* RESPAWN VARIABLES */
+    // -----------------------------------------------------------------
+    public bool hasInitalizedSpawn = false;
+    public static Vector3 respawnPoint; // the closest spawnPoint
 	[SerializeField]private bool isRespawing = false; // check if currently in the process of respawning
 
 
@@ -359,22 +360,31 @@ public class PlayerController : MonoBehaviour
     }
 
 	void OnCollisionEnter(Collision col){
-		
+
+        
+
 		// set the parent to the platfomr so that it moves with it and not falls off
 		if(col.gameObject.tag == "Platform") {
 			gameObject.transform.parent = col.gameObject.transform;
 		}
 
+        // Choose what animation to play depeneding on what is landed on.
         if (col.gameObject.tag == "Enemy")
         {
+            print(col.gameObject.tag);
             // play die
             anim.Play("Die");
         } else
         {
-            // play landing
-            anim.Play("Jump_Landing");
+            // check if this is the first landing(to prevent the animation from play on spawn)
+            if (hasInitalizedSpawn == true && isRespawing == false) { 
+                // play landing
+                anim.Play("Jump_Landing");
+            }
         }
-        
+
+        // unlock the start up so it will play the jump landing after the spawn.
+        hasInitalizedSpawn = true;
 
         // reset the is jumping
         isJumping = false;
@@ -437,6 +447,7 @@ public class PlayerController : MonoBehaviour
 
 		isRespawing = true;
 		canJump = false; // disable jumping        
+        hasInitalizedSpawn = false; // stop the first jump animation from playing so when respawn it wont play Jump_Landing.
         anim.Play("Idle");// stop the jumping animation -> transition into idle
 
         lm.FadeOut(RESPAWN_TIME);

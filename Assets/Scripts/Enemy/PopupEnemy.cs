@@ -20,6 +20,7 @@ public class PopupEnemy : MonoBehaviour {
 		rb.useGravity = true;
 		rb.isKinematic = false;
 		rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        rb.freezeRotation = true;
 
 		// set up a sphere collider for the range
 		aggroRange = gameObject.AddComponent<SphereCollider>();
