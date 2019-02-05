@@ -448,8 +448,7 @@ public class PlayerController : MonoBehaviour
 		isRespawing = true;
 		canJump = false; // disable jumping        
         hasInitalizedSpawn = false; // stop the first jump animation from playing so when respawn it wont play Jump_Landing.
-        anim.Play("Idle");// stop the jumping animation -> transition into idle
-
+        
         lm.FadeOut(RESPAWN_TIME);
 		yield return new WaitForSeconds(RESPAWN_TIME);
         
@@ -467,8 +466,9 @@ public class PlayerController : MonoBehaviour
 		yield return new WaitForSeconds(RESPAWN_TIME/2);
 		lm.FadeIn(RESPAWN_TIME);
 
+        anim.Play("Idle");// stop the jumping animation -> transition into idle
 
-		gameObject.transform.Find("shadowProjector").gameObject.GetComponent<Projector>().enabled = true; // turn on the shadowcaster
+        gameObject.transform.Find("shadowProjector").gameObject.GetComponent<Projector>().enabled = true; // turn on the shadowcaster
 		gameObject.transform.Find("Trail").GetComponent<TrailRenderer>().enabled = true; // turn on the trail renderer
 		model.GetComponentInChildren<Renderer>().enabled = true; // turn on the renderer
 

@@ -4,14 +4,14 @@
 QualitySettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_CurrentQuality: 5
+  m_CurrentQuality: 2
   m_QualitySettings:
   - serializedVersion: 2
     name: Very Low
     pixelLightCount: 0
-    shadows: 0
+    shadows: 2
     shadowResolution: 0
-    shadowProjection: 1
+    shadowProjection: 0
     shadowCascades: 1
     shadowDistance: 15
     shadowNearPlaneOffset: 3
@@ -43,9 +43,9 @@ QualitySettings:
   - serializedVersion: 2
     name: Low
     pixelLightCount: 0
-    shadows: 0
+    shadows: 2
     shadowResolution: 0
-    shadowProjection: 1
+    shadowProjection: 0
     shadowCascades: 1
     shadowDistance: 20
     shadowNearPlaneOffset: 3
@@ -77,9 +77,9 @@ QualitySettings:
   - serializedVersion: 2
     name: Medium
     pixelLightCount: 1
-    shadows: 1
-    shadowResolution: 0
-    shadowProjection: 1
+    shadows: 2
+    shadowResolution: 1
+    shadowProjection: 0
     shadowCascades: 1
     shadowDistance: 20
     shadowNearPlaneOffset: 3
@@ -113,7 +113,7 @@ QualitySettings:
     pixelLightCount: 2
     shadows: 2
     shadowResolution: 1
-    shadowProjection: 1
+    shadowProjection: 0
     shadowCascades: 2
     shadowDistance: 40
     shadowNearPlaneOffset: 3
@@ -147,7 +147,7 @@ QualitySettings:
     pixelLightCount: 3
     shadows: 2
     shadowResolution: 2
-    shadowProjection: 1
+    shadowProjection: 0
     shadowCascades: 2
     shadowDistance: 70
     shadowNearPlaneOffset: 3
@@ -181,7 +181,7 @@ QualitySettings:
     pixelLightCount: 4
     shadows: 2
     shadowResolution: 2
-    shadowProjection: 1
+    shadowProjection: 0
     shadowCascades: 4
     shadowDistance: 150
     shadowNearPlaneOffset: 3
@@ -210,4 +210,6 @@ QualitySettings:
     asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
     excludedTargetPlatforms: []
-  m_PerPlatformDefaultQuality: {}
+  m_PerPlatformDefaultQuality:
+    Android: 2
+    Standalone: 2
