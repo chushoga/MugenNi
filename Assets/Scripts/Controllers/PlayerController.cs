@@ -461,12 +461,12 @@ public class PlayerController : MonoBehaviour
 		transform.position = respawnPoint; // reset position to last save point
 
 		// reset the position of the camera quick instead of follow with lerp
-		cam.transform.position = gameObject.transform.position + cam.GetComponent<CameraController>().origPos; 
+		cam.transform.position = gameObject.transform.position + cam.GetComponent<CameraController>().origPos;
 
-		yield return new WaitForSeconds(RESPAWN_TIME/2);
+        anim.Play("Idle"); // stop the jumping animation -> transition into idle
+
+        yield return new WaitForSeconds(RESPAWN_TIME/2);
 		lm.FadeIn(RESPAWN_TIME);
-
-        anim.Play("Idle");// stop the jumping animation -> transition into idle
 
         gameObject.transform.Find("shadowProjector").gameObject.GetComponent<Projector>().enabled = true; // turn on the shadowcaster
 		gameObject.transform.Find("Trail").GetComponent<TrailRenderer>().enabled = true; // turn on the trail renderer
