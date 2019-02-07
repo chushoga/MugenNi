@@ -31,7 +31,7 @@ public class StarPicker : MonoBehaviour {
         // set the star color for each starMesh child.        
         foreach (Transform child in gameObject.transform)
         {
-            print(child.name);
+            //print(child.name);
             if (child.name == "starMesh")
             {
                 materialGO = child.gameObject;

@@ -191,17 +191,15 @@ public class PlayerController : MonoBehaviour
 			// count down the timer
 			if(jumpForce >= jumpForceMax) {
 				jumpTimer -= Time.deltaTime;	
-			} 
-
+			}
+            // -------------------------------------------------------------------
             // change color of bar to show that the charge will end soon
-            if(jumpTimer <= jumpTimerMax / 2)
+            // -------------------------------------------------------------------
+            if (jumpTimer <= jumpTimerMax / 2)
             {   
-                //Image img = GameObject.Find("PowerBarFill").gameObject.GetComponent<Image>();
-                //img.color = Color.red;
-
                 BlinkPowerBar();
-            } else
-            {
+
+            } else {
                 // reset the color of the power bar to white
                 powerBarStartColor = Color.white; // reset color to default
                 powerBarEndColor = Color.red; // reset the color to default
@@ -213,6 +211,7 @@ public class PlayerController : MonoBehaviour
 				jumpForce = 0.0f;
 				canJump = false; // do not allow jumping
 
+                // play idle if the jump charge animation is 0.
                 if (anim.GetCurrentAnimatorStateInfo(0).IsName("Jump_Charge"))                
                 {
                     anim.Play("Idle");
@@ -359,9 +358,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-	void OnCollisionEnter(Collision col){
-
-        
+	void OnCollisionEnter(Collision col){        
 
 		// set the parent to the platfomr so that it moves with it and not falls off
 		if(col.gameObject.tag == "Platform") {
@@ -371,7 +368,9 @@ public class PlayerController : MonoBehaviour
         // Choose what animation to play depeneding on what is landed on.
         if (col.gameObject.tag == "Enemy")
         {
-            print(col.gameObject.tag);
+            // push the player back a bit.
+            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(-1.0f,1.0f,0.0f) * 10.0f, ForceMode.Impulse);
+            
             // play die
             anim.Play("Die");
         } else
@@ -474,7 +473,7 @@ public class PlayerController : MonoBehaviour
 
 		yield return new WaitForSeconds(RESPAWN_TIME);
 
-		isRespawing = false;
+		isRespawing = false; // reset respawning flag
 		canJump = true; // enable jumping
 
         //Update the health bar
