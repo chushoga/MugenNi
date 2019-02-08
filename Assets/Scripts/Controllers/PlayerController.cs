@@ -425,20 +425,15 @@ public class PlayerController : MonoBehaviour
 			gm.currentHealth = 0;
 		}
 
-		if(gm.currentHealth == 0) {
-			lm.ReloadScene();
-			// TODO: this should be gameover screen not reload
-		} else {
-			// fade out screen
-			/*
-			lm.CrossAlphaWithCallback(lm.coverImage, 1f, 1f, delegate {
-				lm.coverImage.enabled = false;
-			});
-			*/
-		}
-
         //Update the health bar
         gm.UpdateHealthBar();
+
+        if (gm.currentHealth == 0) {
+            
+            lm.ShowGameOver();
+
+            //lm.ReloadScene(); // TODO: this should be gameover screen not reload
+        }
     }
 
 	// Move to last position

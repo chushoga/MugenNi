@@ -19,13 +19,13 @@ public class LevelManager : MonoBehaviour {
     private CanvasGroup powerBar; // power bar 
 
     // ----------------------------------------------
-    // GAME OVER
+    // GAME OVER SCREEN
     // ----------------------------------------------
-    private GameObject gameOverScreen;
-	private CanvasGroup gameOverPanel;
+    private CanvasGroup gameOverScreen;
+	//private CanvasGroup gameOverPanel;
 
     // ----------------------------------------------
-    // PAUSE GAME
+    // PAUSE GAME SCREEN
     // ----------------------------------------------
     private CanvasGroup pauseScreen;
 
@@ -66,10 +66,10 @@ public class LevelManager : MonoBehaviour {
 		//coverImage.enabled = true; // start by enabling the image
 
 		// GAME OVER SCREEN SETUP
-		gameOverScreen = new GameObject("GameOverScreen"); // create gameoverScreen parent to the main canvas
-		gameOverScreen.gameObject.transform.parent = fadeCanvas.transform; // set the parent to the fade canvas
-		gameOverPanel = gameOverScreen.AddComponent<CanvasGroup>(); // add canvas group to the overlay gameobject
-		HideGameOver();
+		//gameOverScreen = new GameObject("GameOverScreen"); // create gameoverScreen parent to the main canvas
+		//gameOverScreen.gameObject.transform.parent = fadeCanvas.transform; // set the parent to the fade canvas
+		//gameOverPanel = gameOverScreen.AddComponent<CanvasGroup>(); // add canvas group to the overlay gameobject
+		//HideGameOver();
 
 
         // -----------------------------------------------------------------------------
@@ -99,6 +99,19 @@ public class LevelManager : MonoBehaviour {
         catch
         {
             print("There is no pause screen...");
+        }
+        // -----------------------------------------------------------------------------
+        // GAME OVER SCREEN
+        try
+        {
+            gameOverScreen = GameObject.Find("GameOver").gameObject.GetComponent<CanvasGroup>();
+            gameOverScreen.alpha = 0;
+            gameOverScreen.interactable = false;
+            gameOverScreen.blocksRaycasts = false;
+        }
+        catch
+        {
+            print("There is no game over screen...");
         }
         // -----------------------------------------------------------------------------
         // GAME CLEAR SCREEN
@@ -273,17 +286,25 @@ public class LevelManager : MonoBehaviour {
     // show the game over overlay
     public void ShowGameOver(){
 		// make it black
-		gameOverPanel.alpha = 1; // set to visible
-		gameOverPanel.interactable = true; // allow to touch
-		gameOverPanel.blocksRaycasts = true; // allow raycasts
-		Time.timeScale = 0f; // show the game over and pause the game
+		gameOverScreen.alpha = 1; // set to visible
+        gameOverScreen.interactable = true; // allow to touch
+        gameOverScreen.blocksRaycasts = true; // allow raycasts
+
+        // -----------------------------------------------------------------------------
+        // hide the power bar and navi
+        navi.alpha = 0;
+        powerBar.alpha = 0;
+        // -----------------------------------------------------------------------------
+
+        Time.timeScale = 0f; // show the game over and pause the game
 	}
 
     // hide the game over overlay
 	public void HideGameOver(){
-		gameOverPanel.alpha = 0;
-		gameOverPanel.interactable = false;
-		gameOverPanel.blocksRaycasts = false;
+        gameOverScreen.alpha = 0;
+        gameOverScreen.interactable = false;
+        gameOverScreen.blocksRaycasts = false;
+        Time.timeScale = 1f;
 	}
 
 	// restart the current level
