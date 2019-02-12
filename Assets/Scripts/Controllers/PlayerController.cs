@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     public bool hasInitalizedSpawn = false;
     public static Vector3 respawnPoint; // the closest spawnPoint
 	[SerializeField]private bool isRespawing = false; // check if currently in the process of respawning
-
+    private bool canTakeDamage = true;
 
 	// -----------------------------------------------------------------
 	/* TRAJECTORY SIMULATION */
@@ -418,61 +418,78 @@ public class PlayerController : MonoBehaviour
 		
 		int hp = gm.currentHealth - 1;
 
-		// make sure that the health is not below 0 if it is then set to 0
-		if(hp >= 1) {
-			gm.currentHealth = hp;
-		} else {
-			gm.currentHealth = 0;
-		}
+        if (canTakeDamage) { 
+		    // make sure that the health is not below 0 if it is then set to 0
+		    if(hp >= 1) {
+			    gm.currentHealth = hp;
+		    } else {
+			    gm.currentHealth = 0;
+		    }
 
-        //Update the health bar
-        gm.UpdateHealthBar();
+            //Update the health bar
+            gm.UpdateHealthBar();
 
-        if (gm.currentHealth == 0) {
+            if (gm.currentHealth == 0) {
             
-            lm.ShowGameOver();
+                lm.ShowGameOver();
 
-            //lm.ReloadScene(); // TODO: this should be gameover screen not reload
+                //lm.ReloadScene(); // TODO: this should be gameover screen not reload
+            }
+
+            // make temp invulnerable
+            StartCoroutine(TempInv(3.0f));
+
         }
+    }
+
+    // Temporary invulnerablity
+    public IEnumerator TempInv(float invTime)
+    {
+        canTakeDamage = false;
+            yield return new WaitForSeconds(invTime);
+        canTakeDamage = true;
     }
 
 	// Move to last position
 	public IEnumerator Respawn(){
 
-		isRespawing = true;
-		canJump = false; // disable jumping        
-        hasInitalizedSpawn = false; // stop the first jump animation from playing so when respawn it wont play Jump_Landing.
-        
-        lm.FadeOut(RESPAWN_TIME);
-		yield return new WaitForSeconds(RESPAWN_TIME);
-        
-		GameObject model = gameObject.transform.Find("Model").gameObject; // get the reference to the model
+        if (gm.currentHealth != 0)
+        {
+            isRespawing = true;
+            canJump = false; // disable jumping        
+            hasInitalizedSpawn = false; // stop the first jump animation from playing so when respawn it wont play Jump_Landing.
 
-		gameObject.transform.Find("shadowProjector").gameObject.GetComponent<Projector>().enabled = false; // turn off the shadowcaster
-		gameObject.transform.Find("Trail").GetComponent<TrailRenderer>().enabled = false; // turn off the trail
-		model.GetComponentInChildren<Renderer>().enabled = false; // turn off the renederer
+            lm.FadeOut(RESPAWN_TIME);
+            yield return new WaitForSeconds(RESPAWN_TIME);
 
-		transform.position = respawnPoint; // reset position to last save point
+            GameObject model = gameObject.transform.Find("Model").gameObject; // get the reference to the model
 
-		// reset the position of the camera quick instead of follow with lerp
-		cam.transform.position = gameObject.transform.position + cam.GetComponent<CameraController>().origPos;
+            gameObject.transform.Find("shadowProjector").gameObject.GetComponent<Projector>().enabled = false; // turn off the shadowcaster
+            gameObject.transform.Find("Trail").GetComponent<TrailRenderer>().enabled = false; // turn off the trail
+            model.GetComponentInChildren<Renderer>().enabled = false; // turn off the renederer
 
-        anim.Play("Idle"); // stop the jumping animation -> transition into idle
+            transform.position = respawnPoint; // reset position to last save point
 
-        yield return new WaitForSeconds(RESPAWN_TIME/2);
-		lm.FadeIn(RESPAWN_TIME);
+            // reset the position of the camera quick instead of follow with lerp
+            cam.transform.position = gameObject.transform.position + cam.GetComponent<CameraController>().origPos;
 
-        gameObject.transform.Find("shadowProjector").gameObject.GetComponent<Projector>().enabled = true; // turn on the shadowcaster
-		gameObject.transform.Find("Trail").GetComponent<TrailRenderer>().enabled = true; // turn on the trail renderer
-		model.GetComponentInChildren<Renderer>().enabled = true; // turn on the renderer
+            anim.Play("Idle"); // stop the jumping animation -> transition into idle
 
-		yield return new WaitForSeconds(RESPAWN_TIME);
+            yield return new WaitForSeconds(RESPAWN_TIME / 2);
+            lm.FadeIn(RESPAWN_TIME);
 
-		isRespawing = false; // reset respawning flag
-		canJump = true; // enable jumping
+            gameObject.transform.Find("shadowProjector").gameObject.GetComponent<Projector>().enabled = true; // turn on the shadowcaster
+            gameObject.transform.Find("Trail").GetComponent<TrailRenderer>().enabled = true; // turn on the trail renderer
+            model.GetComponentInChildren<Renderer>().enabled = true; // turn on the renderer
 
-        //Update the health bar
-        gm.UpdateHealthBar();
+            yield return new WaitForSeconds(RESPAWN_TIME);
+
+            isRespawing = false; // reset respawning flag
+            canJump = true; // enable jumping
+
+            //Update the health bar
+            gm.UpdateHealthBar();
+        }
     }
 
     // Blink the power bar
