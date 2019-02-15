@@ -41,18 +41,31 @@ public class LevelManager : MonoBehaviour {
 	//private float fadeSpeed = 1f; // fade speed
 	private Canvas fadeCanvas; // overlay canvas
 	public Image coverImage; // black overlay
-	// ----------------------------------------------
+    public GameObject loadingText; // loading text
+    public Font loadingTextFont; // loading text font
+    // ----------------------------------------------
 
-    
-	public void Start(){
+
+    public void Start(){
 
         // FADE SCREEN SETUP
         fadeOutScreen = new GameObject("FadeOutScreen"); // create a gameobject for the fade out canvas
 		fadeCanvas = fadeOutScreen.gameObject.AddComponent<Canvas>(); // add the canvas to the game object
 
 		// set up the canvas properites
-		fadeCanvas.renderMode = RenderMode.ScreenSpaceOverlay; // set the render movde to overlay screen space
-		//fadeCanvas.sortingOrder = 1; // change sorting order so it is above the rest of the GUI
+		fadeCanvas.renderMode = RenderMode.ScreenSpaceOverlay; // set the render move to overlay screen space
+
+        // add loading text to the canvas.
+        // TODO: ADD A LOAINDG SLIDER BAR AND SOME ANIMATION FOR LOADING.
+        // create a prefabe is  probably better....
+        loadingText = new GameObject("LOADING_TEXT"); // add loading text
+        loadingText.transform.SetParent(fadeCanvas.transform); // set the parent to the canvas
+        loadingText.gameObject.AddComponent<Text>(); // add the text ocmponent to the gameobject
+        loadingText.gameObject.GetComponent<Text>().font = loadingTextFont; // change the font to the loading text font
+        loadingText.gameObject.GetComponent<RectTransform>().localScale = new Vector3(0.25f, 0.25f, 0f); // decrease the scale and then increase the font size;
+        loadingText.gameObject.GetComponent<Text>().fontSize = 80; // set the font size
+        loadingText.gameObject.GetComponent<Text>().alignment = TextAnchor.MiddleCenter; // position the text in the middle center
+        loadingText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0.5f, 0.5f); // set the position of the text to the center of the screen
 
 		// add an image to the canvas
 		coverImage = fadeCanvas.gameObject.AddComponent<Image>(); 
@@ -62,15 +75,6 @@ public class LevelManager : MonoBehaviour {
 		coverImage.rectTransform.anchorMin = new Vector2(1.0f, 0f);
 		coverImage.rectTransform.anchorMax = new Vector2(0f, 1.0f);
 		coverImage.rectTransform.pivot = new Vector2(0.5f, 0.5f);
-
-		//coverImage.enabled = true; // start by enabling the image
-
-		// GAME OVER SCREEN SETUP
-		//gameOverScreen = new GameObject("GameOverScreen"); // create gameoverScreen parent to the main canvas
-		//gameOverScreen.gameObject.transform.parent = fadeCanvas.transform; // set the parent to the fade canvas
-		//gameOverPanel = gameOverScreen.AddComponent<CanvasGroup>(); // add canvas group to the overlay gameobject
-		//HideGameOver();
-
 
         // -----------------------------------------------------------------------------
         // GAME MANAGER
@@ -162,7 +166,7 @@ public class LevelManager : MonoBehaviour {
                 // check if the world is locked and if it is main interactable false and change opacity.
                 if(GlobalControl.Instance.LoadedData.worldData[counter].isLocked)
                 {
-                    print(child.transform.name);
+                    //print(child.transform.name);
                     child.transform.GetComponent<Image>().color = new Color(255,255,255,0.5f);
                     child.transform.GetComponent<Button>().interactable = false;
                 }
@@ -172,7 +176,7 @@ public class LevelManager : MonoBehaviour {
             //
             for (int i = 0; i < GlobalControl.Instance.LoadedData.worldData.Count; i++)
             {
-                print(GlobalControl.Instance.LoadedData.worldData[i].isLocked);
+                //print(GlobalControl.Instance.LoadedData.worldData[i].isLocked);
             }
             
         }
@@ -336,7 +340,42 @@ public class LevelManager : MonoBehaviour {
         //Time.timeScale = 0;
         FadeOut(fadeSpeed);
         yield return new WaitForSeconds(fadeSpeed);
-        SceneManager.LoadScene(sceneName);
+
+        yield return null;
+
+        //Begin to load the scene
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+
+        asyncOperation.allowSceneActivation = false;
+
+        print("Pro: " + asyncOperation.progress);
+
+        // When the load is still in progress, output the text and the progress bar
+
+        while (!asyncOperation.isDone)
+        {
+            // check if the load is finsihed yet or not
+            if(asyncOperation.progress >= 0.9f)
+            {
+                // change the text to show the scene is ready
+                print("press space to continue...");
+
+                // wait for a touch before activating the scene.
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    // activate the scene
+                    asyncOperation.allowSceneActivation = true;
+                }
+            } else
+            {
+                // output the current progress
+                loadingText.GetComponent<Text>().text = "Progress: " + (asyncOperation.progress * 100) + "%";
+            }
+
+            yield return null;
+        }
+
+        //SceneManager.LoadScene(sceneName);
 
     }
 
