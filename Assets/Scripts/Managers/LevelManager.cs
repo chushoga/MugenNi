@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour {
     // ----------------------------------------------
     // GENERAL
     // ----------------------------------------------
-    private float transitionSpeed = 0.2f;
+    private float transitionSpeed = 0.5f;
     private GameManager gm;
 
     // ----------------------------------------------
@@ -339,43 +339,66 @@ public class LevelManager : MonoBehaviour {
 
         //Time.timeScale = 0;
         FadeOut(fadeSpeed);
-        yield return new WaitForSeconds(fadeSpeed);
+        //yield return new WaitForSeconds(fadeSpeed);
+        yield return SceneManager.LoadSceneAsync(sceneName);
 
-        yield return null;
+        //yield return null;
 
         //Begin to load the scene
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+        //AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
 
-        asyncOperation.allowSceneActivation = false;
+        //asyncOperation.allowSceneActivation = false;
 
-        print("Pro: " + asyncOperation.progress);
+        //print("Pro: " + asyncOperation.progress);
 
-        // When the load is still in progress, output the text and the progress bar
-
-        while (!asyncOperation.isDone)
+        // if click to continue = true
+        // then wait for interaction with the screen to continue
+        /*
+        if (clickToContinue)
         {
-            // check if the load is finsihed yet or not
-            if(asyncOperation.progress >= 0.9f)
+            // When the load is still in progress, output the text and the progress bar
+            while (!asyncOperation.isDone)
             {
-                // change the text to show the scene is ready
-                print("press space to continue...");
-
-                // wait for a touch before activating the scene.
-                if (Input.GetKeyDown(KeyCode.Space))
+                // check if the load is finsihed yet or not
+                if (asyncOperation.progress >= 0.9f)
                 {
+                    // change the text to show the scene is ready
+                    print("press space to continue...");
+
+                    // wait for a touch before activating the scene.
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        // activate the scene
+                        asyncOperation.allowSceneActivation = true;
+                    }
+                }
+                else
+                {
+                    // output the current progress
+                    loadingText.GetComponent<Text>().text = "Progress: " + (asyncOperation.progress * 100) + "%";
+                }
+
+                yield return null;
+            }
+
+        } else
+        {
+            while (!asyncOperation.isDone)
+            {
+                if (asyncOperation.progress >= 0.9f)
+                {
+                    print("true");
                     // activate the scene
                     asyncOperation.allowSceneActivation = true;
                 }
-            } else
-            {
-                // output the current progress
-                loadingText.GetComponent<Text>().text = "Progress: " + (asyncOperation.progress * 100) + "%";
+                else
+                {
+                    print("test");
+                }
+                yield return null;
             }
-
-            yield return null;
         }
-
-        //SceneManager.LoadScene(sceneName);
+        */
 
     }
 
@@ -395,7 +418,7 @@ public class LevelManager : MonoBehaviour {
 
     // Fade in to full 0% black aka. transparent
     public void FadeIn(float fadeSpeed){
-		coverImage.CrossFadeAlpha(0.0f, fadeSpeed, true);
+		coverImage.CrossFadeAlpha(0.0f, fadeSpeed, true);        
 	}
  
 }
