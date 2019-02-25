@@ -339,7 +339,7 @@ public class LevelManager : MonoBehaviour {
 
         //Time.timeScale = 0;
         FadeOut(fadeSpeed);
-        //yield return new WaitForSeconds(fadeSpeed);
+        yield return new WaitForSeconds(fadeSpeed);
         yield return SceneManager.LoadSceneAsync(sceneName);
 
         //yield return null;
