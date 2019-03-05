@@ -125,6 +125,7 @@ public class GlobalControl : MonoBehaviour {
     // RESET all JSON data back to default
     public void ResetGameDataJSON()
     {
+        print("Resetting JSON data...");
         // create a save game object
         Save save = CreateFreshSaveJSONGameObject();
 
@@ -137,7 +138,7 @@ public class GlobalControl : MonoBehaviour {
         // write data to json file
         File.WriteAllText(path, json);
 
-        Debug.Log("Resetting JSON data...");
+        print("Resetting JSON data...");
 
         LoadAsJSON();
 

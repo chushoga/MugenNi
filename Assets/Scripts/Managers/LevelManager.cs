@@ -40,9 +40,11 @@ public class LevelManager : MonoBehaviour {
     private GameObject fadeOutScreen; // parent for the fade out screen
 	//private float fadeSpeed = 1f; // fade speed
 	private Canvas fadeCanvas; // overlay canvas
-	public Image coverImage; // black overlay
-    public GameObject loadingText; // loading text
-    public Font loadingTextFont; // loading text font
+                               //public Image coverImage; // black overlay
+                               //public GameObject loadingText; // loading text
+                               //public Font loadingTextFont; // loading text font
+    public Animator animator;
+    public string levelToLoad;
     // ----------------------------------------------
 
 
@@ -58,6 +60,7 @@ public class LevelManager : MonoBehaviour {
         // add loading text to the canvas.
         // TODO: ADD A LOAINDG SLIDER BAR AND SOME ANIMATION FOR LOADING.
         // create a prefabe is  probably better....
+        /*
         loadingText = new GameObject("LOADING_TEXT"); // add loading text
         loadingText.transform.SetParent(fadeCanvas.transform); // set the parent to the canvas
         loadingText.gameObject.AddComponent<Text>(); // add the text ocmponent to the gameobject
@@ -66,8 +69,9 @@ public class LevelManager : MonoBehaviour {
         loadingText.gameObject.GetComponent<Text>().fontSize = 80; // set the font size
         loadingText.gameObject.GetComponent<Text>().alignment = TextAnchor.MiddleCenter; // position the text in the middle center
         loadingText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0.5f, 0.5f); // set the position of the text to the center of the screen
-
+        */
 		// add an image to the canvas
+        /*
 		coverImage = fadeCanvas.gameObject.AddComponent<Image>(); 
 		coverImage.name = "COVER_IMAGE";
 		coverImage.color = Color.black; // set the color to black
@@ -75,7 +79,7 @@ public class LevelManager : MonoBehaviour {
 		coverImage.rectTransform.anchorMin = new Vector2(1.0f, 0f);
 		coverImage.rectTransform.anchorMax = new Vector2(0f, 1.0f);
 		coverImage.rectTransform.pivot = new Vector2(0.5f, 0.5f);
-
+        */
         // -----------------------------------------------------------------------------
         // GAME MANAGER
         try
@@ -236,10 +240,6 @@ public class LevelManager : MonoBehaviour {
             }
         }
 
-        //------------------------------------------------------------------------------------
-
-        FadeIn(transitionSpeed); // START with a fade-in
-        
 	}
 
     // show the pause screen
@@ -314,7 +314,9 @@ public class LevelManager : MonoBehaviour {
 	// restart the current level
 	public void ReloadScene(){
 		Scene scene = SceneManager.GetActiveScene();
-        StartCoroutine(LoadScene(scene.name, transitionSpeed));
+        //StartCoroutine(LoadScene(scene.name, transitionSpeed));
+        print("FADE OUT " + scene.name);
+        StartLoad(scene.name);
     }
    
     // set the current world id
@@ -331,7 +333,16 @@ public class LevelManager : MonoBehaviour {
 
     // used to start a corutine from the buttons in editor
     public void StartLoad(string sceneName) {
-        StartCoroutine(LoadScene(sceneName, transitionSpeed));
+        //StartCoroutine(LoadScene(sceneName, transitionSpeed));
+        print("FADE OUT " + sceneName);
+        levelToLoad = sceneName;
+        animator.SetTrigger("FadeOut");
+    }
+
+    public void OnFadeComplete()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(levelToLoad);
     }
 
     // load the scene with the provided name
@@ -403,22 +414,28 @@ public class LevelManager : MonoBehaviour {
     }
 
     //Start Respawning
-    public IEnumerator StartRespawn(string sceneName, float fadeSpeed)
+    public void StartRespawn(string sceneName)
     {
-        FadeOut(fadeSpeed);
-        yield return new WaitForSeconds(transitionSpeed);
-        SceneManager.LoadScene(sceneName);
+        //FadeOut(fadeSpeed);
+        //yield return new WaitForSeconds(transitionSpeed);
+        //SceneManager.LoadScene(sceneName);
+        StartLoad(sceneName);
     }
 
     // Fade out to full 100% black
 	public void FadeOut(float fadeSpeed){
-		coverImage.CrossFadeAlpha(1.0f, fadeSpeed, true);
-        Time.timeScale = 1f;
+		//coverImage.CrossFadeAlpha(1.0f, fadeSpeed, true);
+        //Time.timeScale = 1f;
     }
 
     // Fade in to full 0% black aka. transparent
     public void FadeIn(float fadeSpeed){
-		coverImage.CrossFadeAlpha(0.0f, fadeSpeed, true);        
+		//coverImage.CrossFadeAlpha(0.0f, fadeSpeed, true);        
 	}
  
+    // Reset the json game data
+    public void ResetSaveData()
+    {
+        GlobalControl.Instance.ResetGameDataJSON();
+    }
 }
