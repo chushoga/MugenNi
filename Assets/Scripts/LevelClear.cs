@@ -84,8 +84,8 @@ public class LevelClear : MonoBehaviour {
 		lm.FadeOut(waitTime);
 
 		yield return new WaitForSeconds(waitTime);
-
-		StartCoroutine(lm.LoadScene("LevelSelect", 2.0f));
+        lm.StartLoad("LevelSelect");
+		//StartCoroutine(lm.LoadScene("LevelSelect", 2.0f));
 
 	}
 

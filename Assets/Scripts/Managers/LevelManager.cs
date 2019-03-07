@@ -314,8 +314,6 @@ public class LevelManager : MonoBehaviour {
 	// restart the current level
 	public void ReloadScene(){
 		Scene scene = SceneManager.GetActiveScene();
-        //StartCoroutine(LoadScene(scene.name, transitionSpeed));
-        print("FADE OUT " + scene.name);
         StartLoad(scene.name);
     }
    
@@ -331,94 +329,24 @@ public class LevelManager : MonoBehaviour {
         GlobalControl.Instance.currentLevel = id;
     }
 
-    // used to start a corutine from the buttons in editor
-    public void StartLoad(string sceneName) {
-        //StartCoroutine(LoadScene(sceneName, transitionSpeed));
-        print("FADE OUT " + sceneName);
-        levelToLoad = sceneName;
-        animator.SetTrigger("FadeOut");
+    // start the animation to load the level.
+    // once the animation is finished then load the scene.
+    public void StartLoad(string sceneName)
+    {
+        levelToLoad = sceneName; // set the scene name to be loaded
+        animator.SetTrigger("FadeOut"); // trigger the fade out animation
     }
 
+    // once the fade animation is complete load the level set in StartLoad()
     public void OnFadeComplete()
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(levelToLoad);
     }
 
-    // load the scene with the provided name
-    public IEnumerator LoadScene(string sceneName, float fadeSpeed){
-
-        //Time.timeScale = 0;
-        FadeOut(fadeSpeed);
-        yield return new WaitForSeconds(fadeSpeed);
-        yield return SceneManager.LoadSceneAsync(sceneName);
-
-        //yield return null;
-
-        //Begin to load the scene
-        //AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
-
-        //asyncOperation.allowSceneActivation = false;
-
-        //print("Pro: " + asyncOperation.progress);
-
-        // if click to continue = true
-        // then wait for interaction with the screen to continue
-        /*
-        if (clickToContinue)
-        {
-            // When the load is still in progress, output the text and the progress bar
-            while (!asyncOperation.isDone)
-            {
-                // check if the load is finsihed yet or not
-                if (asyncOperation.progress >= 0.9f)
-                {
-                    // change the text to show the scene is ready
-                    print("press space to continue...");
-
-                    // wait for a touch before activating the scene.
-                    if (Input.GetKeyDown(KeyCode.Space))
-                    {
-                        // activate the scene
-                        asyncOperation.allowSceneActivation = true;
-                    }
-                }
-                else
-                {
-                    // output the current progress
-                    loadingText.GetComponent<Text>().text = "Progress: " + (asyncOperation.progress * 100) + "%";
-                }
-
-                yield return null;
-            }
-
-        } else
-        {
-            while (!asyncOperation.isDone)
-            {
-                if (asyncOperation.progress >= 0.9f)
-                {
-                    print("true");
-                    // activate the scene
-                    asyncOperation.allowSceneActivation = true;
-                }
-                else
-                {
-                    print("test");
-                }
-                yield return null;
-            }
-        }
-        */
-
-    }
-
     //Start Respawning
     public void StartRespawn(string sceneName)
     {
-        //FadeOut(fadeSpeed);
-        //yield return new WaitForSeconds(transitionSpeed);
-        //SceneManager.LoadScene(sceneName);
         StartLoad(sceneName);
     }
 
