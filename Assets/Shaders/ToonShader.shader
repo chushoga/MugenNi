@@ -4,6 +4,7 @@
 	{
 		_Color("Color", Color) = (1,1,1,1)
 		_MainTex("Main Texture", 2D) = "white" {}
+		_Cutoff ("Alpha cutoff", Range(0,1)) = 0.5
 		// Ambient light is applied uniformly to all surfaces on the object.
 		[HDR]
 		_AmbientColor("Ambient Color", Color) = (0.4,0.4,0.4,1)
@@ -28,11 +29,15 @@
 			{
 				"LightMode" = "ForwardBase"
 				"PassFlags" = "OnlyDirectional"
+				"RenderType" = "Opaque"
 			}
 
+			Cull off
+
 			CGPROGRAM
-			#pragma vertex vert
-			#pragma fragment frag
+			#pragma vertex vert 
+			#pragma fragment frag CelShadingForward alphatest:_Cutoff addshadow
+			//#pragma surface surf CelShadingForward alphatest:_Cutoff addshadow
 			// Compile multiple versions of this shader depending on lighting settings.
 			#pragma multi_compile_fwdbase
 			
@@ -78,6 +83,8 @@
 			}
 			
 			float4 _Color;
+
+			float4 _Cutoff;
 
 			float4 _AmbientColor;
 
@@ -130,7 +137,10 @@
 
 				float4 sample = tex2D(_MainTex, i.uv);
 
-				return (light + _AmbientColor + specular + rim) * _Color * sample;
+				half4 c;
+				c.rgb = (light + _AmbientColor + specular + rim) * _Color * sample;
+				c.a = _Cutoff;
+				return c;
 			}
 			ENDCG
 		}
