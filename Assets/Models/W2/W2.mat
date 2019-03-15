@@ -7,10 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: W2
-  m_Shader: {fileID: 10751, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: OUTLINE_FRONT USE_REFLECTION_PROBE USE_VERTEX_LIGHT _LIGHTSAMPLING_ARKTOON
-    _MATCAPBLENDMODE_UNUSED _SHADOWCAPBLENDMODE_UNUSED _SHADOWCASTERCULLING_BACK
-  m_LightmapFlags: 4
+  m_Shader: {fileID: 4800000, guid: 9338a85bf02160d4393873cb56d28dd5, type: 3}
+  m_ShaderKeywords: OUTLINE_FRONT USE_REFLECTION_PROBE USE_VERTEX_LIGHT _EMISSION
+    _LIGHTSAMPLING_ARKTOON _MATCAPBLENDMODE_UNUSED _SHADOWCAPBLENDMODE_UNUSED _SHADOWCASTERCULLING_BACK
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -48,6 +48,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionParallaxTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FalloffTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -127,6 +131,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ShadowTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ShadowborderBlurMask:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -136,6 +144,7 @@ Material:
     - _Ambient: 0.1
     - _Border: 0.01
     - _BumpScale: 1
+    - _Curvature: 0.001
     - _CustomShadow2nd: 0
     - _Cutoff: 0.5
     - _CutoutCutoutAdjust: 0.5
@@ -148,7 +157,7 @@ Material:
     - _GlossBlend: 0.5
     - _GlossMapScale: 1
     - _GlossPower: 0.5
-    - _Glossiness: 0.5
+    - _Glossiness: 0
     - _GlossyReflections: 1
     - _LightSampling: 0
     - _MatcapBlend: 1
@@ -157,9 +166,12 @@ Material:
     - _MatcapShadeMix: 0
     - _Metallic: 0
     - _Mode: 0
+    - _NoiseDensity: 53
+    - _NoiseSizeCoeff: 0.61
     - _OcclusionStrength: 1
     - _OtherShadowAdjust: -0.1
     - _OtherShadowBorderSharpness: 3
+    - _Outline: 0.005
     - _OutlineCutoffRange: 0.5
     - _OutlineFront: 1
     - _OutlineHueShiftFromBase: 0
@@ -239,4 +251,5 @@ Material:
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShadowPlanB2CustomShadowTextureRGB: {r: 1, g: 1, b: 1, a: 1}
     - _ShadowPlanBCustomShadowTextureRGB: {r: 1, g: 1, b: 1, a: 1}
+    - _SilloetteColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _SpecularColor: {r: 0.9, g: 0.9, b: 0.9, a: 1}
