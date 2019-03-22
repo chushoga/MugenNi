@@ -159,6 +159,7 @@ public class PlayerController : MonoBehaviour
         // check if have fallen out of bounds and respawn at last point if true
         if (gameObject.transform.position.y <= startPos.y - 50.0f){
 			if(!isRespawing) {
+                RemoveHealth();
 				StartCoroutine(Respawn());
 			}
 		}

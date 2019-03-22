@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour {
     // ----------------------------------------------
     // GENERAL
     // ----------------------------------------------
-    private float transitionSpeed = 0.5f;
+    //private float transitionSpeed = 0.5f;
     private GameManager gm;
 
     // ----------------------------------------------
