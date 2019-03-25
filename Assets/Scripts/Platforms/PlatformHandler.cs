@@ -125,11 +125,12 @@ public class PlatformHandler : MonoBehaviour {
 			for(int i = 0; i < gameObject.transform.childCount; i++) {
 
 				GameObject gm = gameObject.transform.GetChild(i).gameObject; // get the game object iterated over
-
+                
 				// remove the children from the parent if not the model fo the gameobject
-				if(gm.name != model.name) {
+				//if(gm.name != model.name) {
 					gm.transform.SetParent(null, true);
-				}
+				//}
+                
 			}
 
 		}
@@ -223,7 +224,7 @@ public class PlatformHandler : MonoBehaviour {
 		}
 
 	}
-
+    
 	void OnCollisionEnter(Collision col){
 
 		// if the collision is the Environment then...
@@ -236,9 +237,9 @@ public class PlatformHandler : MonoBehaviour {
 				GameObject gm = gameObject.transform.GetChild(i).gameObject; // get the game object iterated over
 
 				// remove the children from the parent if not the model fo the gameobject
-				if(gm.name != model.name) {
+				//if(gm.name != model.name) {
 					gm.transform.SetParent(null, true);
-				}
+				//}
 
 			}
 			willFall = false;
@@ -265,7 +266,7 @@ public class PlatformHandler : MonoBehaviour {
 		}
 
 	}
-
+    
 	void OnCollisionExit(Collision col){
 		// remove parent so not still moving with the platform
 		if(col.gameObject.tag != "Platform") {
@@ -281,13 +282,15 @@ public class PlatformHandler : MonoBehaviour {
 		// blink the renderer
 		while(Time.time < endTime){
 			yield return new WaitForSeconds(0.2f);	
-			model.GetComponent<Renderer>().enabled = false;
-			yield return new WaitForSeconds(0.2f);	
-			model.GetComponent<Renderer>().enabled = true;
-		}
+			//gameObject.GetComponent<Renderer>().enabled = false;
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
+			yield return new WaitForSeconds(0.2f);
+           // gameObject.GetComponent<Renderer>().enabled = true;
+            gameObject.GetComponent<MeshRenderer>().enabled = true;
+        }
 
-		// in case disabled re-enable the renederer as it falls
-		model.GetComponent<Renderer>().enabled = true;
+        // in case disabled re-enable the renederer as it falls
+        gameObject.GetComponent<MeshRenderer>().enabled = true;
 
 		// stop all movements
 		moveVerticle = false;
@@ -302,7 +305,7 @@ public class PlatformHandler : MonoBehaviour {
 	// start phasing the 
 	private IEnumerator StartPhase(float t){
 
-		Renderer ren = model.GetComponent<Renderer>();
+		Renderer ren = gameObject.GetComponent<MeshRenderer>();
 		BoxCollider col = gameObject.GetComponent<BoxCollider>();
 
 		while(inPhase == true){
