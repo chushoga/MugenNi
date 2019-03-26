@@ -13,7 +13,11 @@ public class StarPicker : MonoBehaviour {
     private Color starColor; // material color(will change the alpha of the material)
     private GameObject materialGO; // mesh and material game object
     private GameObject partGO; // particles game object
+    private GameObject collectPart;
     public float rotSpeed = 50f;
+
+    private GameObject starMesh; // mesh
+    private GameObject shadows; // shadows
 
     // game manager reference
     public GameManager gm;
@@ -38,11 +42,24 @@ public class StarPicker : MonoBehaviour {
 
                 starColor = child.GetComponent<Renderer>().material.color;
                 starColor = new Color(200, 200, 200);
+
+                starMesh = child.gameObject;
             }
 
             if(child.name == "particles")
             {
                 partGO = child.gameObject;
+            }
+
+            if (child.name == "shadowProjector")
+            {
+                shadows = child.gameObject;
+            }
+
+            if (child.name == "CFX2_PickupStar")
+            {
+                collectPart = child.gameObject;
+                collectPart.SetActive(false);
             }
         }
 
@@ -76,12 +93,20 @@ public class StarPicker : MonoBehaviour {
             {
                 gm.currentStars[starIndex] = 1;
             }
+
+            // play the collect start particle
+            collectPart.SetActive(true);
+            collectPart.GetComponent<ParticleSystem>().Play();
                 
             //GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[currentLevelId].stars[starIndex] = 1;
             // Update star bar
             GameObject.Find("GameManager").GetComponent<GameManager>().UpdateStarBar();
 
-            Destroy(gameObject);
+            starMesh.SetActive(false);
+            shadows.SetActive(false);
+            partGO.SetActive(false);
+            //gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
     }
 

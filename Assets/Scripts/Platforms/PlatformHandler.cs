@@ -127,9 +127,9 @@ public class PlatformHandler : MonoBehaviour {
 				GameObject gm = gameObject.transform.GetChild(i).gameObject; // get the game object iterated over
                 
 				// remove the children from the parent if not the model fo the gameobject
-				//if(gm.name != model.name) {
+				if(gm.name != model.name) {
 					gm.transform.SetParent(null, true);
-				//}
+				}
                 
 			}
 
@@ -237,9 +237,9 @@ public class PlatformHandler : MonoBehaviour {
 				GameObject gm = gameObject.transform.GetChild(i).gameObject; // get the game object iterated over
 
 				// remove the children from the parent if not the model fo the gameobject
-				//if(gm.name != model.name) {
+				if(gm.name != model.name) {
 					gm.transform.SetParent(null, true);
-				//}
+				}
 
 			}
 			willFall = false;
@@ -283,14 +283,14 @@ public class PlatformHandler : MonoBehaviour {
 		while(Time.time < endTime){
 			yield return new WaitForSeconds(0.2f);	
 			//gameObject.GetComponent<Renderer>().enabled = false;
-            gameObject.GetComponent<MeshRenderer>().enabled = false;
+            gameObject.GetComponent<Renderer>().enabled = false;
 			yield return new WaitForSeconds(0.2f);
            // gameObject.GetComponent<Renderer>().enabled = true;
-            gameObject.GetComponent<MeshRenderer>().enabled = true;
+            gameObject.GetComponent<Renderer>().enabled = true;
         }
 
         // in case disabled re-enable the renederer as it falls
-        gameObject.GetComponent<MeshRenderer>().enabled = true;
+        gameObject.GetComponent<Renderer>().enabled = true;
 
 		// stop all movements
 		moveVerticle = false;
@@ -305,8 +305,8 @@ public class PlatformHandler : MonoBehaviour {
 	// start phasing the 
 	private IEnumerator StartPhase(float t){
 
-		Renderer ren = gameObject.GetComponent<MeshRenderer>();
-		BoxCollider col = gameObject.GetComponent<BoxCollider>();
+		Renderer ren = model.GetComponent<Renderer>();
+		BoxCollider col = model.GetComponent<BoxCollider>();
 
 		while(inPhase == true){
 
