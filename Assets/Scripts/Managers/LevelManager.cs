@@ -40,7 +40,7 @@ public class LevelManager : MonoBehaviour {
     private GameObject fadeOutScreen; // parent for the fade out screen
 	//private float fadeSpeed = 1f; // fade speed
 	private Canvas fadeCanvas; // overlay canvas
-                               //public Image coverImage; // black overlay
+    public Image coverImage; // black overlay
                                //public GameObject loadingText; // loading text
                                //public Font loadingTextFont; // loading text font
     public Animator animator;
@@ -71,7 +71,7 @@ public class LevelManager : MonoBehaviour {
         loadingText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0.5f, 0.5f); // set the position of the text to the center of the screen
         */
 		// add an image to the canvas
-        /*
+        
 		coverImage = fadeCanvas.gameObject.AddComponent<Image>(); 
 		coverImage.name = "COVER_IMAGE";
 		coverImage.color = Color.black; // set the color to black
@@ -79,7 +79,7 @@ public class LevelManager : MonoBehaviour {
 		coverImage.rectTransform.anchorMin = new Vector2(1.0f, 0f);
 		coverImage.rectTransform.anchorMax = new Vector2(0f, 1.0f);
 		coverImage.rectTransform.pivot = new Vector2(0.5f, 0.5f);
-        */
+        
         // -----------------------------------------------------------------------------
         // GAME MANAGER
         try
@@ -352,13 +352,13 @@ public class LevelManager : MonoBehaviour {
 
     // Fade out to full 100% black
 	public void FadeOut(float fadeSpeed){
-		//coverImage.CrossFadeAlpha(1.0f, fadeSpeed, true);
+		coverImage.CrossFadeAlpha(1.0f, fadeSpeed, true);
         //Time.timeScale = 1f;
     }
 
     // Fade in to full 0% black aka. transparent
     public void FadeIn(float fadeSpeed){
-		//coverImage.CrossFadeAlpha(0.0f, fadeSpeed, true);        
+		coverImage.CrossFadeAlpha(0.0f, fadeSpeed, true);        
 	}
  
     // Reset the json game data

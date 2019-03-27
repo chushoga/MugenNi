@@ -1042,6 +1042,7 @@ GameObject:
   - component: {fileID: 114750307334586268}
   - component: {fileID: 96693686517790120}
   - component: {fileID: 82267037338733268}
+  - component: {fileID: 136321917322722850}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -1112,7 +1113,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1980117793122992}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.31, z: 0}
+  m_LocalPosition: {x: -2.02, y: 3.11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4476068629618130}
@@ -2153,7 +2154,7 @@ BoxCollider:
   m_GameObject: {fileID: 1980117793122992}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.8591276, y: 1.6138861, z: 0.8167506}
   m_Center: {x: 3.836895e-17, y: 0.8200418, z: 0.018324971}
@@ -2514,6 +2515,8 @@ MonoBehaviour:
   launchVector: {fileID: 4104366055909698}
   canJump: 1
   jumpSound: {fileID: 8300000, guid: 9575eb2bbec4360479077f4663a0d0b8, type: 3}
+  DieParticle: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845,
+    type: 2}
 --- !u!119 &119564414814100272
 Projector:
   m_ObjectHideFlags: 1
@@ -2544,6 +2547,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &136321917322722850
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1980117793122992}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.37489164
+  m_Height: 1.6639295
+  m_Direction: 1
+  m_Center: {x: 1.009742e-28, y: 0.8184273, z: 0.000000029802322}
 --- !u!137 &137098689417437454
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

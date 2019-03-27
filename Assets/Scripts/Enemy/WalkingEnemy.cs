@@ -27,16 +27,13 @@ public class WalkingEnemy : MonoBehaviour {
 
 		if(col.gameObject.tag == "Player") {
 
-            // remove health
-            col.gameObject.GetComponent<PlayerController>().RemoveHealth();
+            col.gameObject.GetComponent<PlayerController>().TakeDamage(col.gameObject);
 
-			// will remove health and respawn at the last jumped position
-			StartCoroutine(col.gameObject.GetComponent<PlayerController>().Respawn());
 		}
 
 	}
 
-	void OnTriggerEnter(Collider col){
+    void OnTriggerEnter(Collider col){
 
 		// if the collision is the bounds reverse movement
 		if(col.gameObject.tag == "Bounds") {

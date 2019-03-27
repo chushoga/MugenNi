@@ -105,6 +105,7 @@ public class StarPicker : MonoBehaviour {
             starMesh.SetActive(false);
             shadows.SetActive(false);
             partGO.SetActive(false);
+            gameObject.GetComponent<SphereCollider>().enabled = false;
             //gameObject.SetActive(false);
             //Destroy(gameObject);
         }

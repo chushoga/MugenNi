@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 	private readonly Vector3 GRAVITY = new Vector3(0f, -240f, 0f);
 	private int NUM_DOTS_TO_SHOW = 15;
 	private float DOT_TIME_STEP = 0.02f;
-	private float RESPAWN_TIME = 1.0f;
+	private float RESPAWN_TIME = 1.5f;
 
 	// -----------------------------------------------------------------
 	/* SHARED VARIABLES */
@@ -78,6 +78,11 @@ public class PlayerController : MonoBehaviour
     /* ANIMATION */
     // -----------------------------------------------------------------
     private Animator anim;
+
+    // -----------------------------------------------------------------
+    /* PARTICLE SYSTEMS */
+    // -----------------------------------------------------------------
+    public GameObject DieParticle;
 
     void Awake(){
 		// set fixed update interverval to a higher rate for more accurate results.
@@ -460,14 +465,16 @@ public class PlayerController : MonoBehaviour
             canJump = false; // disable jumping        
             hasInitalizedSpawn = false; // stop the first jump animation from playing so when respawn it wont play Jump_Landing.
 
-            lm.FadeOut(RESPAWN_TIME);
-            yield return new WaitForSeconds(RESPAWN_TIME);
-
             GameObject model = gameObject.transform.Find("Model").gameObject; // get the reference to the model
 
-            gameObject.transform.Find("shadowProjector").gameObject.GetComponent<Projector>().enabled = false; // turn off the shadowcaster
-            gameObject.transform.Find("Trail").GetComponent<TrailRenderer>().enabled = false; // turn off the trail
             model.GetComponentInChildren<Renderer>().enabled = false; // turn off the renederer
+            gameObject.GetComponent<Rigidbody>().isKinematic = true; // make it non-kinematic so it will not fall through the floor when collider is disabled
+            gameObject.GetComponent<CapsuleCollider>().enabled = false; // disable the colllider
+            gameObject.GetComponentInChildren<Projector>().enabled = false; // turn off the shadowcaster
+            gameObject.GetComponentInChildren<TrailRenderer>().enabled = false; // turn off the trail
+
+            lm.FadeOut(RESPAWN_TIME);
+            yield return new WaitForSeconds(RESPAWN_TIME);
 
             transform.position = respawnPoint; // reset position to last save point
 
@@ -476,14 +483,16 @@ public class PlayerController : MonoBehaviour
 
             anim.Play("Idle"); // stop the jumping animation -> transition into idle
 
-            yield return new WaitForSeconds(RESPAWN_TIME / 2);
             lm.FadeIn(RESPAWN_TIME);
-
-            gameObject.transform.Find("shadowProjector").gameObject.GetComponent<Projector>().enabled = true; // turn on the shadowcaster
-            gameObject.transform.Find("Trail").GetComponent<TrailRenderer>().enabled = true; // turn on the trail renderer
-            model.GetComponentInChildren<Renderer>().enabled = true; // turn on the renderer
-
             yield return new WaitForSeconds(RESPAWN_TIME);
+
+            gameObject.GetComponent<CapsuleCollider>().enabled = true;
+            gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            gameObject.GetComponentInChildren<Projector>().enabled = true; // turn on the shadowcaster
+            gameObject.GetComponentInChildren<TrailRenderer>().enabled = true; // turn on the trail renderer
+            model.GetComponentInChildren<Renderer>().enabled = true; // turn on the renderer
+           
+            //yield return new WaitForSeconds(RESPAWN_TIME);
 
             isRespawing = false; // reset respawning flag
             canJump = true; // enable jumping
@@ -491,6 +500,20 @@ public class PlayerController : MonoBehaviour
             //Update the health bar
             gm.UpdateHealthBar();
         }
+    }
+
+    public void TakeDamage(GameObject go)
+    {
+
+        // start the die particle
+        Instantiate(DieParticle, gameObject.transform);
+
+        // remove health
+        RemoveHealth();
+
+        // will remove health and respawn at the last jumped position
+        StartCoroutine(Respawn());
+
     }
 
     // Blink the power bar
