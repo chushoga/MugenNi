@@ -461,18 +461,20 @@ public class PlayerController : MonoBehaviour
 
         if (gm.currentHealth != 0)
         {
+
             isRespawing = true;
             canJump = false; // disable jumping        
             hasInitalizedSpawn = false; // stop the first jump animation from playing so when respawn it wont play Jump_Landing.
 
-            GameObject model = gameObject.transform.Find("Model").gameObject; // get the reference to the model
+            TogglePlayer(false);
 
+            /*
+            GameObject model = gameObject.transform.Find("Model").gameObject; // get the reference to the model
             model.GetComponentInChildren<Renderer>().enabled = false; // turn off the renederer
-            gameObject.GetComponent<Rigidbody>().isKinematic = true; // make it non-kinematic so it will not fall through the floor when collider is disabled
-            gameObject.GetComponent<CapsuleCollider>().enabled = false; // disable the colllider
+            
             gameObject.GetComponentInChildren<Projector>().enabled = false; // turn off the shadowcaster
             gameObject.GetComponentInChildren<TrailRenderer>().enabled = false; // turn off the trail
-
+            */
             lm.FadeOut(RESPAWN_TIME);
             yield return new WaitForSeconds(RESPAWN_TIME);
 
@@ -485,28 +487,42 @@ public class PlayerController : MonoBehaviour
 
             lm.FadeIn(RESPAWN_TIME);
             yield return new WaitForSeconds(RESPAWN_TIME);
-
+            /*
             gameObject.GetComponent<CapsuleCollider>().enabled = true;
             gameObject.GetComponent<Rigidbody>().isKinematic = false;
             gameObject.GetComponentInChildren<Projector>().enabled = true; // turn on the shadowcaster
             gameObject.GetComponentInChildren<TrailRenderer>().enabled = true; // turn on the trail renderer
             model.GetComponentInChildren<Renderer>().enabled = true; // turn on the renderer
-           
+           */
             //yield return new WaitForSeconds(RESPAWN_TIME);
+
+            TogglePlayer(true);
 
             isRespawing = false; // reset respawning flag
             canJump = true; // enable jumping
 
             //Update the health bar
             gm.UpdateHealthBar();
+
+        }
+    }
+
+    public void TogglePlayer(bool enabled)
+    {
+        gameObject.GetComponent<Rigidbody>().isKinematic = !enabled; // make it non-kinematic so it will not fall through the floor when collider is disabled
+        gameObject.GetComponent<CapsuleCollider>().enabled = enabled; // disable the colllider
+                                                                   // disable all the renderers
+        foreach (Transform child in gameObject.transform)
+        {
+            child.gameObject.SetActive(enabled);
         }
     }
 
     public void TakeDamage(GameObject go)
     {
-
+        
         // start the die particle
-        Instantiate(DieParticle, gameObject.transform);
+        Instantiate(DieParticle, gameObject.transform.position, Quaternion.identity);
 
         // remove health
         RemoveHealth();

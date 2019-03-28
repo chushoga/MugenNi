@@ -79,6 +79,7 @@ public class LevelManager : MonoBehaviour {
 		coverImage.rectTransform.anchorMin = new Vector2(1.0f, 0f);
 		coverImage.rectTransform.anchorMax = new Vector2(0f, 1.0f);
 		coverImage.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        coverImage.enabled = false;
         
         // -----------------------------------------------------------------------------
         // GAME MANAGER
