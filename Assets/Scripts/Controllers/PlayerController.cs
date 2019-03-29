@@ -476,6 +476,7 @@ public class PlayerController : MonoBehaviour
             gameObject.GetComponentInChildren<TrailRenderer>().enabled = false; // turn off the trail
             */
             lm.FadeOut(RESPAWN_TIME);
+            print(t)
             yield return new WaitForSeconds(RESPAWN_TIME);
 
             transform.position = respawnPoint; // reset position to last save point
@@ -524,6 +525,8 @@ public class PlayerController : MonoBehaviour
         // start the die particle
         GameObject dp = (GameObject) Instantiate(DieParticle, gameObject.transform.position, Quaternion.identity);
         dp.transform.Rotate(new Vector3(90f, 0f, 0f));
+
+        Destroy(dp.gameObject, 3.0f);
 
         // remove health
         RemoveHealth();
