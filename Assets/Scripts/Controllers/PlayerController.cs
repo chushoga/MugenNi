@@ -522,7 +522,8 @@ public class PlayerController : MonoBehaviour
     {
         
         // start the die particle
-        Instantiate(DieParticle, gameObject.transform.position, Quaternion.identity);
+        GameObject dp = (GameObject) Instantiate(DieParticle, gameObject.transform.position, Quaternion.identity);
+        dp.transform.Rotate(new Vector3(90f, 0f, 0f));
 
         // remove health
         RemoveHealth();
