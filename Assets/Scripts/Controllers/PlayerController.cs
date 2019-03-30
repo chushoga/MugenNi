@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 	private Vector3 LAUNCH_VELOCITY = new Vector3(0f, 0f, 0f);
 	private Vector3 INITIAL_POSITION = Vector3.zero;
 	private readonly Vector3 GRAVITY = new Vector3(0f, -240f, 0f);
-	private int NUM_DOTS_TO_SHOW = 15;
+	private int NUM_DOTS_TO_SHOW = 10;
 	private float DOT_TIME_STEP = 0.02f;
 	private float RESPAWN_TIME = 1.5f;
 
@@ -83,6 +83,7 @@ public class PlayerController : MonoBehaviour
     /* PARTICLE SYSTEMS */
     // -----------------------------------------------------------------
     public GameObject DieParticle;
+    public GameObject ResParticle;
 
     void Awake(){
 		// set fixed update interverval to a higher rate for more accurate results.
@@ -476,15 +477,13 @@ public class PlayerController : MonoBehaviour
             gameObject.GetComponentInChildren<TrailRenderer>().enabled = false; // turn off the trail
             */
             lm.FadeOut(RESPAWN_TIME);
-            print(t)
+            
             yield return new WaitForSeconds(RESPAWN_TIME);
 
             transform.position = respawnPoint; // reset position to last save point
 
             // reset the position of the camera quick instead of follow with lerp
             cam.transform.position = gameObject.transform.position + cam.GetComponent<CameraController>().origPos;
-
-            anim.Play("Idle"); // stop the jumping animation -> transition into idle
 
             lm.FadeIn(RESPAWN_TIME);
             yield return new WaitForSeconds(RESPAWN_TIME);
@@ -497,7 +496,15 @@ public class PlayerController : MonoBehaviour
            */
             //yield return new WaitForSeconds(RESPAWN_TIME);
 
+            // start the spawn particle
+            GameObject rp = (GameObject)Instantiate(ResParticle, gameObject.transform.position, Quaternion.identity);
+            rp.transform.Rotate(new Vector3(0f, 0f, 0f));
+
+            Destroy(rp.gameObject, 3.0f);
+
             TogglePlayer(true);
+
+            anim.Play("Idle"); // stop the jumping animation -> transition into idle
 
             isRespawing = false; // reset respawning flag
             canJump = true; // enable jumping
