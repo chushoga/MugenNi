@@ -353,13 +353,22 @@ public class LevelManager : MonoBehaviour {
 
     // Fade out to full 100% black
 	public void FadeOut(float fadeSpeed){
-		coverImage.CrossFadeAlpha(1.0f, fadeSpeed, true);
-        //Time.timeScale = 1f;
+        
+        Color c = coverImage.color;
+        c.a = 1.0f;
+        coverImage.color = c;
+        coverImage.enabled = true;
+        coverImage.CrossFadeAlpha(0f, fadeSpeed, true);
     }
 
     // Fade in to full 0% black aka. transparent
     public void FadeIn(float fadeSpeed){
-		coverImage.CrossFadeAlpha(0.0f, fadeSpeed, true);        
+
+        Color c = coverImage.color;
+        c.a = 0f;
+        coverImage.color = c;
+        coverImage.enabled = true;
+        coverImage.CrossFadeAlpha(1.0f, fadeSpeed, true);        
 	}
  
     // Reset the json game data

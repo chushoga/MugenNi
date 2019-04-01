@@ -476,7 +476,7 @@ public class PlayerController : MonoBehaviour
             gameObject.GetComponentInChildren<Projector>().enabled = false; // turn off the shadowcaster
             gameObject.GetComponentInChildren<TrailRenderer>().enabled = false; // turn off the trail
             */
-            lm.FadeOut(RESPAWN_TIME);
+            lm.FadeIn(RESPAWN_TIME);
             
             yield return new WaitForSeconds(RESPAWN_TIME);
 
@@ -485,8 +485,9 @@ public class PlayerController : MonoBehaviour
             // reset the position of the camera quick instead of follow with lerp
             cam.transform.position = gameObject.transform.position + cam.GetComponent<CameraController>().origPos;
 
-            lm.FadeIn(RESPAWN_TIME);
-            yield return new WaitForSeconds(RESPAWN_TIME);
+            lm.FadeOut(RESPAWN_TIME);
+
+            //yield return new WaitForSeconds(RESPAWN_TIME);
             /*
             gameObject.GetComponent<CapsuleCollider>().enabled = true;
             gameObject.GetComponent<Rigidbody>().isKinematic = false;

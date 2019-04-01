@@ -306,7 +306,7 @@ public class PlatformHandler : MonoBehaviour {
 	private IEnumerator StartPhase(float t){
 
 		Renderer ren = model.GetComponent<Renderer>();
-		BoxCollider col = model.GetComponent<BoxCollider>();
+		BoxCollider col = gameObject.GetComponent<BoxCollider>();
 
 		while(inPhase == true){
 
