@@ -293,14 +293,23 @@ public class PlatformHandler : MonoBehaviour {
         gameObject.GetComponent<Renderer>().enabled = true;
 
 		// stop all movements
-		moveVerticle = false;
-		moveHorizontal = false;
-		moveCircular = false;
-		isConveyor = false;
+		//moveVerticle = false;
+		//moveHorizontal = false;
+		//moveCircular = false;
+		//isConveyor = false;
 
 		// fall down to the ground
 		gameObject.GetComponent<Rigidbody>().isKinematic = false;
-	}
+
+        yield return new WaitForSeconds(5f);
+        // fall down to the ground
+        gameObject.GetComponent<Rigidbody>().isKinematic = true;
+
+        // reset the platform the the starting position
+        gameObject.transform.position = startPosition;
+        gameObject.GetComponent<Renderer>().enabled = true;
+
+    }
 
 	// start phasing the 
 	private IEnumerator StartPhase(float t){
@@ -308,14 +317,16 @@ public class PlatformHandler : MonoBehaviour {
 		Renderer ren = model.GetComponent<Renderer>();
 		BoxCollider col = gameObject.GetComponent<BoxCollider>();
 
+        yield return new WaitForSeconds(t);
+
 		while(inPhase == true){
 
-			yield return new WaitForSeconds(t); // wait for n*seconds
+			yield return new WaitForSeconds(3.0f); // wait for n*seconds
 
 			ren.enabled = false; // disable the renderer
 			col.enabled = false; // disable the collider
 
-			yield return new WaitForSeconds(t); // wait for n*seconds
+			yield return new WaitForSeconds(3.0f); // wait for n*seconds
 
 			ren.enabled = true; // enable the renderer
 			col.enabled = true; // enable the collider
