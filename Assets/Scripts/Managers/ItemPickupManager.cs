@@ -4,9 +4,21 @@ using UnityEngine;
 
 public class ItemPickupManager : MonoBehaviour {
 
-	GameManager gm;
+	private GameManager gm;
 
-	void Start(){
+    [Tooltip("HEALTH PICKUP")]
+    public bool isHealthPickup = false;
+    public int healthPickupAmount = 0;
+
+    [Tooltip("COIN PICKUP")]
+    public bool isCoinPickup = false;
+    public int coindPickupAmount = 0;
+
+    [Tooltip("TIME PICKUP")]
+    public bool isTimePickup = false;
+    public float timePickupAmount = 0f;
+
+    void Start(){
 		gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}
 
