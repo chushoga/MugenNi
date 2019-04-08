@@ -33,7 +33,7 @@ public class LevelClear : MonoBehaviour {
     {
         print("LEVEL CLEAR!!!!");
 
-        lm.ShowGameCLearScreen();
+        lm.ShowGameClearScreen();
 
         int currentWorld = GlobalControl.Instance.currentWorld;
         int currentLevel = GlobalControl.Instance.currentLevel;

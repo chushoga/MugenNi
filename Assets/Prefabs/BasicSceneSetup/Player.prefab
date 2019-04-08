@@ -1113,7 +1113,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1980117793122992}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -2.02, y: 3.11, z: 0}
+  m_LocalPosition: {x: -2.02, y: 0.509, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4476068629618130}
@@ -2514,8 +2514,11 @@ MonoBehaviour:
   chargeSpeed: 70
   launchVector: {fileID: 4104366055909698}
   canJump: 1
-  jumpSound: {fileID: 8300000, guid: 9575eb2bbec4360479077f4663a0d0b8, type: 3}
-  DieParticle: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845,
+  jumpSound: {fileID: 8300000, guid: 7b0c150a10d6dfa4eb57b644f9edea11, type: 3}
+  dieSound: {fileID: 8300000, guid: e8aee3eecab165446aa76c59a3d7f5f6, type: 3}
+  DieParticle: {fileID: 1735607619931616, guid: 9fc09c02be84ae6428e739e8ba58c2c9,
+    type: 2}
+  ResParticle: {fileID: 1641894405841222, guid: 9324217b81ac2194c9a0f0e01844d893,
     type: 2}
 --- !u!119 &119564414814100272
 Projector:

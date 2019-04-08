@@ -22,7 +22,19 @@ public class LevelManager : MonoBehaviour {
     // GAME OVER SCREEN
     // ----------------------------------------------
     private CanvasGroup gameOverScreen;
-	//private CanvasGroup gameOverPanel;
+    //private CanvasGroup gameOverPanel;
+
+    // ----------------------------------------------
+    // SOUND
+    // ----------------------------------------------
+    // audiosource
+    AudioSource source;
+
+    // game over sound
+    public AudioClip gameOverSound;
+
+    // background music
+    AudioSource bgMusic;
 
     // ----------------------------------------------
     // PAUSE GAME SCREEN
@@ -55,20 +67,15 @@ public class LevelManager : MonoBehaviour {
 		// set up the canvas properites
 		fadeCanvas.renderMode = RenderMode.ScreenSpaceOverlay; // set the render move to overlay screen space
 
+        // set up audio source
+        source = GetComponent<AudioSource>();
+
+        // get background music
+        bgMusic = Camera.main.GetComponentInChildren<AudioSource>();
+        
         // add loading text to the canvas.
         // TODO: ADD A LOAINDG SLIDER BAR AND SOME ANIMATION FOR LOADING.
         // create a prefabe is  probably better....
-        /*
-        loadingText = new GameObject("LOADING_TEXT"); // add loading text
-        loadingText.transform.SetParent(fadeCanvas.transform); // set the parent to the canvas
-        loadingText.gameObject.AddComponent<Text>(); // add the text ocmponent to the gameobject
-        loadingText.gameObject.GetComponent<Text>().font = loadingTextFont; // change the font to the loading text font
-        loadingText.gameObject.GetComponent<RectTransform>().localScale = new Vector3(0.25f, 0.25f, 0f); // decrease the scale and then increase the font size;
-        loadingText.gameObject.GetComponent<Text>().fontSize = 80; // set the font size
-        loadingText.gameObject.GetComponent<Text>().alignment = TextAnchor.MiddleCenter; // position the text in the middle center
-        loadingText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0.5f, 0.5f); // set the position of the text to the center of the screen
-        */
-		// add an image to the canvas
         
 		coverImage = fadeCanvas.gameObject.AddComponent<Image>(); 
 		coverImage.name = "COVER_IMAGE";
@@ -92,7 +99,7 @@ public class LevelManager : MonoBehaviour {
         }
         catch
         {
-            print("There is no game manager...");
+            //print("There is no game manager...");
         }
         // -----------------------------------------------------------------------------
         // PAUSE GAME SCREEN
@@ -105,7 +112,7 @@ public class LevelManager : MonoBehaviour {
         }
         catch
         {
-            print("There is no pause screen...");
+            //print("There is no pause screen...");
         }
         // -----------------------------------------------------------------------------
         // GAME OVER SCREEN
@@ -118,7 +125,7 @@ public class LevelManager : MonoBehaviour {
         }
         catch
         {
-            print("There is no game over screen...");
+            //print("There is no game over screen...");
         }
         // -----------------------------------------------------------------------------
         // GAME CLEAR SCREEN
@@ -131,7 +138,7 @@ public class LevelManager : MonoBehaviour {
         }
         catch
         {
-            print("There is no game clear screen...");
+            //print("There is no game clear screen...");
         }
 
         // -----------------------------------------------------------------------------
@@ -142,7 +149,7 @@ public class LevelManager : MonoBehaviour {
         }
         catch
         {
-            print("There is no Navi...");
+            //print("There is no Navi...");
         }
         // -----------------------------------------------------------------------------
 
@@ -152,7 +159,7 @@ public class LevelManager : MonoBehaviour {
         } 
         catch
         {
-            print("There is no Power Bar...");
+            //print("There is no Power Bar...");
         }
 
         // -----------------------------------------------------------------------------
@@ -244,6 +251,7 @@ public class LevelManager : MonoBehaviour {
     // show the pause screen
     public void ShowPauseScreen()
     {
+        bgMusic.Pause();
         pauseScreen.alpha = 1;
         pauseScreen.interactable = true;
         pauseScreen.blocksRaycasts = true;
@@ -253,14 +261,15 @@ public class LevelManager : MonoBehaviour {
     // hide the pause screen
     public void HidePauseScreen()
     {
+        bgMusic.Play();
         pauseScreen.alpha = 0;
         pauseScreen.interactable = false;
-        pauseScreen.blocksRaycasts = false;
+        pauseScreen.blocksRaycasts =                                                                      false;
         Time.timeScale = 1f;
     }
 
     // show the game clear screen
-    public void ShowGameCLearScreen()
+    public void ShowGameClearScreen()
     {
                 
         gm.UpdateClearTimeText(); // set the game clear time text
@@ -288,6 +297,7 @@ public class LevelManager : MonoBehaviour {
 
     // show the game over overlay
     public void ShowGameOver(){
+        
 		// make it black
 		gameOverScreen.alpha = 1; // set to visible
         gameOverScreen.interactable = true; // allow to touch
@@ -298,6 +308,12 @@ public class LevelManager : MonoBehaviour {
         navi.alpha = 0;
         powerBar.alpha = 0;
         // -----------------------------------------------------------------------------
+        
+        // play gameOver sound
+        source.PlayOneShot(gameOverSound, 0.1f);
+
+        // stop the bg music
+        bgMusic.Stop();
 
         Time.timeScale = 0f; // show the game over and pause the game
 	}

@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour
     [Header("Audio Information")]
 	[Tooltip("Jump sound")] public AudioClip jumpSound; // jumping sound
 	private AudioSource source; // audio source for sounds
+    [Tooltip("Die sound")]public AudioClip dieSound;
 
     // -----------------------------------------------------------------
     /* ANIMATION */
@@ -114,7 +115,7 @@ public class PlayerController : MonoBehaviour
 
 		// set up jump audio
 		source = gameObject.GetComponent<AudioSource>();
-
+        
 		powerBar = GameObject.Find("PowerBar").GetComponent<Slider>();
 
         powerBarImage =  GameObject.Find("PowerBarFill").gameObject.GetComponent<Image>();
@@ -218,13 +219,16 @@ public class PlayerController : MonoBehaviour
 				jumpForce = 0.0f;
 				canJump = false; // do not allow jumping
 
-                // play idle if the jump charge animation is 0.
-                if (anim.GetCurrentAnimatorStateInfo(0).IsName("Jump_Charge"))                
-                {
-                    anim.Play("Idle");
+                if(anim.enabled == true)
+                { 
+                    // play idle if the jump charge animation is 0.
+                    if (anim.GetCurrentAnimatorStateInfo(0).IsName("Jump_Charge"))                
+                    {
+                        anim.Play("Idle");
+                    }
                 }
-                
-			} else {
+
+            } else {
 				if(isRespawing == false){
 					canJump = true;
 				}
@@ -529,7 +533,9 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(GameObject go)
     {
-        
+        // play the jump sound
+        source.PlayOneShot(dieSound, 0.2f);
+
         // start the die particle
         GameObject dp = (GameObject) Instantiate(DieParticle, gameObject.transform.position, Quaternion.identity);
         dp.transform.Rotate(new Vector3(90f, 0f, 0f));

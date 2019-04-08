@@ -7,6 +7,15 @@ public class CoinPickup : MonoBehaviour {
     // game manager
     GameManager gm;
 
+    // audio
+    AudioSource collectSound;
+
+    // renderer
+    Renderer rend;
+
+    // collider
+    BoxCollider col;
+
     // amount of coins to add
     public int coinCount;
     public GameObject destroyParticle;
@@ -14,15 +23,23 @@ public class CoinPickup : MonoBehaviour {
     private void Start()
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        collectSound = gameObject.GetComponentInChildren<AudioSource>();
+        rend = gameObject.GetComponentInChildren<Renderer>();
+        col = gameObject.GetComponent<BoxCollider>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
+            collectSound.time = 0.08f;
+            collectSound.Play();
             gm.UpdateCoinCounter(coinCount);
             Instantiate(destroyParticle, gameObject.transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            
+            col.enabled = false; // disable the collider
+            rend.enabled = false; // disable the renderer
+            Destroy(gameObject, 3.0f); // destroy the gameobject after a few seconds
         }
     }
 

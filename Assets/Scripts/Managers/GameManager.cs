@@ -64,7 +64,8 @@ public class GameManager : MonoBehaviour {
     // -----------------------------------------------------------------
     /* References */
     // -----------------------------------------------------------------
-    LevelManager lm; 
+    LevelManager lm;
+    bool gameOver = false;
 
 
     private void Awake()
@@ -125,8 +126,10 @@ public class GameManager : MonoBehaviour {
 	void Update() {
 
         // update the game time.
-        UpdateGameTime(); 
-
+        if(gameOver == false)
+        { 
+            UpdateGameTime();
+        }
     }
 
 	// Update the game time
@@ -151,6 +154,7 @@ public class GameManager : MonoBehaviour {
         if (timeRemaining <= 0)
         {
             GameTimeText.text = "0:00";
+            gameOver = true;
             lm.ShowGameOver();
         }
         else

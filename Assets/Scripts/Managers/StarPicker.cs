@@ -22,10 +22,14 @@ public class StarPicker : MonoBehaviour {
     // game manager reference
     public GameManager gm;
 
+    // sound
+    AudioSource collectSound;
+
     // Use this for initialization
     void Start () {
 
         gm = GameObject.Find("GameManager").gameObject.GetComponent<GameManager>();
+        collectSound = gameObject.GetComponentInChildren<AudioSource>();
 
         currentWorldId = GlobalControl.Instance.currentWorld;
         currentLevelId = GlobalControl.Instance.currentLevel;
@@ -88,6 +92,8 @@ public class StarPicker : MonoBehaviour {
         // Check if it is the player or not
         if (col.gameObject.tag == "Player")
         {
+
+            collectSound.Play();
 
             if (GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[currentLevelId].stars[starIndex] == 0)
             {
