@@ -57,10 +57,15 @@ public class GameManager : MonoBehaviour {
 	private float GameTime = 0.0f; // Time since start of level TODO: if fading in or can not move char then pause the counter
 	private Text GameTimeText; // The text var for the game time.
     private Text ClearTimeText; // the clear time for the end of level
+    private string clearTime;
+
+    public float timeLimit = 60f; // base time limit of 60s can change per level.
+    private float timeRemaining = 0.0f;
     // -----------------------------------------------------------------
     /* References */
     // -----------------------------------------------------------------
-    
+    LevelManager lm; 
+
 
     private void Awake()
     {
@@ -75,6 +80,9 @@ public class GameManager : MonoBehaviour {
     }
 
     void Start() {
+
+        // set level manager instance
+        lm = GameObject.Find("LevelManager").gameObject.GetComponent<LevelManager>();
 
         // Set the starting health amount;
         currentHealth = initialHealth;
@@ -124,16 +132,39 @@ public class GameManager : MonoBehaviour {
 	// Update the game time
 	void UpdateGameTime(){
 		
+        // Game Time from start of level
 		GameTime = Time.timeSinceLevelLoad;
-
+        
 		int minutes = Mathf.FloorToInt(GameTime / 60.0f);
 		int seconds = Mathf.FloorToInt(GameTime - minutes * 60);
 		string niceTime = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-		GameTimeText.text = niceTime;
-	}
+        //GameTimeText.text = niceTime;
+        clearTime = niceTime;
 
-	// Update teh coin counter text
+        // -----------------------------------
+
+        // Time Remaining
+        timeRemaining = timeLimit - Time.timeSinceLevelLoad;
+
+        // check if less than or equal to 0
+        if (timeRemaining <= 0)
+        {
+            GameTimeText.text = "0:00";
+            lm.ShowGameOver();
+        }
+        else
+        {
+
+            int minutesRemaining = Mathf.FloorToInt(timeRemaining / 60.0f);
+            int secondsRemaining = Mathf.FloorToInt(timeRemaining - minutesRemaining * 60);
+            string niceTimeRemaining = string.Format("{0:00}:{1:00}", minutesRemaining, secondsRemaining);
+
+            GameTimeText.text = niceTimeRemaining;
+        }
+    }
+
+	// Update the coin counter text
 	public void UpdateCoinCounter(int x){
 		coinCount += x;        
 		CoinCounter.text = " x " + coinCount;
@@ -141,7 +172,7 @@ public class GameManager : MonoBehaviour {
 
     public void UpdateClearTimeText()
     {
-        ClearTimeText.text = "Clear Time: " + GameTimeText.text;
+        ClearTimeText.text = "Clear Time: " + clearTime;
     }
 
     // Update the health panel

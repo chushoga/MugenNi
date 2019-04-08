@@ -45,9 +45,7 @@ public class LevelManager : MonoBehaviour {
                                //public Font loadingTextFont; // loading text font
     public Animator animator;
     public string levelToLoad;
-    // ----------------------------------------------
-
-
+    // ------------------------------------------------
     public void Start(){
 
         // FADE SCREEN SETUP

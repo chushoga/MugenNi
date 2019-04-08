@@ -405,9 +405,9 @@ public class PlayerController : MonoBehaviour
 	}
 
 	// Add health to the player
-	public void AddHealth(){
+	public void AddHealth(int ammountToAdd){
 		
-		int hp = 1 + gm.currentHealth;
+		int hp = ammountToAdd + gm.currentHealth;
 
 		if(hp <= gm.initialHealth) {
 			gm.currentHealth = hp;
