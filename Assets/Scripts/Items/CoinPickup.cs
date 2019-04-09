@@ -29,7 +29,7 @@ public class CoinPickup : MonoBehaviour {
         collectSound = gameObject.GetComponentInChildren<AudioSource>();
         rend = gameObject.GetComponentInChildren<Renderer>();
         col = gameObject.GetComponent<BoxCollider>();
-        proj = gameObject.GetComponent<Projector>();
+        proj = gameObject.GetComponentInChildren<Projector>();
     }
 
     private void OnTriggerEnter(Collider other)
