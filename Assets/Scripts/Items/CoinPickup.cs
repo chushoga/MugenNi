@@ -16,6 +16,9 @@ public class CoinPickup : MonoBehaviour {
     // collider
     BoxCollider col;
 
+    // projector
+    Projector proj;
+
     // amount of coins to add
     public int coinCount;
     public GameObject destroyParticle;
@@ -26,6 +29,7 @@ public class CoinPickup : MonoBehaviour {
         collectSound = gameObject.GetComponentInChildren<AudioSource>();
         rend = gameObject.GetComponentInChildren<Renderer>();
         col = gameObject.GetComponent<BoxCollider>();
+        proj = gameObject.GetComponent<Projector>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,6 +43,7 @@ public class CoinPickup : MonoBehaviour {
             
             col.enabled = false; // disable the collider
             rend.enabled = false; // disable the renderer
+            proj.enabled = false; // disable the projector
             Destroy(gameObject, 3.0f); // destroy the gameobject after a few seconds
         }
     }
