@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameSettings : MonoBehaviour {
-
+    /*
     [SerializeField]
     private Toggle toggle;
 
@@ -59,5 +59,5 @@ public class GameSettings : MonoBehaviour {
         PlayerPrefs.Save();
     }
 
-    
+    */
 }
