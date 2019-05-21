@@ -260,6 +260,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: carrot2
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 72ab10c497e469a46b05b365f0e76aa0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 72ab10c497e469a46b05b365f0e76aa0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -335,6 +340,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 35762fa05f0ef1f46a3bc40de350e184, type: 2}
+    - target: {fileID: -1504981713932161579, guid: 72ab10c497e469a46b05b365f0e76aa0,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: 72ab10c497e469a46b05b365f0e76aa0,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72ab10c497e469a46b05b365f0e76aa0, type: 3}
 --- !u!1 &8390896148409194703 stripped
