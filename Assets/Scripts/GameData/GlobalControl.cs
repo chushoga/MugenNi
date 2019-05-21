@@ -13,8 +13,7 @@ public class GlobalControl : MonoBehaviour {
     // ------------------------------------------------------------------------
     public static GlobalControl Instance;
     // ------------------------------------------------------------------------
-
-    public Text console; // DEBUGGING    
+ 
     public Save LoadedData; // MASTER SAVE DATA // persistant
     public int currentWorld = 0;
     public int currentLevel = 0;
@@ -52,8 +51,6 @@ public class GlobalControl : MonoBehaviour {
         // add a coin
         LoadedData.coins = LoadedData.coins + 1;
 
-        // output the coin total to the debug console
-        console.text = "COINS: " + LoadedData.coins;
     }
     
     // Create a basic empty save game file.
@@ -168,45 +165,9 @@ public class GlobalControl : MonoBehaviour {
             File.WriteAllText(path, json);
             Debug.Log("File does not exist. Creating Save file...");
 
-            // TODO: START FROM HERE
-            // Add the saved data to current instance of this Game.cs
-            // TODO: MAKE this Game.cs persistant
             LoadedData = save;
-            print(LoadedData.worldData[0].isLocked);
-            //console.text = "WORLD 0 LOCKED: " + LoadedData.worldData[0].isLocked;
-            // clear console
-            console.text = "";
-            int counterA = 0;
-            
-            foreach (WorldInfo key in LoadedData.worldData)
-            {
-                int counterB = 0;
-                foreach (LevelInfo key2 in LoadedData.worldData[counterA].levelData)
-                {
-                    // temp if to only show one id
-                    //if (counterA == 0) {
-                        console.text += "worldId: " + LoadedData.worldData[counterA].worldID + "\n" ;
-                        console.text += "WORLD isLocked: " + LoadedData.worldData[counterA].isLocked + "\n"; ;
-                        console.text += "levelId: " + LoadedData.worldData[counterA].levelData[counterB].levelID + "\n";
-                        console.text += "LEVEL isLocked: " + LoadedData.worldData[counterA].levelData[counterB].isLocked + "\n";
-                        console.text += "isCleared: " + LoadedData.worldData[counterA].levelData[counterB].isCleared + "\n";
-                        console.text +=  "Best Time: " + LoadedData.worldData[counterA].levelData[counterB].bestTime + "\n";
-                        console.text += "stars: " + LoadedData.worldData[counterA].levelData[counterB].stars[0] + "\n";
-
-                        console.text += "\n --------------------------------- \n";
-                    //}
-                    
-                    counterB++;
-                }
-                //console.text += "WORLD " + counterA + " "+ key +": " + LoadedData.worldData[counterA].levelData[0].isCleared;
-                //console.text += " | - "+ key +" - \n";
-                counterA++;
-            }
+           
         }
-
-        
-
-        //Save saver = JsonUtility.FromJson<Save>(json);
 
         
     }
@@ -226,44 +187,9 @@ public class GlobalControl : MonoBehaviour {
             // create a save from the json data
             Save save = (Save)JsonUtility.FromJson(json, typeof(Save));
             
-            //coins = save.coins;
-            
-            //print("JSON Loaded: " + json);
-
             // load the save data into the master variable
             LoadedData = save; 
 
-            // ---------------------------------------------------------------------
-            // THIS IS FOR PREVIEWING ONLY HERE
-            /*
-            console.text = ""; // clear console
-            int counterA = 0; // reset counter
-
-            foreach (WorldInfo key in LoadedData.worldData)
-            {
-                int counterB = 0;
-                foreach (LevelInfo key2 in LoadedData.worldData[counterA].levelData)
-                {
-                    // temp if to only show one id
-                    //if (counterA == 0) {
-                    console.text += "worldId: " + LoadedData.worldData[counterA].worldID + "\n";
-                    console.text += "WORLD isLocked: " + LoadedData.worldData[counterA].isLocked + "\n"; ;
-                    console.text += "levelId: " + LoadedData.worldData[counterA].levelData[counterB].levelID + "\n";
-                    console.text += "LEVEL isLocked: " + LoadedData.worldData[counterA].levelData[counterB].isLocked + "\n";
-                    console.text += "isCleared: " + LoadedData.worldData[counterA].levelData[counterB].isCleared + "\n";
-                    console.text += "Best Time: " + LoadedData.worldData[counterA].levelData[counterB].bestTime + "\n";
-                    console.text += "stars: " + LoadedData.worldData[counterA].levelData[counterB].stars[0] + "\n";
-
-                    console.text += "\n --------------------------------- \n";
-                    //}
-
-                    counterB++;
-                }                
-
-                counterA++;
-            }
-            */
-        // ---------------------------------------------------------------------
         }
         else
         {
@@ -300,23 +226,7 @@ public class GlobalControl : MonoBehaviour {
     {
 
         Save save = new Save();
-        /*
-       int i = 0;
-       for (i = 0; i < 3; i++)
-       {   
-           save.levelData.Add(new LevelInfo{
-               worldID = i,
-               levelID = i,
-               clear = false,
-               finishTimeSeconds = 450,
-               starSpecial = currentStars
-           });
-
-       }
-
-       save.coins = coins;
-       */
-
+    
         return save;
 
     }
@@ -338,8 +248,6 @@ public class GlobalControl : MonoBehaviour {
         print("gameSaved");
 
 
-        console.text = "CONIS: " + LoadedData.coins;
-
     }
 
     // LOAD ENCRYPTED SAVE GAME
@@ -357,7 +265,6 @@ public class GlobalControl : MonoBehaviour {
 
             // 4
             LoadedData.coins = save.coins;
-            console.text = "COINS: " + LoadedData.coins;
 
             print("Loaded");
         }
@@ -365,7 +272,6 @@ public class GlobalControl : MonoBehaviour {
         {
             print("No gave saved-----!");
             // create a new game if there is no save game present.
-
         }
 
     }

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class StarPicker : MonoBehaviour {
 
+    [Tooltip("Set the index of the current star. 1 to 3")]
+    [Range(0, 2)]
     public int starIndex;
-    public bool currentlyActive;
 
     int currentWorldId;
     int currentLevelId;
@@ -14,13 +15,12 @@ public class StarPicker : MonoBehaviour {
     private GameObject materialGO; // mesh and material game object
     private GameObject partGO; // particles game object
     private GameObject collectPart;
-    public float rotSpeed = 50f;
 
     private GameObject starMesh; // mesh
     private GameObject shadows; // shadows
 
     // game manager reference
-    public GameManager gm;
+    private GameManager gm;
 
     // sound
     AudioSource collectSound;
@@ -36,7 +36,7 @@ public class StarPicker : MonoBehaviour {
 
         //print(GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[currentLevelId].stars[starIndex] + " [TEST-----------------]");
         
-        // set the star color for each starMesh child.        
+        // set the star color for each starMesh child.
         foreach (Transform child in gameObject.transform)
         {
             //print(child.name);
@@ -72,20 +72,10 @@ public class StarPicker : MonoBehaviour {
             // Set the opacity of the object
             materialGO.GetComponent<Renderer>().material.color = starColor; // change the opacity
             partGO.SetActive(false); // turn off the particles
-            currentlyActive = false;
-        }
-        else
-        {
-            currentlyActive = true;
         }
 
     }
 
-    private void Update()
-    {
-        // rotate the star
-        transform.Rotate(Vector3.up, rotSpeed * Time.deltaTime);
-    }
 
     void OnTriggerEnter(Collider col)
     {
@@ -108,12 +98,12 @@ public class StarPicker : MonoBehaviour {
             // Update star bar
             GameObject.Find("GameManager").GetComponent<GameManager>().UpdateStarBar();
 
+            // when the player collides with the star disable all the visual and 
             starMesh.SetActive(false);
             shadows.SetActive(false);
             partGO.SetActive(false);
             gameObject.GetComponent<SphereCollider>().enabled = false;
             //gameObject.SetActive(false);
-            //Destroy(gameObject);
         }
     }
 
