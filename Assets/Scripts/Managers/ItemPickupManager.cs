@@ -20,7 +20,7 @@ public class ItemPickupManager : MonoBehaviour {
 
     void Start(){
 		gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-	}
+	}   
 
 	void OnTriggerEnter(Collider col){
 
@@ -29,6 +29,9 @@ public class ItemPickupManager : MonoBehaviour {
 
 			//GameManager.coinCount += 1;
 			gm.UpdateCoinCounter(1);
+            gm.currentHealth += healthPickupAmount;
+            //print(gm.currentHealth);
+            gm.UpdateHealthBar();
 			Destroy(gameObject);
 		}
 	}
