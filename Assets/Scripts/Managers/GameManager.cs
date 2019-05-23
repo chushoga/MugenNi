@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
@@ -57,17 +56,16 @@ public class GameManager : MonoBehaviour {
 	private float GameTime = 0.0f; // Time since start of level TODO: if fading in or can not move char then pause the counter
 	private Text GameTimeText; // The text var for the game time.
     private Text ClearTimeText; // the clear time for the end of level
-    private string clearTime;
+    private string clearTime; // cleared time
 
     public float timeLimit = 60f; // base time limit of 60s can change per level.
     private float timeRemaining = 0.0f;
     // -----------------------------------------------------------------
     /* References */
     // -----------------------------------------------------------------
-    LevelManager lm;
-    bool gameOver = false;
-
-
+    LevelManager lm; // Level manager reference
+    bool gameOver = false; // is the game over or not?
+    
     private void Awake()
     {
         // Get the health panel and initialize it
@@ -203,17 +201,7 @@ public class GameManager : MonoBehaviour {
         int worldIndex = GlobalControl.Instance.currentWorld;
         int lvlIndex = GlobalControl.Instance.currentLevel;
         int starTotalCount = GlobalControl.Instance.LoadedData.worldData[worldIndex].levelData[lvlIndex].stars.Count;
-        
-        //currentStars = 0;
-        for (int i = 0; i < starTotalCount; i++)
-        {           
-           
-           // currentStars[i] = GlobalControl.Instance.LoadedData.worldData[worldIndex].levelData[lvlIndex].stars[i];
-
-        }
-
-        //print("CURRENT STARS: " + currentStars);
-
+   
         // set the starting star amount
         for (int i = 0; i < starPanel.transform.childCount; i++)
         {
