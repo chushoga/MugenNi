@@ -2,8 +2,7 @@
 
 public class StarPicker : MonoBehaviour {
 
-    [Tooltip("Set the index of the current star. 1 to 3")]
-    [Range(0, 2)]
+    [Tooltip("Set the index of the current star. 0 to 2")]
     public int starIndex;
 
     int currentWorldId;
