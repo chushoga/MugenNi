@@ -334,12 +334,14 @@ public class LevelManager : MonoBehaviour {
     public void SetCurrentWorld(int id)
     {
         GlobalControl.Instance.currentWorld = id;
+        print("currentWorld:" + id);
     }
 
     // set the current level id
     public void SetCurrentLevel(int id)
     {
         GlobalControl.Instance.currentLevel = id;
+        print("currentLevel:" + id);
     }
 
     // start the animation to load the level.

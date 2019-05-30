@@ -63,7 +63,7 @@ public class StarPicker : MonoBehaviour {
                 collectPart.SetActive(false);
             }
         }
-        print(GlobalControl.Instance.currentWorld);
+        print("World" + GlobalControl.Instance.currentWorld + "-" + GlobalControl.Instance.currentLevel);
         if (gm.currentStars[starIndex] == 1)
         {
             // Set the opacity of the object

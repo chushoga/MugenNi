@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour {
     // -----------------------------------------------------------------
     [Header("Level Progress")]
     [Tooltip("The name of the current level")] public string levelName; // The current levels Name
-    [Tooltip("Add 3 Star objects for level progression")] public List<GameObject> LevelProgressionObj = new List<GameObject>(); // unlocked skins
-    [Tooltip("The current progression for this level")] public List<int> LevelProgression = new List<int>(); // unlocked skins
+    //[Tooltip("Add 3 Star objects for level progression")] public List<GameObject> LevelProgressionObj = new List<GameObject>(); // unlocked skins
+    //[Tooltip("The current progression for this level")] public List<int> LevelProgression = new List<int>(); // unlocked skins
 
     // -----------------------------------------------------------------
     /* UI UPDATES */
