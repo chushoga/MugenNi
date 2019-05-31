@@ -390,4 +390,10 @@ public class LevelManager : MonoBehaviour {
     {
         GlobalControl.Instance.ResetGameDataJSON();
     }
+
+    // test button clicks for testing
+    public void testButton()
+    {
+        print("clicked");
+    }
 }
