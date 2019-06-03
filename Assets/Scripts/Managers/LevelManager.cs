@@ -94,6 +94,7 @@ public class LevelManager : MonoBehaviour {
             int currentWorld = GlobalControl.Instance.currentWorld;
             int currentLevel = GlobalControl.Instance.currentLevel;
             gm.currentStars = GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData[currentLevel].stars;
+            
         }
         catch
         {
@@ -192,6 +193,9 @@ public class LevelManager : MonoBehaviour {
 
         if (SceneManager.GetActiveScene().name == "LevelSelect")
         {
+            // load the clean level data
+            GlobalControl.Instance.LoadAsJSON();
+
             // find the WorldPanel
             GameObject LevelSelectGO = GameObject.Find("LevelPanel");
             int currentWorldId = GlobalControl.Instance.currentWorld;
@@ -231,10 +235,10 @@ public class LevelManager : MonoBehaviour {
                 // Set the level text
                 child.transform.Find("LevelText").gameObject.GetComponent<Text>().text = (counter + 1) + "";
 
-                // check if the world is locked and if it is main interactable false and change opacity.
+                // check if the level is locked and if it is main interactable false and change opacity.
                 if (GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[counter].isLocked)
                 {
-                    //print(child.transform.name);
+                    print(child.transform.name);
                     child.transform.GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
                     child.transform.GetComponent<Button>().interactable = false;
                 }
@@ -341,7 +345,7 @@ public class LevelManager : MonoBehaviour {
     public void SetCurrentLevel(int id)
     {
         GlobalControl.Instance.currentLevel = id;
-        print("currentLevel:" + id);
+        //print("currentLevel:" + id);
     }
 
     // start the animation to load the level.

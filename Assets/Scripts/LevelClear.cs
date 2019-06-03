@@ -50,6 +50,18 @@ public class LevelClear : MonoBehaviour {
             GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData[currentLevel].isCleared = true;
             GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData[currentLevel + 1].isLocked = false;
 
+            // check if all 3 starts have been collected before unlocking the next level
+            if(GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData[currentLevel].stars[0] == 1 &&
+               GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData[currentLevel].stars[1] == 1 &&
+               GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData[currentLevel].stars[2] == 1
+                )
+            {
+                GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData[currentLevel + 1].isLocked = false;
+            } else
+            {
+                GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData[currentLevel + 1].isLocked = true;
+            }
+
         }
         else
         {
