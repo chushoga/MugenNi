@@ -238,6 +238,8 @@ public class LevelManager : MonoBehaviour {
                 // check if the level is locked and if it is main interactable false and change opacity.
                 if (GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[counter].isLocked)
                 {
+                    // make the level hidden/half transparent if it is locked
+                    child.transform.Find("Background").gameObject.GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
                     print(child.transform.name);
                     child.transform.GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
                     child.transform.GetComponent<Button>().interactable = false;
