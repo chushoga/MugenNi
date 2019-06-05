@@ -239,8 +239,10 @@ public class LevelManager : MonoBehaviour {
                 if (GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[counter].isLocked)
                 {
                     // make the level hidden/half transparent if it is locked
-                    child.transform.Find("Background").gameObject.GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
-                    print(child.transform.name);
+                    child.transform.Find("Background").gameObject.GetComponent<Image>().color = new Color(0, 0, 0, 0.25f);
+                    child.transform.Find("LevelText").gameObject.GetComponent<Text>().color = new Color(255, 255, 255, 0.75f);
+                    child.transform.Find("LevelText").gameObject.GetComponent<Outline>().enabled = false;
+
                     child.transform.GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
                     child.transform.GetComponent<Button>().interactable = false;
                 }

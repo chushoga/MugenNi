@@ -551,6 +551,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114749250534621564, guid: 4d352f8a9385e664eb8ccba68575f5db,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114809936914288570, guid: 4d352f8a9385e664eb8ccba68575f5db,
         type: 3}
       propertyPath: m_RaycastTarget
