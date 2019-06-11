@@ -218,6 +218,9 @@ public class LevelManager : MonoBehaviour {
                 // Go through the stars array and increment the counter where the int is 1.
                 foreach(int stars in GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[counter].stars)
                 {
+
+                    print(stars);
+
                     if(stars == 1)
                     {
                         starCount++;
@@ -226,11 +229,17 @@ public class LevelManager : MonoBehaviour {
              
                 // Set opacity to 1 for each star per star count
                 Color visible = new Color(255, 255, 255, 1f);                    
-                for(int i = 0; i < starCount; i++)
+                for(int i = 0; i < 3; i++)
                 {
-                    int starId = i + 1; // skip the first star because it starts at 0 in the project
-                    child.transform.Find("Stars"+starId).gameObject.GetComponent<Image>().color = visible;
+                    //int starId = i + 1; // skip the first star because it starts at 0 in the project
+                    //if (GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[counter].stars[i] == 1)
+                    //{
+                        
+                        //print("Stars" + starId);
+                    //}
+                    //child.transform.Find("Stars"+starId).gameObject.GetComponent<Image>().color = visible;
                 }
+                child.transform.Find("Stars" + starCount).gameObject.GetComponent<Image>().color = visible;
 
                 // Set the level text
                 child.transform.Find("LevelText").gameObject.GetComponent<Text>().text = (counter + 1) + "";
