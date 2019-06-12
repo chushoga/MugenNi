@@ -217,7 +217,7 @@ public class GameManager : MonoBehaviour {
             {
                 starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().sprite = StarEmpty;
                 Color tmp = starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().color;
-                tmp.a = 0.5f;
+                tmp.a = 1f;
                 starPanel.transform.GetChild(i).gameObject.GetComponent<Image>().color = tmp;
             }
         }
