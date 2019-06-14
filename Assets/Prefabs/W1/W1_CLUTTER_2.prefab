@@ -43,6 +43,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: W1_CLUTTER_2
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 2de01fd83fcd69a47baef8ce3f2510b0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2de01fd83fcd69a47baef8ce3f2510b0,
         type: 3}
       propertyPath: m_LocalPosition.x

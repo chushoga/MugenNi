@@ -57,6 +57,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: W1_OBSTACLE_1
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 436de5dadb58b894490b27cb448acb16,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 436de5dadb58b894490b27cb448acb16,
         type: 3}
       propertyPath: m_LocalPosition.x
