@@ -176,7 +176,7 @@ public class LevelManager : MonoBehaviour {
                 if(GlobalControl.Instance.LoadedData.worldData[counter].isLocked)
                 {
                     //print(child.transform.name);
-                    child.transform.GetComponent<Image>().color = new Color(255,255,255,0.5f);
+                    child.transform.GetComponent<Image>().color = new Color(0, 0, 0,0.75f);
                     child.transform.GetComponent<Button>().interactable = false;
                 }
                 counter++;

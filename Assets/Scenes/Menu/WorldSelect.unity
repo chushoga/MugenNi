@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.11480248, g: 0.11976801, b: 0.105756685, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -405,7 +405,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 72c8077df474f1e43a2c32b4c727751f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e987ffdf44a9f9f48b8874e9913712f0, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -561,7 +561,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: c18bb1378f995584b912c08f6f997d1a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 136f251cf8d112b4496c2b976e32fd57, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -823,7 +823,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 175, y: 175}
-  m_Spacing: {x: 20, y: 20}
+  m_Spacing: {x: 90, y: 20}
   m_Constraint: 1
   m_ConstraintCount: 3
 --- !u!114 &1147973471
@@ -1236,7 +1236,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 0a7cf66634ad54740975f9f52ba5682b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 982794040ef24b34d8bc6c0ebae05054, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
