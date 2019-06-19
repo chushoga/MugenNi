@@ -372,6 +372,7 @@ public class LevelManager : MonoBehaviour {
     // once the fade animation is complete load the level set in StartLoad()
     public void OnFadeComplete()
     {
+        GlobalControl.Instance.LoadAsJSON();// reload the save game data
         Time.timeScale = 1;
         SceneManager.LoadScene(levelToLoad);
     }
