@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3641383982002860514
+--- !u!1001 &6199001301533158342
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 5881515864911267780, guid: 7f0967bc29788f84a84b587d17c26b2d,
         type: 3}
       propertyPath: m_Name
-      value: W2_PLATFORM_3
+      value: W3_PLATFORM_3
       objectReference: {fileID: 0}
     - target: {fileID: 5881515864911267783, guid: 7f0967bc29788f84a84b587d17c26b2d,
         type: 3}
@@ -86,11 +86,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 44adbcaa19f9b234c88087f58c2511bf, type: 2}
+      objectReference: {fileID: 2100000, guid: 38dafd8644edc9244a573c68b658bf1a, type: 2}
     - target: {fileID: 7619780462673235345, guid: 7f0967bc29788f84a84b587d17c26b2d,
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 4300000, guid: e909a5764511ced4ba4a45323f6a921e, type: 3}
+      objectReference: {fileID: -3324002572782789697, guid: 7dd0ff464d110fd449d08e2daf782fc5,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f0967bc29788f84a84b587d17c26b2d, type: 3}

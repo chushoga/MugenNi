@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 2842811668684401381, guid: 55f430e878b7b8c4485fbb79de6d84d1,
         type: 3}
       propertyPath: m_Name
-      value: W1_Tree
+      value: W2_Tree
       objectReference: {fileID: 0}
     - target: {fileID: 2842811668684401383, guid: 55f430e878b7b8c4485fbb79de6d84d1,
         type: 3}
@@ -67,5 +67,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2256866737481598144, guid: 55f430e878b7b8c4485fbb79de6d84d1,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 6570562233668519960, guid: cca4a176875cbd04eb41938b8a3e47a4,
+        type: 3}
+    - target: {fileID: 5507490286927329337, guid: 55f430e878b7b8c4485fbb79de6d84d1,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 44adbcaa19f9b234c88087f58c2511bf, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55f430e878b7b8c4485fbb79de6d84d1, type: 3}

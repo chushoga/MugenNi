@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 3225228134099372938, guid: 9b1dc887c48cb314b9a6640245f83587,
         type: 3}
       propertyPath: m_Name
-      value: W1_Fence
+      value: W2_Fence
       objectReference: {fileID: 0}
     - target: {fileID: 3225228134099372932, guid: 9b1dc887c48cb314b9a6640245f83587,
         type: 3}
@@ -67,5 +67,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1505325528954957692, guid: 9b1dc887c48cb314b9a6640245f83587,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 2838080870008511167, guid: 767dde6695315574d9511bb22c47fbac,
+        type: 3}
+    - target: {fileID: 5178986724803744645, guid: 9b1dc887c48cb314b9a6640245f83587,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 44adbcaa19f9b234c88087f58c2511bf, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b1dc887c48cb314b9a6640245f83587, type: 3}
