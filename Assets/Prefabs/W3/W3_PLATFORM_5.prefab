@@ -12,20 +12,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: W3_PLATFORM_5
       objectReference: {fileID: 0}
+    - target: {fileID: 2020115563619250342, guid: 71c647c2363c5ab4ca4fc4dfdb6fcfa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Platform
+      objectReference: {fileID: 0}
     - target: {fileID: 1324397865698064325, guid: 71c647c2363c5ab4ca4fc4dfdb6fcfa4,
         type: 3}
       propertyPath: m_Size.x
-      value: 1.4507382
+      value: 4.743254
       objectReference: {fileID: 0}
     - target: {fileID: 1324397865698064325, guid: 71c647c2363c5ab4ca4fc4dfdb6fcfa4,
         type: 3}
       propertyPath: m_Size.y
-      value: 1.380274
+      value: 1.2927601
       objectReference: {fileID: 0}
     - target: {fileID: 1324397865698064325, guid: 71c647c2363c5ab4ca4fc4dfdb6fcfa4,
         type: 3}
       propertyPath: m_Size.z
-      value: 4.9412947
+      value: 4.4726515
       objectReference: {fileID: 0}
     - target: {fileID: 1324397865698064325, guid: 71c647c2363c5ab4ca4fc4dfdb6fcfa4,
         type: 3}
@@ -35,12 +40,12 @@ PrefabInstance:
     - target: {fileID: 1324397865698064325, guid: 71c647c2363c5ab4ca4fc4dfdb6fcfa4,
         type: 3}
       propertyPath: m_Center.y
-      value: 0.08080208
+      value: -0.2880038
       objectReference: {fileID: 0}
     - target: {fileID: 1324397865698064325, guid: 71c647c2363c5ab4ca4fc4dfdb6fcfa4,
         type: 3}
       propertyPath: m_Center.z
-      value: 0
+      value: 0.7029648
       objectReference: {fileID: 0}
     - target: {fileID: 2020115563619250337, guid: 71c647c2363c5ab4ca4fc4dfdb6fcfa4,
         type: 3}

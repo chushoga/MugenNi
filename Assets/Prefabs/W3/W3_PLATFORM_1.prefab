@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: W3_PLATFORM_1
       objectReference: {fileID: 0}
+    - target: {fileID: 7414832882570785460, guid: c62fd7cbcba510d45b7af3e5c57a80e1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Platform
+      objectReference: {fileID: 0}
     - target: {fileID: 7164722745236050641, guid: c62fd7cbcba510d45b7af3e5c57a80e1,
         type: 3}
       propertyPath: m_Center.y

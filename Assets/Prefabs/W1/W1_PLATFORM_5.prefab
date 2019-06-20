@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -3099364745101495972}
   m_Layer: 0
   m_Name: W1_PLATFORM_5
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,11 +100,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2020115563619250337}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 65f9eca2534da0c41aaf018c995d8af3,
-        type: 3}
-      propertyPath: m_Name
-      value: W1_PLATFORM_5
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 65f9eca2534da0c41aaf018c995d8af3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -174,6 +169,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.x
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 65f9eca2534da0c41aaf018c995d8af3,
+        type: 3}
+      propertyPath: m_Name
+      value: W1_PLATFORM_5
       objectReference: {fileID: 0}
     - target: {fileID: -1504981713932161579, guid: 65f9eca2534da0c41aaf018c995d8af3,
         type: 3}
