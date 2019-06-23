@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: starPickupMat
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 4b9578e4b37313d4da34f3c0f898baa3, type: 3}
   m_ShaderKeywords: OUTLINE_FRONT _EMISSION
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 1
@@ -68,8 +68,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Ambient: 0.629
-    - _Border: 0.009
+    - _Ambient: 0.708
+    - _Border: 0.0062
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -90,7 +90,7 @@ Material:
     - _SpecularEnable: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Treshold: 2.24
+    - _Treshold: 2.2
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
