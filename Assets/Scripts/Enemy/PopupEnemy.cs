@@ -61,7 +61,7 @@ public class PopupEnemy : MonoBehaviour {
 
             // will remove health and respawn at the last jumped position
             //StartCoroutine(col.gameObject.GetComponent<PlayerController>().Respawn());	
-            col.gameObject.GetComponent<PlayerController>().TakeDamage(col.gameObject);
+            col.gameObject.GetComponent<PlayerController>().TakeDamage();
         }
 	}
 

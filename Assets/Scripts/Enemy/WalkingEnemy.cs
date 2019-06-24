@@ -27,7 +27,7 @@ public class WalkingEnemy : MonoBehaviour {
 
 		if(col.gameObject.tag == "Player") {
 
-            col.gameObject.GetComponent<PlayerController>().TakeDamage(col.gameObject);
+            col.gameObject.GetComponent<PlayerController>().TakeDamage();
 
 		}
 

@@ -530,7 +530,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(GameObject go)
+    public void TakeDamage()
     {
         // play the jump sound
         source.PlayOneShot(dieSound, 0.2f);
