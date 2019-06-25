@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2256213354704398524}
   - component: {fileID: 6819115676029354383}
   - component: {fileID: 8608526525019287474}
+  - component: {fileID: 478378952240487342}
   m_Layer: 0
   m_Name: W1_GROUND_3
   m_TagString: Ground
@@ -55,11 +56,24 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1962372462819193955}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 20, y: 0.777382, z: 20}
   m_Center: {x: 0, y: -0.11130899, z: 0}
+--- !u!114 &478378952240487342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962372462819193955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c0f8425ef97e5348b9608772253f61a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  splashParticle: {fileID: 0}
 --- !u!1001 &800864819165285530
 PrefabInstance:
   m_ObjectHideFlags: 0

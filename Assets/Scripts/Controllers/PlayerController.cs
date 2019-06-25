@@ -530,8 +530,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void TakeDamage()
+    public void TakeDamage(GameObject particleEffect = null)
     {
+
+        if(particleEffect == null)
+        {
+            particleEffect = DieParticle;
+        } 
         // play the jump sound
         source.PlayOneShot(dieSound, 0.2f);
 
