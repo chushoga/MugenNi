@@ -541,9 +541,9 @@ public class PlayerController : MonoBehaviour
         source.PlayOneShot(dieSound, 0.2f);
 
         // start the die particle
-        GameObject dp = (GameObject) Instantiate(DieParticle, gameObject.transform.position, Quaternion.identity);
+        GameObject dp = (GameObject) Instantiate(particleEffect, gameObject.transform.position, Quaternion.identity);
         dp.transform.Rotate(new Vector3(90f, 0f, 0f));
-
+        print(particleEffect.name);
         Destroy(dp.gameObject, 3.0f);
 
         // remove health

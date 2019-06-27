@@ -11,6 +11,7 @@ public class GroundManager : MonoBehaviour
         if (col.tag == "Player")
         {
             col.GetComponent<PlayerController>().TakeDamage(splashParticle);
+           
         }
     }
 }

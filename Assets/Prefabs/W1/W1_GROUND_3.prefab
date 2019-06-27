@@ -73,7 +73,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c0f8425ef97e5348b9608772253f61a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  splashParticle: {fileID: 0}
+  splashParticle: {fileID: 1737778587869783413, guid: 5a94c1a758b66f148b3a0dafc750b7b7,
+    type: 3}
 --- !u!1001 &800864819165285530
 PrefabInstance:
   m_ObjectHideFlags: 0
