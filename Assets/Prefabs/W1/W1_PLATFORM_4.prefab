@@ -87,7 +87,6 @@ MonoBehaviour:
   degreesPerSecond: 65
   isConveyor: 0
   conveyorSpeed: 1
-  conveyorRotation: 1
   conveyorDirection: 1
   willFall: 0
   fallTimer: 1
@@ -100,6 +99,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3606005646896373447}
     m_Modifications:
+    - target: {fileID: -927199367670048503, guid: 48bff3cd41e011b41bf7756860788a78,
+        type: 3}
+      propertyPath: m_Name
+      value: W1_PLATFORM_4
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 48bff3cd41e011b41bf7756860788a78,
+        type: 3}
+      propertyPath: m_TagString
+      value: Platform
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 48bff3cd41e011b41bf7756860788a78,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -169,11 +178,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.x
       value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 48bff3cd41e011b41bf7756860788a78,
-        type: 3}
-      propertyPath: m_Name
-      value: W1_PLATFORM_4
       objectReference: {fileID: 0}
     - target: {fileID: -1504981713932161579, guid: 48bff3cd41e011b41bf7756860788a78,
         type: 3}

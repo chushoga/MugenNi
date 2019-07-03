@@ -43,8 +43,8 @@ public class PlatformHandler : MonoBehaviour {
 	[Header("-- CONVEYOR-- ")]
 	[Tooltip("Is it a conveyor belt")] public bool isConveyor = false; // is it a conveyor belt
 	[Tooltip("Conveyor belt speed")] public float conveyorSpeed = 1.0f; // the conveyor belt speed
-	[Tooltip("true = left/right; false = forward/backward")] public bool conveyorRotation = true; // true = left/right; false = forward/backward
-	[Tooltip("true = left/forward, false = right/backward")] public bool conveyorDirection = true; // true = left/forward, false = right/backward
+	//[Tooltip("true = left/right; false = forward/backward")] public bool conveyorRotation = true; // true = left/right; false = forward/backward
+	[Tooltip("true = forward, false = backward")] public bool conveyorDirection = true; // true = left/forward, false = right/backward
 
 	[Header("------------------------")]
 	[Header("TRAPS")]
@@ -189,38 +189,26 @@ public class PlatformHandler : MonoBehaviour {
 		
 		Vector3 moveDir = Vector3.zero;
 
-		// move left
-		if(conveyorRotation == true) {
+        // Set the direction of the conveyor.
+        // Either forward or backwards
+        // I removed the left or right options.
+        if (conveyorDirection)
+        {
+            // move forward (right is the forward axis in this case)
+            moveDir = Vector3.right * conveyorSpeed * Time.deltaTime;
+        }
+        else
+        {
+            // move backward  (left is the backward axis in this case)
+            moveDir = Vector3.left * conveyorSpeed * Time.deltaTime;
+        }
 
-
-			if(conveyorDirection) {
-				// move left
-				moveDir = Vector3.forward * conveyorSpeed * Time.deltaTime;
-			} else {
-				moveDir = Vector3.back * conveyorSpeed * Time.deltaTime;
-			}
-		}
-
-		// move right
-		if(conveyorRotation == false) {
-			
-			if(conveyorDirection) {
-				// move forward
-				moveDir = Vector3.right * conveyorSpeed * Time.deltaTime;
-			} else {
-				// move backward
-				moveDir = Vector3.left * conveyorSpeed * Time.deltaTime;
-			}
-		}
-
-		for(int i = 0; i < gameObject.transform.childCount; i++) {
-			
+        // Loop through the children and then check if the tag is platform. If it is not then push it off the platform.
+        for (int i = 0; i < gameObject.transform.childCount; i++) {
 			GameObject seed = gameObject.transform.GetChild(i).gameObject;
 			if(seed.tag != "Platform") {
 				seed.transform.position += moveDir * conveyorSpeed * Time.deltaTime;
 			}
-
-
 		}
 
 	}
