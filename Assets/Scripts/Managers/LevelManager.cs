@@ -313,6 +313,8 @@ public class LevelManager : MonoBehaviour {
     // show the game over overlay
     public void ShowGameOver(){
         
+        // play a final game over animation and then fade to the game over screen!!
+
 		// make it black
 		gameOverScreen.alpha = 1; // set to visible
         gameOverScreen.interactable = true; // allow to touch

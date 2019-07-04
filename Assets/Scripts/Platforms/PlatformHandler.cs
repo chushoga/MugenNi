@@ -53,15 +53,14 @@ public class PlatformHandler : MonoBehaviour {
 	[Header("--")]
 	[Tooltip("Does the platform continuously phase")] public bool inPhase = false; // does the platform continuously phase?
 	[Tooltip("Phase timing")] public float phaseTimer = 5.0f; // phase timing
+  
+    void Start () {
 
+        // starting position for the gameobject
+        startPosition = gameObject.transform.position;
 
-	void Start () {
-
-		// starting position for the gameobject
-		startPosition = gameObject.transform.position;
-
-		// calculate the circle center as the starting position plus the circle radius
-		circleCenter = new Vector3(startPosition.x, startPosition.y + moveCircleRadius + startPosition.z);
+        // calculate the circle center as the starting position plus the circle radius
+        circleCenter = new Vector3(startPosition.x, startPosition.y + moveCircleRadius + startPosition.z);
 
 		// used to calculate the center of the circle rotaiton
 		v = transform.position - circleCenter; 
@@ -95,29 +94,38 @@ public class PlatformHandler : MonoBehaviour {
 			StartCoroutine(StartPhase(phaseTimer));
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void FixedUpdate()
+    {
+
+        /* --------------------------- */
+        /* CHECK WHAT TYPE OF MOVEMENT */
+        /* --------------------------- */
+        if (moveHorizontal)
+        {
+            MoveHorizontal();
+        }
+
+        if (moveVerticle)
+        {
+            MoveVerticle();
+        }
+
+        if (moveCircular)
+        {
+            MoveCircular();
+        }
+
+        if (isConveyor)
+        {
+            MoveConveryor();
+        }
+        /* --------------------------- */
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
-		/* --------------------------- */
-		/* CHECK WHAT TYPE OF MOVEMENT */
-		/* --------------------------- */
-		if(moveHorizontal) {
-			MoveHorizontal();
-		}
-
-		if(moveVerticle) {
-			MoveVerticle();
-		}
-
-		if(moveCircular) {
-			MoveCircular();
-		}
-
-		if(isConveyor){
-			MoveConveryor();
-		}
-		/* --------------------------- */
 
 		// remove all children after disabeling the collider if not the model
 		if(gameObject.GetComponent<BoxCollider>().enabled == false) {
@@ -157,17 +165,20 @@ public class PlatformHandler : MonoBehaviour {
 
 	// Move the platforms up or down depending on the direction
 	void MoveVerticle(){
-
-		// Check that the y position is not above the max or below the starting point
-		// and if it is reverse the direction.
-		if(gameObject.transform.position.y > (startPosition.y + moveVerticleMax)) {
-			moveDirection = !moveDirection;
-		} else if(gameObject.transform.position.y < startPosition.y) {
-			moveDirection = !moveDirection;
+        
+        // Check that the y position is not above the max or below the starting point
+        // and if it is reverse the direction.
+        
+        if (gameObject.transform.position.y > (startPosition.y + moveVerticleMax) && moveDirection == true) {
+			moveDirection = false;
+            //isChangingDirection = true; // to stop the fuction from fireing untill it reaches either end
+		} else if(gameObject.transform.position.y < startPosition.y && moveDirection == false) {
+			moveDirection = true;
+            //isChangingDirection = false; // to stop the fuction from fireing untill it reaches either end
 		}
-
-		// move up or down
-		if(moveDirection) {
+        
+        // move up or down
+        if (moveDirection) {
 			transform.position += Vector3.up * moveSpeed * Time.deltaTime;
 		} else {
 			transform.position -= Vector3.up * moveSpeed * Time.deltaTime;
