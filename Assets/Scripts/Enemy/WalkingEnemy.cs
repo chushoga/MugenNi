@@ -21,7 +21,7 @@ public class WalkingEnemy : MonoBehaviour {
 
 	void OnCollisionEnter(Collision col){
 
-		if(col.gameObject.tag == "Environment") {
+		if(col.gameObject.tag == "Environment" || col.gameObject.tag == "Bounds") {
 			ChangeDirection();
 		}
 

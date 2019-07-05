@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1435481845428774376}
   - component: {fileID: 1435481845428774379}
+  - component: {fileID: 2303756231996760614}
   m_Layer: 0
   m_Name: W1_OBSTACLE_1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,6 +46,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.0500407, y: 1.3804736, z: 2.0500407}
   m_Center: {x: 0, y: 1.0621741, z: 0}
+--- !u!114 &2303756231996760614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435481845428774377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1706838e3fcee447877e1cf4fff2538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1435481845454917606
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61,6 +74,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 436de5dadb58b894490b27cb448acb16,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 436de5dadb58b894490b27cb448acb16,
         type: 3}
