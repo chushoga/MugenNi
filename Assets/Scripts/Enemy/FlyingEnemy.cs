@@ -26,7 +26,7 @@ public class FlyingEnemy : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
 		//-------------------------------------
 		// Fly up and down
@@ -57,9 +57,13 @@ public class FlyingEnemy : MonoBehaviour {
 
 	void OnCollisionEnter(Collision col){
 
-		if(col.gameObject.tag == "Environment") {
+		if(col.gameObject.tag == "Environment" || col.gameObject.tag == "Bounds") {
 			ChangeDirection();
-		}
+            print("hit");
+        } else
+        {
+            print("not hit");
+        }
 
 		if(col.gameObject.tag == "Player") {
 
@@ -78,6 +82,7 @@ public class FlyingEnemy : MonoBehaviour {
 		// if the collision is the bounds reverse movement
 		if(col.gameObject.tag == "Bounds") {
 			ChangeDirection();
+            
 		}
 
 	}

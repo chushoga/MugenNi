@@ -10,8 +10,7 @@ public class WalkingEnemy : MonoBehaviour {
 	[Tooltip("Movement speed")] public float moveSpeed = 2.0f; // Movement speed
 	private bool direction = true; // The direction flag
 
-	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if(direction) {
 			transform.position += Vector3.forward * moveSpeed * Time.deltaTime;
 		} else {

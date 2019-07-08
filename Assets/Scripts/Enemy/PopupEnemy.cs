@@ -9,7 +9,7 @@ public class PopupEnemy : MonoBehaviour {
 	private bool loopIt = true;	// keep looping the jump? if you want to stop jumping then set this to false
 	private bool isJumping = false; // set inital state
 	private SphereCollider aggroRange; // agro range
-	private Rigidbody rb; // ridged body
+	private Rigidbody rb; // rigidbody reference
     
 	void Start(){
 
@@ -34,33 +34,24 @@ public class PopupEnemy : MonoBehaviour {
 
 	// Start the looper
 	private IEnumerator StartJumping(){
-
-		while(loopIt) {	
+		while(loopIt){	
 			yield return new WaitForSeconds(jumpInterval);
 			Jump(); // jump it
 		}
-
 	}
 
 	// WHEN THE PLAYER IS WITHIN RANGE START JUMPING UP AND DOWN
 	// if the collision is the player then respawn
 	void OnTriggerEnter(Collider col){
 		if(col.tag == "Player" && isJumping == false){
-
 			isJumping = true;
-
 			StartCoroutine(StartJumping()); // start Jumping
 		}
 	}
 
+    // When colliding with the player, make the playe take damage and then respawn
 	void OnCollisionEnter(Collision col){
 		if(col.gameObject.tag == "Player"){
-
-            // remove some health 
-            //col.gameObject.GetComponent<PlayerController>().RemoveHealth();
-
-            // will remove health and respawn at the last jumped position
-            //StartCoroutine(col.gameObject.GetComponent<PlayerController>().Respawn());	
             col.gameObject.GetComponent<PlayerController>().TakeDamage();
         }
 	}

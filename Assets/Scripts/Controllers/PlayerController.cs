@@ -162,25 +162,30 @@ public class PlayerController : MonoBehaviour
         // TODO: REMOVE THIS LITTLE BLOCK OF CODE....
         // ----------------------------------------------------------
 
-        // check if have fallen out of bounds and respawn at last point if true
-        if (gameObject.transform.position.y <= startPos.y - 50.0f){
-			if(!isRespawing) {
-                RemoveHealth();
-				StartCoroutine(Respawn());
-			}
-		}
 	}
 
 	void FixedUpdate() {
-		
-		if(currentPos == gameObject.transform.localPosition) {
+
+        // check if have fallen out of bounds and respawn at last point if true
+        if (gameObject.transform.position.y <= startPos.y - 50.0f)
+        {
+            if (!isRespawing)
+            {
+                RemoveHealth();
+                StartCoroutine(Respawn());
+            }
+        }
+        // -----------------------------------------------------------------------
+
+        if (currentPos == gameObject.transform.localPosition) {
 			isJumping = false;
 		}
 
 		currentPos = gameObject.transform.localPosition;
+        // -----------------------------------------------------------------------
 
-		// If mouse down or finger down...
-		if(Input.touchCount > 0 || Input.GetMouseButton(0) == true) {
+        // If mouse down or finger down...
+        if (Input.touchCount > 0 || Input.GetMouseButton(0) == true) {
 			
 			// -------------------------------------------------------------------------------
 			// PREVENT UI INTERACTION
@@ -436,20 +441,16 @@ public class PlayerController : MonoBehaviour
 			    gm.currentHealth = 0;
 		    }
 
-            //Update the health bar
-            gm.UpdateHealthBar();
+            gm.UpdateHealthBar(); //Update the health bar
 
             if (gm.currentHealth == 0) {
-            
-                lm.ShowGameOver();
-
-                //lm.ReloadScene(); // TODO: this should be gameover screen not reload
+                lm.ShowGameOver(); // show game over screen
+            } else {                
+                StartCoroutine(TempInv(3.0f)); // make temp invulnerable
+                StartCoroutine(Respawn()); // respwan
             }
-
-            // make temp invulnerable
-            StartCoroutine(TempInv(3.0f));
-
         }
+
     }
 
     // Temporary invulnerablity
@@ -472,13 +473,6 @@ public class PlayerController : MonoBehaviour
 
             TogglePlayer(false);
 
-            /*
-            GameObject model = gameObject.transform.Find("Model").gameObject; // get the reference to the model
-            model.GetComponentInChildren<Renderer>().enabled = false; // turn off the renederer
-            
-            gameObject.GetComponentInChildren<Projector>().enabled = false; // turn off the shadowcaster
-            gameObject.GetComponentInChildren<TrailRenderer>().enabled = false; // turn off the trail
-            */
             lm.FadeIn(RESPAWN_TIME);
             
             yield return new WaitForSeconds(RESPAWN_TIME);
@@ -489,17 +483,7 @@ public class PlayerController : MonoBehaviour
             cam.transform.position = gameObject.transform.position + cam.GetComponent<CameraController>().origPos;
 
             lm.FadeOut(RESPAWN_TIME);
-
-            //yield return new WaitForSeconds(RESPAWN_TIME);
-            /*
-            gameObject.GetComponent<CapsuleCollider>().enabled = true;
-            gameObject.GetComponent<Rigidbody>().isKinematic = false;
-            gameObject.GetComponentInChildren<Projector>().enabled = true; // turn on the shadowcaster
-            gameObject.GetComponentInChildren<TrailRenderer>().enabled = true; // turn on the trail renderer
-            model.GetComponentInChildren<Renderer>().enabled = true; // turn on the renderer
-           */
-            //yield return new WaitForSeconds(RESPAWN_TIME);
-
+          
             // start the spawn particle
             GameObject rp = (GameObject)Instantiate(ResParticle, gameObject.transform.position, Quaternion.identity);
             rp.transform.Rotate(new Vector3(0f, 0f, 0f));
@@ -530,6 +514,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Set the take damage then respawn
+    // Can overwride the die particle for instances when want to use a different particle
+    // ie: water splash particle if die in the water etc.
     public void TakeDamage(GameObject particleEffect = null)
     {
 
@@ -542,16 +529,12 @@ public class PlayerController : MonoBehaviour
 
         // start the die particle
         GameObject dp = (GameObject) Instantiate(particleEffect, gameObject.transform.position, Quaternion.identity);
-        dp.transform.Rotate(new Vector3(90f, 0f, 0f));
-        print(particleEffect.name);
-        Destroy(dp.gameObject, 3.0f);
+        dp.transform.Rotate(new Vector3(90f, 0f, 0f)); // rotate the particle to be 90degrees
+        Destroy(dp.gameObject, 3.0f); // destroy the death particle after n seconds
 
         // remove health
         RemoveHealth();
-
-        // will remove health and respawn at the last jumped position
-        StartCoroutine(Respawn());
-
+        
     }
 
     // Blink the power bar

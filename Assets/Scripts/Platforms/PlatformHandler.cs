@@ -95,7 +95,7 @@ public class PlatformHandler : MonoBehaviour {
 		}
 	}
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
 
         /* --------------------------- */

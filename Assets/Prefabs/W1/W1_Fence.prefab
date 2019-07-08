@@ -43,8 +43,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9.544004, y: 2.7052002, z: 0.623596}
-  m_Center: {x: 0, y: 1.6771336, z: 0}
+  m_Size: {x: 9.544004, y: 16.053856, z: 0.623596}
+  m_Center: {x: 0, y: 8.3514595, z: 0}
 --- !u!1001 &3225228133619301968
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52,6 +52,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3225228134099372932}
     m_Modifications:
+    - target: {fileID: -927199367670048503, guid: 8d36902f433f4e54fa352ac9a693ec19,
+        type: 3}
+      propertyPath: m_Name
+      value: W1_FENCE
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 8d36902f433f4e54fa352ac9a693ec19,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 8d36902f433f4e54fa352ac9a693ec19,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -121,16 +131,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 100.00003
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 8d36902f433f4e54fa352ac9a693ec19,
-        type: 3}
-      propertyPath: m_Name
-      value: W1_FENCE
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 8d36902f433f4e54fa352ac9a693ec19,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -1504981713932161579, guid: 8d36902f433f4e54fa352ac9a693ec19,
         type: 3}
