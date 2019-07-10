@@ -6,7 +6,7 @@ public class ConveyorBeltTexture : MonoBehaviour
 {
     // Scroll main texture based on time
 
-    float scrollSpeed = 0.5f;
+    public float scrollSpeed = 0.5f;
     Renderer rend;
 
     void Start()
@@ -16,7 +16,7 @@ public class ConveyorBeltTexture : MonoBehaviour
 
     void Update()
     {
-        float offset = Time.time * scrollSpeed;
-        rend.material.SetTextureOffset("_MainTex", new Vector2(offset, 0));
+        float offset = scrollSpeed * Time.time;
+        rend.materials[1].SetTextureOffset("_MainTex", new Vector2(offset, 0));
     }
 }
