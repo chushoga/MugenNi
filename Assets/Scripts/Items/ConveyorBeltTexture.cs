@@ -19,4 +19,5 @@ public class ConveyorBeltTexture : MonoBehaviour
         float offset = scrollSpeed * Time.time;
         rend.materials[1].SetTextureOffset("_MainTex", new Vector2(offset, 0));
     }
+
 }
