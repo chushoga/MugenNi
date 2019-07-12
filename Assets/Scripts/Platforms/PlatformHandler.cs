@@ -188,10 +188,10 @@ public class PlatformHandler : MonoBehaviour {
 	// Move the platform in a circluar pattern
 	void MoveCircular(){
 		if(moveDirection) {
-			v = Quaternion.AngleAxis(degreesPerSecond * Time.deltaTime, Vector3.left) * v;
+			v = Quaternion.AngleAxis(degreesPerSecond * Time.deltaTime, Vector3.back) * v;
 			transform.position = circleCenter + v;
 		} else {
-			v = Quaternion.AngleAxis(degreesPerSecond * Time.deltaTime, -Vector3.left) * v;
+			v = Quaternion.AngleAxis(degreesPerSecond * Time.deltaTime, -Vector3.back) * v;
 			transform.position = circleCenter + v;
 		}
 	}
