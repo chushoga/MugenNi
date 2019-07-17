@@ -7,11 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: W1_Fog
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Name: Water
+  m_Shader: {fileID: 4800000, guid: 1cd23da9b04d6234c9a009ebd9bd4bc3, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 1
+  m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -39,16 +39,28 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _GlossMap:
+    - _FalloffTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 8dc621d4bf2257d46b70fc5bf5cf7793, type: 3}
+        m_Texture: {fileID: 2800000, guid: 524b3fa5e3693af45baab7c07eac3b0c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask:
+        m_Texture: {fileID: 2800000, guid: 524b3fa5e3693af45baab7c07eac3b0c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise:
+        m_Texture: {fileID: 2800000, guid: eea283bdb1de500409cb28f44a9ffccf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: eea283bdb1de500409cb28f44a9ffccf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -59,52 +71,39 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _ShadowOffset:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _TranslucencyMap:
+    - _Tile:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _Amount: 0.053
+    - _BlendMode: 10
+    - _BlendOp: 5
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FogAltScale: 10
-    - _FogEnd: 10
-    - _FogFar: 10
-    - _FogNear: 5
-    - _FogStart: 0
-    - _FogThinning: 100
+    - _Foam: 4.59
     - _GlossMapScale: 1
-    - _Glossiness: 1
+    - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _InvFade: 1
-    - _Metallic: 0.669
+    - _Height: 0.008
+    - _Intensity: 5
+    - _Metallic: 0
     - _Mode: 0
-    - _NoiseDensity: 53
-    - _NoiseSizeCoeff: 0.61
+    - _NoiseScale: 0.1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _RimAmount: 0.716
-    - _RimThreshold: 0.1
-    - _Shininess: 0.021
+    - _Scale: 0.21
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SquashAmount: 1
+    - _Speed: 0.138
     - _SrcBlend: 1
+    - _TextureDistort: 0.057
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _AmbientColor: {r: 0.4, g: 0.4, b: 0.4, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 0.32156864}
-    - _EmissionColor: {r: 0.01517444, g: 0.2924528, b: 0.28455108, a: 1}
-    - _FogColor: {r: 1, g: 1, b: 1, a: 1}
-    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SilloetteColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _SpecularColor: {r: 0.9, g: 0.9, b: 0.9, a: 1}
-    - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
-    - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.4477572, g: 0.8113208, b: 0.7407786, a: 1}
+    - _ColorT: {r: 0.7411765, g: 0.9921569, b: 0.9921569, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FoamC: {r: 0, g: 0, b: 0, a: 1}
