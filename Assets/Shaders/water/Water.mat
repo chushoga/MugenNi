@@ -87,7 +87,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Height: 0
+    - _Height: 0.008
     - _Intensity: 5
     - _Metallic: 0
     - _Mode: 0
@@ -97,13 +97,13 @@ Material:
     - _Scale: 0.21
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 0.067
+    - _Speed: 0.138
     - _SrcBlend: 1
     - _TextureDistort: 0.057
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.61089355, g: 0.9056604, b: 0.84860873, a: 1}
+    - _Color: {r: 0.4477572, g: 0.8113208, b: 0.7407786, a: 1}
     - _ColorT: {r: 0.7411765, g: 0.9921569, b: 0.9921569, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamC: {r: 0, g: 0, b: 0, a: 1}
