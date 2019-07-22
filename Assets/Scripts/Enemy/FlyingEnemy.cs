@@ -56,10 +56,9 @@ public class FlyingEnemy : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision col){
-
+        /*
 		if(col.gameObject.tag == "Environment" || col.gameObject.tag == "Bounds") {
 			ChangeDirection();
-            print("hit");
         } else
         {
             print("not hit");
@@ -74,16 +73,20 @@ public class FlyingEnemy : MonoBehaviour {
             //StartCoroutine(col.gameObject.GetComponent<PlayerController>().Respawn());
             col.gameObject.GetComponent<PlayerController>().TakeDamage();
         }
-
+        */
 	}
 
 	void OnTriggerEnter(Collider col){
-		
-		// if the collision is the bounds reverse movement
-		if(col.gameObject.tag == "Bounds") {
+        print("hit" + col.gameObject.tag);
+        // if the collision is the bounds reverse movement
+        if (col.gameObject.tag == "Environment" || col.gameObject.tag == "Bounds") {
 			ChangeDirection();
-            
 		}
+
+        if(col.gameObject.tag == "Player")
+        {
+            col.gameObject.GetComponent<PlayerController>().TakeDamage();
+        }
 
 	}
 
