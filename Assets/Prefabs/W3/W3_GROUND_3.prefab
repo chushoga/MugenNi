@@ -71,13 +71,19 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 828026051042728676, guid: b9fcab9244a203044a18bded0a1dd99b,
+      objectReference: {fileID: 828026051042728676, guid: fe87d90feadb85b4a9d514d470e1bae3,
         type: 3}
     - target: {fileID: 478378952240487342, guid: c262caef277976f4ca22e212718f84a5,
         type: 3}
       propertyPath: splashParticle
       value: 
       objectReference: {fileID: 4759597453786558504, guid: b60e99a1cdab707448a20cfca6565d27,
+        type: 3}
+    - target: {fileID: 5926536128536472789, guid: c262caef277976f4ca22e212718f84a5,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 828026051042728676, guid: fe87d90feadb85b4a9d514d470e1bae3,
         type: 3}
     - target: {fileID: 3691979995743444406, guid: c262caef277976f4ca22e212718f84a5,
         type: 3}
