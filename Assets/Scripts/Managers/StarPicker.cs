@@ -64,7 +64,8 @@ public class StarPicker : MonoBehaviour {
             }
         }
         //print("World" + GlobalControl.Instance.currentWorld + "-" + GlobalControl.Instance.currentLevel);
-        if (gm.currentStars[starIndex] == 1)
+        
+        if (GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[currentLevelId].stars[starIndex] == 1)
         {
             // Set the opacity of the object
             materialGO.GetComponent<Renderer>().material.color = starColor; // change the opacity
