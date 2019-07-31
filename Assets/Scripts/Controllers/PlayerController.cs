@@ -444,13 +444,24 @@ public class PlayerController : MonoBehaviour
             gm.UpdateHealthBar(); //Update the health bar
 
             if (gm.currentHealth == 0) {
-                lm.ShowGameOver(); // show game over screen
+                StartCoroutine(ShowGameOverAfter(1.0f)); // show game over screen
             } else {                
                 StartCoroutine(TempInv(3.0f)); // make temp invulnerable
                 StartCoroutine(Respawn()); // respwan
             }
         }
 
+    }
+
+    // Call the show Game over after n seconds
+    public IEnumerator ShowGameOverAfter(float t)
+    {
+
+        // disable the player and wait for n seconds
+        gameObject.GetComponent<Renderer>().enabled = false;
+        
+        yield return new WaitForSeconds(t);
+        lm.ShowGameOver(); // show game over screen
     }
 
     // Temporary invulnerablity

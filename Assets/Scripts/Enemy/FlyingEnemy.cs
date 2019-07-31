@@ -77,7 +77,7 @@ public class FlyingEnemy : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col){
-        print("hit" + col.gameObject.tag);
+        //print("hit" + col.gameObject.tag);
         // if the collision is the bounds reverse movement
         if (col.gameObject.tag == "Environment" || col.gameObject.tag == "Bounds") {
 			ChangeDirection();
