@@ -458,9 +458,11 @@ public class PlayerController : MonoBehaviour
     {
 
         // disable the player and wait for n seconds
-        gameObject.GetComponent<Renderer>().enabled = false;
-        
+        gameObject.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+        gameObject.GetComponentInChildren<Projector>().enabled = false;
+        gameObject.GetComponent<Rigidbody>().isKinematic = true;
         yield return new WaitForSeconds(t);
+        
         lm.ShowGameOver(); // show game over screen
     }
 
