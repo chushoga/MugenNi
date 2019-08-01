@@ -461,6 +461,7 @@ public class PlayerController : MonoBehaviour
         gameObject.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
         gameObject.GetComponentInChildren<Projector>().enabled = false;
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
+
         yield return new WaitForSeconds(t);
         
         lm.ShowGameOver(); // show game over screen
