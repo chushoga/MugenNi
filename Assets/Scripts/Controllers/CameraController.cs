@@ -63,15 +63,19 @@ public class CameraController : MonoBehaviour {
 			HandleMouse();
 		}
 
-		// if not currently panning have the camera follow the player
-		if(!isPanning) {
-			FollowMe();
-		}
-
 	}
 
-	// For mouse controll
-	void HandleMouse() {
+    private void FixedUpdate()
+    {
+        // if not currently panning have the camera follow the player
+        if (!isPanning)
+        {
+            FollowMe();
+        }
+    }
+
+    // For mouse controll
+    void HandleMouse() {
 		
 		// On mouse down, capture it's position.
 		// Otherwise, if the mouse is still down, pan the camera.
