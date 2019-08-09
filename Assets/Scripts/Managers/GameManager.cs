@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour {
     private string clearTime; // cleared time
 
     public float timeLimit = 60f; // base time limit of 60s can change per level.
-    private float timeRemaining = 0.0f;
+    public float timeRemaining = 0.0f;
     // -----------------------------------------------------------------
     /* References */
     // -----------------------------------------------------------------

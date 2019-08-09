@@ -27,13 +27,24 @@ public class ItemPickupManager : MonoBehaviour {
         // Check if it is the player or not
 		if(col.gameObject.tag == "Player") {
 
-			//GameManager.coinCount += 1;
-			gm.UpdateCoinCounter(1);
-            gm.currentHealth += healthPickupAmount;
-            //print(gm.currentHealth);
-            gm.UpdateHealthBar();
-			Destroy(gameObject);
-		}
+            if (isHealthPickup)
+            {
+                //GameManager.coinCount += 1;
+                gm.UpdateCoinCounter(1);
+                gm.currentHealth += healthPickupAmount;
+                //print(gm.currentHealth);
+                gm.UpdateHealthBar();
+                Destroy(gameObject);
+            }
+
+            if (isTimePickup)
+            {
+                gm.timeRemaining += 60f;
+                Destroy(gameObject);
+            }
+
+        }
+
 	}
 
 }
