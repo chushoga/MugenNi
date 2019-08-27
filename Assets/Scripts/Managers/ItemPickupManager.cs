@@ -31,7 +31,15 @@ public class ItemPickupManager : MonoBehaviour {
             {
                 //GameManager.coinCount += 1;
                 gm.UpdateCoinCounter(1);
-                gm.currentHealth += healthPickupAmount;
+                
+                if((gm.currentHealth + healthPickupAmount) > 3)
+                {
+                    gm.currentHealth = 3;
+                } else
+                {
+                    gm.currentHealth += healthPickupAmount;
+                }
+
                 //print(gm.currentHealth);
                 gm.UpdateHealthBar();
                 Destroy(gameObject);
@@ -39,7 +47,7 @@ public class ItemPickupManager : MonoBehaviour {
 
             if (isTimePickup)
             {
-                gm.timeRemaining += 60f;
+                gm.timeLimit += timePickupAmount;
                 Destroy(gameObject);
             }
 
