@@ -353,14 +353,19 @@ public class LevelManager : MonoBehaviour {
     public void SetCurrentWorld(int id)
     {
         GlobalControl.Instance.currentWorld = id;
-        print("currentWorld:" + id);
     }
 
     // set the current level id
     public void SetCurrentLevel(int id)
     {
         GlobalControl.Instance.currentLevel = id;
-        //print("currentLevel:" + id);
+    }
+
+    // start the level load from the level select buttons
+    public void StartButtonLevelLoad()
+    {
+        string levelToLoad = "World" + GlobalControl.Instance.currentWorld + "-" + GlobalControl.Instance.currentLevel;
+        StartLoad(levelToLoad);
     }
 
     // start the animation to load the level.

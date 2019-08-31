@@ -15,8 +15,77 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu/LevelSelect.unity
     guid: a701dea42eedf7941a848b197e7009a0
   - enabled: 1
+    path: Assets/Scenes/World1/World1-1.unity
+    guid: e5034c7898fb1f44394529b78d8db372
+  - enabled: 1
     path: Assets/Scenes/World1/World1-2.unity
     guid: 29c1956514c24f5458c45e5c602fba82
+  - enabled: 1
+    path: Assets/Scenes/World1/World1-3.unity
+    guid: 539a0ccbfbc8e0b49891cb2c61fe113f
+  - enabled: 1
+    path: Assets/Scenes/World1/World1-4.unity
+    guid: b7706bdf8c7791a40be9e72e45c7bb17
+  - enabled: 1
+    path: Assets/Scenes/World1/World1-5.unity
+    guid: 16b4591d1a37e6b4fafa364c88a495fc
+  - enabled: 1
+    path: Assets/Scenes/World1/World1-6.unity
+    guid: 14d2e2da334ec8648a5722906e52278a
+  - enabled: 1
+    path: Assets/Scenes/World1/World1-7.unity
+    guid: 21f52894156755e498f672373e973439
+  - enabled: 1
+    path: Assets/Scenes/World1/World1-8.unity
+    guid: 958e48092bc50ce4ca410aa6854dc16a
+  - enabled: 1
+    path: Assets/Scenes/World2/World2-1.unity
+    guid: bcc57dd56c6bc894bbeb473e886b7bad
+  - enabled: 1
+    path: Assets/Scenes/World2/World2-2.unity
+    guid: aa692828deabe2c4582aaaab71e99381
+  - enabled: 1
+    path: Assets/Scenes/World2/World2-3.unity
+    guid: d1e6abc64f5f4a34aac4ec55753b21b8
+  - enabled: 1
+    path: Assets/Scenes/World2/World2-4.unity
+    guid: ad41714f675a1bc42b2c0d41a77dbe46
+  - enabled: 1
+    path: Assets/Scenes/World2/World2-5.unity
+    guid: 7b4cd644b4ac0ae49bc3854da1f6be5e
+  - enabled: 1
+    path: Assets/Scenes/World2/World2-6.unity
+    guid: d7d859c842e3c6b458b613e30d734c47
+  - enabled: 1
+    path: Assets/Scenes/World2/World2-7.unity
+    guid: d2ca3109a2157b54ea47856a328f3289
+  - enabled: 1
+    path: Assets/Scenes/World2/World2-8.unity
+    guid: 097ad4b71ddda4e43ab621268728d3aa
+  - enabled: 1
+    path: Assets/Scenes/World3/World3-1.unity
+    guid: 5c1477a47c057c744bcd81ec8291a867
+  - enabled: 1
+    path: Assets/Scenes/World3/World3-2.unity
+    guid: 57d61b593c43e854c9bd10d781321a6f
+  - enabled: 1
+    path: Assets/Scenes/World3/World3-3.unity
+    guid: 5e51bebd5b47d8a4eacf5715097fa820
+  - enabled: 1
+    path: Assets/Scenes/World3/World3-4.unity
+    guid: 826f90a205321d040a36847831c75389
+  - enabled: 1
+    path: Assets/Scenes/World3/World3-5.unity
+    guid: edf5a596231e0ba429c75871c9698aea
+  - enabled: 1
+    path: Assets/Scenes/World3/World3-6.unity
+    guid: bd995e8a738b45e4c9a8ecebab83993e
+  - enabled: 1
+    path: Assets/Scenes/World3/World3-7.unity
+    guid: d5703bf0da3f5db4c841b161abffe636
+  - enabled: 1
+    path: Assets/Scenes/World3/World3-8.unity
+    guid: e805bbde0d5bae74695483fa198ea510
   - enabled: 1
     path: Assets/Scenes/Other/setup.unity
     guid: 13c2add122fd2ba4098f9d890934620b
