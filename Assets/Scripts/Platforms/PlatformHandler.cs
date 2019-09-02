@@ -260,7 +260,10 @@ public class PlatformHandler : MonoBehaviour {
 			col.gameObject.transform.SetParent(gameObject.transform, true); 
 			// check if can fall first
 			if(willFall) {
-				StartCoroutine(StartFalling(fallTimer));
+                // Remove the parent for falling so it does not keep falling with platform
+                col.gameObject.transform.SetParent(null, true);
+
+                StartCoroutine(StartFalling(fallTimer));
 			}
 		}
 
@@ -282,31 +285,32 @@ public class PlatformHandler : MonoBehaviour {
 		while(Time.time < endTime){
 			yield return new WaitForSeconds(0.2f);	
 			//gameObject.GetComponent<Renderer>().enabled = false;
-            gameObject.GetComponent<Renderer>().enabled = false;
+            gameObject.GetComponentInChildren<Renderer>().enabled = false;
 			yield return new WaitForSeconds(0.2f);
            // gameObject.GetComponent<Renderer>().enabled = true;
-            gameObject.GetComponent<Renderer>().enabled = true;
+            gameObject.GetComponentInChildren<Renderer>().enabled = true;
         }
 
         // in case disabled re-enable the renederer as it falls
-        gameObject.GetComponent<Renderer>().enabled = true;
+        gameObject.GetComponentInChildren<Renderer>().enabled = true;
 
 		// stop all movements
 		//moveVerticle = false;
 		//moveHorizontal = false;
 		//moveCircular = false;
 		//isConveyor = false;
+               
 
 		// fall down to the ground
 		gameObject.GetComponent<Rigidbody>().isKinematic = false;
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4f);
         // fall down to the ground
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
         // reset the platform the the starting position
         gameObject.transform.position = startPosition;
-        gameObject.GetComponent<Renderer>().enabled = true;
+        gameObject.GetComponentInChildren<Renderer>().enabled = true;
 
     }
 

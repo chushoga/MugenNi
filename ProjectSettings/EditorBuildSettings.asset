@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/World1/World1-1.unity
     guid: e5034c7898fb1f44394529b78d8db372
   - enabled: 1
-    path: Assets/Scenes/World1/World1-2.unity
+    path: Assets/Scenes/World1/World1-9.unity
     guid: 29c1956514c24f5458c45e5c602fba82
   - enabled: 1
     path: Assets/Scenes/World1/World1-3.unity
@@ -36,7 +36,7 @@ EditorBuildSettings:
     path: Assets/Scenes/World1/World1-7.unity
     guid: 21f52894156755e498f672373e973439
   - enabled: 1
-    path: Assets/Scenes/World1/World1-8.unity
+    path: Assets/Scenes/World1/World1-2.unity
     guid: 958e48092bc50ce4ca410aa6854dc16a
   - enabled: 1
     path: Assets/Scenes/World2/World2-1.unity
