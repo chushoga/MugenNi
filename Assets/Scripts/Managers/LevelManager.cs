@@ -359,15 +359,20 @@ public class LevelManager : MonoBehaviour {
     public void SetCurrentLevel(int id)
     {
         GlobalControl.Instance.currentLevel = id;
-    }
-
-    // start the level load from the level select buttons
-    public void StartButtonLevelLoad()
-    {
-        string levelToLoad = "World" + GlobalControl.Instance.currentWorld + "-" + GlobalControl.Instance.currentLevel;
+        string levelToLoad = "World" + (GlobalControl.Instance.currentWorld + 1) + "-" + (GlobalControl.Instance.currentLevel + 1);
+        print(levelToLoad);
         StartLoad(levelToLoad);
     }
 
+    // start the level load from the level select buttons
+    /*
+    public void StartButtonLevelLoad()
+    {
+        string levelToLoad = "World" + GlobalControl.Instance.currentWorld + "-" + GlobalControl.Instance.currentLevel;
+        //print(levelToLoad);
+        //StartLoad(levelToLoad);
+    }
+    */
     // start the animation to load the level.
     // once the animation is finished then load the scene.
     public void StartLoad(string sceneName)
