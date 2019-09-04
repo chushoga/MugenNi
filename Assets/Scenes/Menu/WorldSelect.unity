@@ -261,19 +261,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: facf16cffce2433429bcd4d694170616, type: 3}
---- !u!1 &290360965 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1032311366876890, guid: facf16cffce2433429bcd4d694170616,
-    type: 3}
-  m_PrefabInstance: {fileID: 290360964}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &290360966 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114746731170425726, guid: facf16cffce2433429bcd4d694170616,
     type: 3}
   m_PrefabInstance: {fileID: 290360964}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 290360965}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b336a109cf8305746b50087fea546ddf, type: 3}
@@ -361,8 +355,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 290360965}
-        m_MethodName: 
+      - m_Target: {fileID: 290360966}
+        m_MethodName: StartLoad
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1192,8 +1186,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 290360965}
-        m_MethodName: 
+      - m_Target: {fileID: 290360966}
+        m_MethodName: StartLoad
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
