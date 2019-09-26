@@ -76,12 +76,14 @@
                 // sample the texture
                 fixed distortx = tex2D(_NoiseTex, (i.worldPos.xz * _Scale)  + (_Time.x * 2)).r;// distortion alpha
            
-                half4 col = tex2D(_MainTex, (i.worldPos.xz * _Scale) - (distortx * _TextureDistort));// texture times tint;        
+                //half4 col = tex2D(_MainTex, (i.worldPos.xz * _Scale) - (distortx * _TextureDistort));// texture times tint;    
+				half4 col = tex2D(_MainTex, (i.worldPos.xz * _Scale) - (distortx * _TextureDistort));// texture times tint;   
+				
                 half depth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(i.scrPos ))); // depth
                 half4 foamLine =1 - saturate(_Foam* (depth - i.scrPos.w ) ) ;// foam line by comparing depth and screenposition
                 col *= _Color;
                 col += (step(0.4 * distortx,foamLine) * _FoamC); // add the foam line and tint to the texture
-                col = saturate(col) * col.a ;
+                col = saturate(col) * col.a;
                
                 return   col;
             }
