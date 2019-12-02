@@ -38,6 +38,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5554244027233184367}
     m_Modifications:
+    - target: {fileID: -927199367670048503, guid: 2de01fd83fcd69a47baef8ce3f2510b0,
+        type: 3}
+      propertyPath: m_Name
+      value: W1_CLUTTER_2
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 2de01fd83fcd69a47baef8ce3f2510b0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 2de01fd83fcd69a47baef8ce3f2510b0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -108,21 +118,21 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 400
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2de01fd83fcd69a47baef8ce3f2510b0,
-        type: 3}
-      propertyPath: m_Name
-      value: W1_CLUTTER_2
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 2de01fd83fcd69a47baef8ce3f2510b0,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: -1504981713932161579, guid: 2de01fd83fcd69a47baef8ce3f2510b0,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ce2496cbefcc33748b6e736ead0363ed, type: 2}
+    - target: {fileID: -1504981713932161579, guid: 2de01fd83fcd69a47baef8ce3f2510b0,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: 2de01fd83fcd69a47baef8ce3f2510b0,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2de01fd83fcd69a47baef8ce3f2510b0, type: 3}
 --- !u!4 &7316084780816432386 stripped
