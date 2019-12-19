@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FinalW3Mat
-  m_Shader: {fileID: 4800000, guid: 9338a85bf02160d4393873cb56d28dd5, type: 3}
+  m_Shader: {fileID: 4800000, guid: f0fe2edfed65a5f49bbc531b87cd6b9f, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -40,7 +40,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: a1327675341974947bf7d87da9fda4cf, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6b93f24f51c42c949921c35faa6c2ec0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
