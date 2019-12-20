@@ -304,11 +304,6 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7619780462673235345, guid: 7f0967bc29788f84a84b587d17c26b2d,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300000, guid: e909a5764511ced4ba4a45323f6a921e, type: 3}
     - target: {fileID: 4216051631006052712, guid: 7f0967bc29788f84a84b587d17c26b2d,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -319,6 +314,12 @@ PrefabInstance:
       propertyPath: m_DynamicOccludee
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7619780462673235345, guid: 7f0967bc29788f84a84b587d17c26b2d,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 5937623047002570328, guid: b163db9e76948ae46a3c6998753c5b1c,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f0967bc29788f84a84b587d17c26b2d, type: 3}
 --- !u!4 &7140348306790528549 stripped
