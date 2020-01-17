@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
 	public Vector3 previousPos; // previous position before jump
     [Tooltip("End Of level marker")] private GameObject LEVEL_CLEAR; // end of level position
     private Camera cam;
+    private TrailRenderer trail;
 
     // -----------------------------------------------------------------
     /* RESPAWN VARIABLES */
@@ -90,6 +91,7 @@ public class PlayerController : MonoBehaviour
 		Time.fixedDeltaTime = 0.002f;
 		Physics.gravity = GRAVITY; // set the gravity
 		rb = GetComponent<Rigidbody>(); // get the rigidbody
+        trail = GetComponentInChildren<TrailRenderer>(); // get the trail renderer
 
 		// Get a reference to the main camera
 		cam = Camera.main;
@@ -179,7 +181,11 @@ public class PlayerController : MonoBehaviour
 
         if (currentPos == gameObject.transform.localPosition) {
 			isJumping = false;
-		}
+            trail.enabled = false; // disable jump trail while not moving
+		} else
+        {
+            trail.enabled = true; // enable jump trail while moving
+        }
 
 		currentPos = gameObject.transform.localPosition;
         // -----------------------------------------------------------------------
