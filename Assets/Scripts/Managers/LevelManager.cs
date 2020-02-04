@@ -219,7 +219,7 @@ public class LevelManager : MonoBehaviour {
                 foreach(int stars in GlobalControl.Instance.LoadedData.worldData[currentWorldId].levelData[counter].stars)
                 {
 
-                    print(stars);
+                    //print(stars);
 
                     if(stars == 1)
                     {
