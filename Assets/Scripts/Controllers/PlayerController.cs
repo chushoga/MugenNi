@@ -169,8 +169,9 @@ public class PlayerController : MonoBehaviour
 	void FixedUpdate() {
 
         // check if have fallen out of bounds and respawn at last point if true
-        if (gameObject.transform.position.y <=  -0.5f)
+        if (gameObject.transform.position.y <=  -1.5f)
         {
+            print("splash2");
             if (!isRespawing)
             {
                 RemoveHealth();
