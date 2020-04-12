@@ -10,9 +10,7 @@ public class GroundManager : MonoBehaviour
     {
         if (col.tag == "Player")
         {
-            print("splash1");
             col.GetComponent<PlayerController>().TakeDamage(splashParticle);
-           
         }
     }
 }

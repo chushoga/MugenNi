@@ -170,8 +170,7 @@ public class PlayerController : MonoBehaviour
 
         // check if have fallen out of bounds and respawn at last point if true
         if (gameObject.transform.position.y <=  -1.5f)
-        {
-            print("splash2");
+        {   
             if (!isRespawing)
             {
                 RemoveHealth();
@@ -525,7 +524,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void TogglePlayer(bool enabled)
-    {
+    {   
         gameObject.GetComponent<Rigidbody>().isKinematic = !enabled; // make it non-kinematic so it will not fall through the floor when collider is disabled
         gameObject.GetComponent<CapsuleCollider>().enabled = enabled; // disable the colllider
                                                                    // disable all the renderers

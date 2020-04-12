@@ -14,12 +14,18 @@ public class NaviButtonManager : MonoBehaviour
     {
         lm = GameObject.Find("LevelManager").gameObject.GetComponent<LevelManager>();
         
-        GetComponent<Button>().onClick.AddListener(lm.testButton);
+        //GetComponent<Button>().onClick.AddListener(lm.testButton);
     }
 
-    // Update is called once per frame
-    void Update()
+    // show menu
+    public void ShowMenu()
     {
-        
+        lm.ShowPauseScreen();
+    }
+
+    // Allow Panning
+    public void CanPan()
+    {
+        Camera.main.GetComponent<CameraController>().CanPan();
     }
 }
