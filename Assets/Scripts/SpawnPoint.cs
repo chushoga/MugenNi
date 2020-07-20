@@ -27,7 +27,10 @@ public class SpawnPoint : MonoBehaviour {
             }
 
             // play the sound
-            sound.Play();
+            if(sound.enabled = true)
+            {
+                sound.Play();
+            }
             // wait 3s then disable the sound
             StartCoroutine(TurnOffSound());
             // destory the spawn point after it is triggered
