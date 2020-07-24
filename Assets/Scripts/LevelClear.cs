@@ -31,7 +31,7 @@ public class LevelClear : MonoBehaviour {
     /* Open the level clear screen */
     public void OpenLevelClearScreen()
     {
-        print("LEVEL CLEAR!!!!");
+        //print("LEVEL CLEAR!!!!");
 
         lm.ShowGameClearScreen();
 
@@ -41,7 +41,7 @@ public class LevelClear : MonoBehaviour {
         int worldLength = GlobalControl.Instance.LoadedData.worldData.Count - 1;
         int levelLength = GlobalControl.Instance.LoadedData.worldData[currentWorld].levelData.Count - 1;
 
-        print("current level" + currentLevel + " | levelLength: " + levelLength);
+        //print("current level" + currentLevel + " | levelLength: " + levelLength);
         // check if there is a level after the current level in this current world.
         if (currentLevel != levelLength)
         {

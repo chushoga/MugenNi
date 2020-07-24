@@ -135,7 +135,7 @@ public class GlobalControl : MonoBehaviour {
         // write data to json file
         File.WriteAllText(path, json);
 
-        print("Resetting JSON data...");
+        //print("Resetting JSON data...");
 
         LoadAsJSON();
 
@@ -154,7 +154,7 @@ public class GlobalControl : MonoBehaviour {
 
             File.WriteAllText(path, json);
 
-            Debug.Log("Saveing as Json" + json);
+            //Debug.Log("Saveing as Json" + json);
 
         } else
         {
@@ -163,7 +163,7 @@ public class GlobalControl : MonoBehaviour {
             string json = JsonUtility.ToJson(save);
 
             File.WriteAllText(path, json);
-            Debug.Log("File does not exist. Creating Save file...");
+            //Debug.Log("File does not exist. Creating Save file...");
 
             LoadedData = save;
            

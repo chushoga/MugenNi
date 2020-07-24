@@ -375,7 +375,11 @@ public class PlayerController : MonoBehaviour
 		isJumping = true; // allow jumping again
 
         // play the jump start animation
-        anim.Play("Jump_TakeOff");
+        if(gameObject.activeInHierarchy == true)
+        {
+            anim.Play("Jump_TakeOff");
+        }
+        
 
     }
 

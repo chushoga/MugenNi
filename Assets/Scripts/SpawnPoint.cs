@@ -27,7 +27,7 @@ public class SpawnPoint : MonoBehaviour {
             }
 
             // play the sound
-            if(sound.enabled = true)
+            if(sound.enabled == true)
             {
                 sound.Play();
             }
